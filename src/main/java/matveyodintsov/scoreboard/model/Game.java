@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Game {
+    Integer id;
     Player firstPlayer;
     Player secondPlayer;
     LocalDate gameDate;

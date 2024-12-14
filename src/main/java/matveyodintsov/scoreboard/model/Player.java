@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Player {
+    Integer id;
     String name;
-    String uuid;
 }
