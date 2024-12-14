@@ -6,7 +6,7 @@
 
     <groupId>matveyodintsov</groupId>
     <artifactId>scoreboard</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>scoreboard</name>
     <packaging>war</packaging>
 
@@ -28,6 +28,17 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>4.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jasper</artifactId>
+            <version>7.0.47</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
