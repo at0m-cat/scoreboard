@@ -1,5 +1,6 @@
 package matveyodintsov.scoreboard.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,21 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "games")
 public class Game {
-    Integer id;
-    Player firstPlayer;
-    Player secondPlayer;
-    LocalDate gameDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "first_player", nullable = false)
+    private Player firstPlayer;
+
+    @ManyToOne
+    @JoinColumn(name = "second_player", nullable = false)
+    private Player secondPlayer;
+
+    @Column(name = "game_date", nullable = false)
+    private LocalDate gameDate;
 }
