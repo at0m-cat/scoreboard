@@ -1,13 +1,9 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.util.HibernateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.IOException;
 
@@ -15,28 +11,32 @@ import java.io.IOException;
 public class UpdateScoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String playerId = request.getParameter("player");
-        String reset = request.getParameter("reset");
+        HttpSession session = request.getSession();
+        Game currentGame = (Game) session.getAttribute("currentGame");
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-            if ("reset".equals(reset)) {
-                session.createQuery("UPDATE Game SET score = 0").executeUpdate();
-            } else if (playerId != null) {
-                Game game = session.get(Game.class, Integer.parseInt(playerId));
-                if (game != null) {
-                }
-            }
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-            throw new ServletException(e);
-        } finally {
-            session.close();
+        if (currentGame == null) {
+            response.sendRedirect("game-control.jsp");
+            return;
         }
 
-        response.sendRedirect("scoreboard");
+        String player = request.getParameter("player");
+        String action = request.getParameter("action");
+
+        if ("firstPlayer".equals(player)) {
+            if ("increment".equals(action)) {
+                currentGame.getFirstPlayer().setScore(currentGame.getFirstPlayer().getScore() + 1);
+            } else if ("decrement".equals(action)) {
+                currentGame.getFirstPlayer().setScore(Math.max(0, currentGame.getFirstPlayer().getScore() - 1));
+            }
+        } else if ("secondPlayer".equals(player)) {
+            if ("increment".equals(action)) {
+                currentGame.getSecondPlayer().setScore(currentGame.getSecondPlayer().getScore() + 1);
+            } else if ("decrement".equals(action)) {
+                currentGame.getSecondPlayer().setScore(Math.max(0, currentGame.getSecondPlayer().getScore() - 1));
+            }
+        }
+
+        session.setAttribute("currentGame", currentGame);
+        response.sendRedirect("game-control.jsp");
     }
 }
