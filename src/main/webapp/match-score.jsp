@@ -4,37 +4,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Табло теннисного матча</title>
+    <title>Tennis Scoreboard</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
-    <h1>Табло теннисного матча</h1>
+    <h1>Tennis Scoreboard</h1>
 </header>
-
-<table>
-    <tr>
-        <th>ID Игры</th>
-        <th>Игрок 1</th>
-        <th>Игрок 2</th>
-        <th>Счет</th>
-        <th>Дата</th>
-    </tr>
-    <c:forEach var="game" items="${games}">
+<main>
+    <table>
+        <thead>
         <tr>
-            <td>${game.id}</td>
-            <td>${game.firstPlayer.name}</td>
-            <td>${game.secondPlayer.name}</td>
-            <td>${game.firstPlayer.score} : ${game.secondPlayer.score}</td>
-            <td>${game.gameDate}</td>
+            <th>ID Game</th>
+            <th>Player 1</th>
+            <th>Player 2</th>
+            <th>Scores</th>
+            <th>Game Date</th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="game" items="${games}">
+            <tr>
+                <td>${game.id}</td>
+                <td>${game.firstPlayer.name}</td>
+                <td>${game.secondPlayer.name}</td>
+                <td>${game.firstPlayer.score} : ${game.secondPlayer.score}</td>
+                <td>${game.gameDate}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-<form method="post" action="update-score">
-    <button type="submit" name="player" value="Player1">+1 Игрок 1</button>
-    <button type="submit" name="player" value="Player2">+1 Игрок 2</button>
-    <button type="submit" name="reset" value="reset">Сбросить счет</button>
-</form>
+    <form action="match-reg.jsp">
+        <button type="submit" class="btn">Go to Match Registration</button>
+    </form>
+</main>
 </body>
 </html>
