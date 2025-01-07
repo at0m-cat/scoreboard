@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>Табло теннисного матча</h1>
+<header>
+    <h1>Табло теннисного матча</h1>
+</header>
 
 <table>
     <tr>
         <th>ID Игры</th>
         <th>Игрок 1</th>
         <th>Игрок 2</th>
+        <th>Счет</th>
         <th>Дата</th>
     </tr>
     <c:forEach var="game" items="${games}">
@@ -22,6 +25,7 @@
             <td>${game.id}</td>
             <td>${game.firstPlayer.name}</td>
             <td>${game.secondPlayer.name}</td>
+            <td>${game.firstPlayer.score} : ${game.secondPlayer.score}</td>
             <td>${game.gameDate}</td>
         </tr>
     </c:forEach>

@@ -1,35 +1,45 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #1f2023;
     margin: 0;
     padding: 20px;
     text-align: center;
 }
 
+header {
+    background-color: #010c22;
+    margin-bottom: 25px;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+}
+
 table {
-    margin: 0 auto;
+    margin: 25px auto;
     border-collapse: collapse;
+    background-color: #1d1e20;
     width: 50%;
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #2b2d30;
     padding: 8px;
     text-align: center;
+    color: #507cc6;
 }
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #172547;
+    color: #afafaf;
 }
 
 h1 {
-    color: #333;
+    color: #afafaf;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #172547;
+    color: #afafaf;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -37,5 +47,5 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #26396c;
 }
