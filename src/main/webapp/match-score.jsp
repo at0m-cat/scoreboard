@@ -37,11 +37,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-
-            <%--    <form action="match-reg.jsp">--%>
-            <%--        <button type="submit" class="btn">Go to Match Registration</button>--%>
-            <%--    </form>--%>
-
             <section class="button-container">
                 <form method="get" action="match-reg.jsp">
                     <button type="submit" class="btn">Go to Match Registration</button>
@@ -55,7 +50,7 @@
         <c:otherwise>
             <section>
                 <form>
-                    <h3>Not a single game has been played :(</h3>
+                    <p>Not a single game has been played :(</p>
                 </form>
                 <br>
                 <form method="get" action="match-reg.jsp">
@@ -64,8 +59,6 @@
             </section>
         </c:otherwise>
     </c:choose>
-
-
 </main>
 </body>
 </html>
