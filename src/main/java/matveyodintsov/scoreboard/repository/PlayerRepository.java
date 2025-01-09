@@ -19,15 +19,6 @@ public class PlayerRepository {
             return player.orElse(null);
     }
 
-    public Player findByName(String playerName) {
-        Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
-        Query<Player> query = hibernateSession.createQuery("FROM Player WHERE name = :name", Player.class);
-        query.setParameter("name", playerName);
-        Optional<Player> player = Optional.ofNullable(query.uniqueResult());
-        hibernateSession.close();
-        return player.orElse(null);
-    }
-
     public List<Player> findAllPlayers() {
             Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
             Query<Player> query = hibernateSession.createQuery("FROM Player", Player.class);
