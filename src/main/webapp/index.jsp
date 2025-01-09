@@ -16,8 +16,12 @@
             <button type="submit" class="btn">Register Game</button>
         </form>
         <br>
+        <form method="get" action="players">
+            <button type="submit" class="btn">All players</button>
+        </form>
+        <br>
         <form method="get" action="scoreboard">
-            <button type="submit" class="btn">Scoreboard</button>
+            <button type="submit" class="btn">All matches</button>
         </form>
     </section>
 </main>

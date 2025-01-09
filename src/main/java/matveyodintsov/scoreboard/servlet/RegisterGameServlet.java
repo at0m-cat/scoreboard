@@ -8,7 +8,6 @@ import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.service.PlayerService;
 
 import java.io.IOException;
-import java.util.stream.Stream;
 
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
@@ -26,22 +25,19 @@ public class RegisterGameServlet extends HttpServlet {
         String p2 = request.getParameter("p2");
 
         if (p1.equals(p2)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Player cannot play against themselves.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
 
         if (playerService.isPlayer(p1)){
             request.setAttribute("message", "Player already exists.");
-            request.getRequestDispatcher("error").forward(request, response);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
         if (playerService.isPlayer(p2)) {
             request.setAttribute("message", "Player already exists.");
-            request.getRequestDispatcher("error").forward(request, response);
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
             return;
         }
 
