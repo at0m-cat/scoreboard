@@ -6,8 +6,19 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GameRepository {
+
+    public Game findGameByUuid(String uuid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query <Game> query = session.createQuery("from Game where uuid = :uuid");
+        query.setParameter("uuid", uuid);
+        Optional<Game> game = Optional.ofNullable(query.uniqueResult());
+        session.close();
+        return game.orElse(null);
+    }
 
     public List<Game> findAllGames() {
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
