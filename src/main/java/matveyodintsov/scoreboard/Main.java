@@ -14,13 +14,13 @@ public class Main {
 
         Transaction transaction = session.beginTransaction();
 
-        Player player1 = new Player(null, "Novak Djokovic", 1);
-        Player player2 = new Player(null, "Rafael Nadal", 2);
+        Player player1 = new Player("Novak Djokovic");
+        Player player2 = new Player("Rafael Nadal");
 
         session.save(player1);
         session.save(player2);
 
-        Game game = new Game(null, player1, player2, LocalDate.now());
+        Game game = new Game(player1, player2);
         session.save(game);
 
         transaction.commit();

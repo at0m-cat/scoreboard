@@ -25,7 +25,7 @@
             <tbody>
             <tr>
                 <td>${currentGame.firstPlayer.name}</td>
-                <td>${currentGame.firstPlayer.score}</td>
+                <td>${currentGame.firstPlayerScore}</td>
                 <td>
                     <form method="post" action="update-score">
                         <input type="hidden" name="player" value="firstPlayer">
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>${currentGame.secondPlayer.name}</td>
-                <td>${currentGame.secondPlayer.score}</td>
+                <td>${currentGame.secondPlayerScore}</td>
                 <td>
                     <form method="post" action="update-score">
                         <input type="hidden" name="player" value="secondPlayer">

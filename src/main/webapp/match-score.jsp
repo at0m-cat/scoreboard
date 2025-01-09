@@ -31,7 +31,7 @@
                         <td>${game.id}</td>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
-                        <td>${game.firstPlayer.score} : ${game.secondPlayer.score}</td>
+                        <td>${game.firstPlayerScore} : ${game.secondPlayerScore}</td>
                         <td>${game.gameDate}</td>
                     </tr>
                 </c:forEach>

@@ -22,9 +22,9 @@ public class RegisterGameServlet extends HttpServlet {
             return;
         }
 
-        Player player1 = new Player(null, player1Name, 0);
-        Player player2 = new Player(null, player2Name, 0);
-        Game game = new Game(null, player1, player2, LocalDate.now());
+        Player player1 = new Player(player1Name);
+        Player player2 = new Player(player2Name);
+        Game game = new Game(player1, player2);
 
         HttpSession session = request.getSession();
         session.setAttribute("currentGame", game);

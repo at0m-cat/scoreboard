@@ -24,15 +24,15 @@ public class UpdateScoreServlet extends HttpServlet {
 
         if ("firstPlayer".equals(player)) {
             if ("increment".equals(action)) {
-                currentGame.getFirstPlayer().setScore(currentGame.getFirstPlayer().getScore() + 1);
+                currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.getFirstPlayer().setScore(Math.max(0, currentGame.getFirstPlayer().getScore() - 1));
+                currentGame.setFirstPlayerScore((Math.max(0, currentGame.getFirstPlayerScore() - 1)));
             }
         } else if ("secondPlayer".equals(player)) {
             if ("increment".equals(action)) {
-                currentGame.getSecondPlayer().setScore(currentGame.getSecondPlayer().getScore() + 1);
+                currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.getSecondPlayer().setScore(Math.max(0, currentGame.getSecondPlayer().getScore() - 1));
+                currentGame.setSecondPlayerScore((Math.max(0, currentGame.getSecondPlayerScore() - 1)));
             }
         }
 
