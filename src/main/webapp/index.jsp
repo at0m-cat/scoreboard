@@ -12,7 +12,7 @@
 </header>
 <main>
     <section class="button-container">
-        <form method="get" action="match-reg.jsp">
+        <form method="get" action="new-match">
             <button type="submit" class="btn">Register Game</button>
         </form>
         <br>

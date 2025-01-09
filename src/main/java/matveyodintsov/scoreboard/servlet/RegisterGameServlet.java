@@ -2,16 +2,20 @@ package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
 import matveyodintsov.scoreboard.model.Player;
-import matveyodintsov.scoreboard.util.HibernateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
-@WebServlet("/register-game")
+@WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("match-reg.jsp").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String player1Name = request.getParameter("p1");
@@ -29,6 +33,6 @@ public class RegisterGameServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("currentGame", game);
 
-        response.sendRedirect("game-control.jsp");
+        response.sendRedirect("update-score");
     }
 }

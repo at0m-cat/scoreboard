@@ -12,7 +12,7 @@
 </header>
 <main>
     <section class="field-container">
-        <form method="post" action="register-game">
+        <form method="post" action="new-match">
             <div class="form-group">
                 <label for="p1">Player 1</label>
                 <input type="text" id="p1" name="p1" placeholder="Enter Player 1 Name" required>

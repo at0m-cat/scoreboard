@@ -38,7 +38,7 @@
                 </tbody>
             </table>
             <section class="button-container">
-                <form method="get" action="match-reg.jsp">
+                <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
                 <br>
@@ -53,7 +53,7 @@
                     <p>Not a single game has been played :(</p>
                 </form>
                 <br>
-                <form method="get" action="match-reg.jsp">
+                <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
             </section>

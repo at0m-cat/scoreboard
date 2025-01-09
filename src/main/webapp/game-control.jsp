@@ -53,7 +53,7 @@
     </c:if>
     <c:if test="${empty currentGame}">
         <p>No active game. Please register a new game.</p>
-        <form method="post" action="match-reg.jsp">
+        <form method="post" action="new-match">
             <button type="submit" class="btn">Register Game</button>
         </form>
     </c:if>
