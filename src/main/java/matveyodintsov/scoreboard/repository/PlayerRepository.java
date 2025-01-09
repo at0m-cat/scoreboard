@@ -30,9 +30,14 @@ public class PlayerRepository {
     public void save(Player player) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(player);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.save(player);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
     }
 
 }

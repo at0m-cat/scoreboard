@@ -49,6 +49,10 @@ public class RegisterGameServlet extends HttpServlet {
 
         Player firstPlayer = new Player(p1);
         Player secondPlayer = new Player(p2);
+
+        playerService.save(firstPlayer);
+        playerService.save(secondPlayer);
+
         Game game = new Game(firstPlayer, secondPlayer);
 
         HttpSession session = request.getSession();

@@ -13,6 +13,10 @@ public class GameService {
         this.repository = new GameRepository();
     }
 
+    public void save(Game game) {
+        repository.save(game);
+    }
+
     public List<Game> getGames() {
         return repository.findAllGames();
     }

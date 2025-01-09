@@ -20,4 +20,8 @@ public class PlayerService {
     public boolean isPlayer(String playerName) {
         return repository.findPlayerByName(playerName) != null;
     }
+
+    public void save(Player player) {
+        repository.save(player);
+    }
 }
