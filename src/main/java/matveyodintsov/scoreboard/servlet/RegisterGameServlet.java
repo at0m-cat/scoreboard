@@ -26,9 +26,11 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String p1 = request.getParameter("p1");
         String p2 = request.getParameter("p2");
+
+        Player firstPlayer;
+        Player secondPlayer;
 
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -36,22 +38,19 @@ public class RegisterGameServlet extends HttpServlet {
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
-        if (playerService.isPlayer(p1)){
-            request.setAttribute("message", "Player already exists.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        if (playerService.isPlayer(p1)) {
+            firstPlayer = playerService.getPlayer(p1);
+        } else {
+            firstPlayer = new Player(p1);
+            playerService.save(firstPlayer);
         }
 
         if (playerService.isPlayer(p2)) {
-            request.setAttribute("message", "Player already exists.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
+            secondPlayer = playerService.getPlayer(p2);
+        } else {
+            secondPlayer = new Player(p2);
+            playerService.save(secondPlayer);
         }
-
-        Player firstPlayer = new Player(p1);
-        Player secondPlayer = new Player(p2);
-
-        playerService.save(firstPlayer);
-        playerService.save(secondPlayer);
 
         Game game = new Game(firstPlayer, secondPlayer);
 

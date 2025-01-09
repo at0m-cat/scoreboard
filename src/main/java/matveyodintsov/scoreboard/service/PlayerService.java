@@ -21,6 +21,10 @@ public class PlayerService {
         return repository.findPlayerByName(playerName) != null;
     }
 
+    public Player getPlayer(String playerName) {
+        return repository.findPlayerByName(playerName);
+    }
+
     public void save(Player player) {
         repository.save(player);
     }
