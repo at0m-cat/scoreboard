@@ -24,7 +24,7 @@
             <button type="submit" class="btn">Register Game</button>
         </form>
         <br>
-        <form method="get" action="index.jsp">
+        <form method="get" action="/">
             <button type="submit" class="btn">Start page</button>
         </form>
     </section>

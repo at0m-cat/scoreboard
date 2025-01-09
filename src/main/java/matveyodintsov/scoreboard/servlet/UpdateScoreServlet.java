@@ -43,6 +43,6 @@ public class UpdateScoreServlet extends HttpServlet {
         }
 
         session.setAttribute("currentGame", currentGame);
-        response.sendRedirect("game-control.jsp");
+        response.sendRedirect("update-score");
     }
 }
