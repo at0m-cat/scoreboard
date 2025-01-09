@@ -12,6 +12,13 @@ import java.io.IOException;
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
 
+    private PlayerService playerService;
+
+    @Override
+    public void init() throws ServletException {
+        this.playerService = new PlayerService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("match-reg.jsp").forward(req, resp);
@@ -19,7 +26,6 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PlayerService playerService = new PlayerService();
 
         String p1 = request.getParameter("p1");
         String p2 = request.getParameter("p2");

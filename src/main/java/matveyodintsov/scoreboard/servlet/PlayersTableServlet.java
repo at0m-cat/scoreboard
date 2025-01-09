@@ -15,9 +15,16 @@ import java.util.List;
 
 @WebServlet("/players")
 public class PlayersTableServlet extends HttpServlet {
+
+    private PlayerService playerService;
+
+    @Override
+    public void init() throws ServletException {
+        this.playerService = new PlayerService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PlayerService playerService = new PlayerService();
         request.setAttribute("players", playerService.getPlayers());
         request.getRequestDispatcher("players-table.jsp").forward(request, response);
     }

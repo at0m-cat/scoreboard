@@ -1,25 +1,25 @@
 package matveyodintsov.scoreboard.servlet;
 
-import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.util.HibernateUtil;
+import matveyodintsov.scoreboard.service.GameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-import org.hibernate.Session;
-
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/scoreboard")
 public class ScoreboardServlet extends HttpServlet {
+
+    private GameService gameService;
+
+    @Override
+    public void init() throws ServletException {
+        this.gameService = new GameService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Game> games = session.createQuery("FROM Game", Game.class).list();
-        session.close();
-
-        request.setAttribute("games", games);
+        request.setAttribute("games", gameService.getGames());
         request.getRequestDispatcher("match-score.jsp").forward(request, response);
     }
 }
