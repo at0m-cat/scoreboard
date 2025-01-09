@@ -1,6 +1,9 @@
 package matveyodintsov.scoreboard.service;
 
+import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
+
+import java.util.List;
 
 public class PlayerService {
 
@@ -8,6 +11,10 @@ public class PlayerService {
 
     public PlayerService() {
         this.repository = new PlayerRepository();
+    }
+
+    public List<Player> getPlayers() {
+        return repository.findAllPlayers();
     }
 
     public boolean isPlayer(String playerName) {
