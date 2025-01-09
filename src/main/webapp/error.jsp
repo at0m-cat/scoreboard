@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <header>
-    <h1>Error</h1>
+    <h1><%=response.getStatus()%> Error</h1>
 </header>
 <main>
     <section>

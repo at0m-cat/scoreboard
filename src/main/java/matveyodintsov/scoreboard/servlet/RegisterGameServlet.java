@@ -29,14 +29,15 @@ public class RegisterGameServlet extends HttpServlet {
         String p1 = request.getParameter("p1");
         String p2 = request.getParameter("p2");
 
-        Player firstPlayer;
-        Player secondPlayer;
-
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Player cannot play against themselves.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
         }
+
+        Player firstPlayer;
+        Player secondPlayer;
 
         if (playerService.isPlayer(p1)) {
             firstPlayer = playerService.getPlayer(p1);
