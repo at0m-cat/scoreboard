@@ -3,7 +3,6 @@ package matveyodintsov.scoreboard.repository;
 import matveyodintsov.scoreboard.model.Game;
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;

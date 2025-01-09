@@ -21,6 +21,9 @@ public class UpdateScoreServlet extends HttpServlet {
         Game currentGame = (Game) session.getAttribute("currentGame");
 
         if (currentGame == null) {
+
+//          todo: redirect to error page
+
             response.sendRedirect("game-control.jsp");
             return;
         }

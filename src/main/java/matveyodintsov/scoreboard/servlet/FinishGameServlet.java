@@ -2,13 +2,10 @@ package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
 import matveyodintsov.scoreboard.service.GameService;
-import matveyodintsov.scoreboard.util.HibernateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.IOException;
 
