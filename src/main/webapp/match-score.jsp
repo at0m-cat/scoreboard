@@ -19,6 +19,7 @@
                 <thead>
                 <tr>
                     <th>ID Game</th>
+                    <th>UUID Game</th>
                     <th>Player 1</th>
                     <th>Player 2</th>
                     <th>Scores</th>
@@ -29,6 +30,7 @@
                 <c:forEach var="game" items="${games}">
                     <tr>
                         <td>${game.id}</td>
+                        <td>${game.uuid}</td>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
                         <td>${game.firstPlayerScore} : ${game.secondPlayerScore}</td>

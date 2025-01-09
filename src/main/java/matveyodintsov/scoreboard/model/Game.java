@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -16,6 +17,9 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false)
+    private Long uuid;
 
     @ManyToOne
     @JoinColumn(name = "first_player", nullable = false)
@@ -36,6 +40,7 @@ public class Game {
 
     public Game(Player firstPlayer, Player secondPlayer) {
         this.id = null;
+        this.uuid = UUID.randomUUID().getMostSignificantBits();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
         this.firstPlayerScore = 0;
