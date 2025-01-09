@@ -1,21 +1,16 @@
 package matveyodintsov.scoreboard.service;
 
-import matveyodintsov.scoreboard.model.Player;
-import matveyodintsov.scoreboard.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import matveyodintsov.scoreboard.repository.PlayerRepository;
 
 public class PlayerService {
 
-    public Player findPlayerByName(String playerName) {
-        Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
-        Query<Player> query = hibernateSession.createQuery("FROM Player WHERE name = :name", Player.class);
-        query.setParameter("name", playerName);
+    private final PlayerRepository repository;
 
-        return query.uniqueResultOptional().orElse(null);
+    public PlayerService() {
+        this.repository = new PlayerRepository();
     }
 
     public boolean isPlayer(String playerName) {
-        return findPlayerByName(playerName) != null;
+        return repository.findPlayerByName(playerName) != null;
     }
 }
