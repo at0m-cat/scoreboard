@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tennis Scoreboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style><%@include file="css/style.css"%></style>
 </head>
 <body>
 <header>
@@ -43,7 +43,6 @@
                 <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
-                <br>
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
                 </form>

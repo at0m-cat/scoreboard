@@ -5,14 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Players</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        <%@include file="css/style.css" %>
+    </style>
 </head>
 <body>
 <header>
     <h1>Players</h1>
 </header>
 <main>
-
     <c:choose>
         <c:when test="${not empty players}">
             <table>
@@ -33,18 +34,15 @@
                 <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
-                <br>
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
                 </form>
             </section>
         </c:when>
         <c:otherwise>
-            <section>
-                <form>
-                    <p>Players are not registered :(</p>
-                </form>
-                <br>
+            <p>Players are not registered :(</p>
+            <br>
+            <section class="button-container">
                 <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Tennis Game</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style><%@include file="css/style.css"%></style>
 </head>
 <body>
 <header>
     <h1>Tennis Game</h1>
 </header>
 <main>
-    <section class="button-container">
+    <section>
         <form method="get" action="new-match">
             <button type="submit" class="btn">Register Game</button>
         </form>

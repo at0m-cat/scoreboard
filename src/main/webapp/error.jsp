@@ -6,17 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        <%@include file="css/style.css" %>
+    </style>
 </head>
 <header>
     <h1><%=response.getStatus()%> Error</h1>
 </header>
 <main>
-    <section>
-        <form>
-            <p>${message}</p>
-        </form>
-        <br>
+    <form>
+        <p>${message}</p>
+    </form>
+    <br>
+    <section class="button-container">
         <form method="get" action="/">
             <button type="submit" class="btn">Go to main page</button>
         </form>

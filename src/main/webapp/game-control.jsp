@@ -6,7 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Game Control</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        <%@include file="css/style.css" %>
+    </style>
 </head>
 <body>
 <header>
@@ -29,8 +31,10 @@
                 <td>
                     <form method="post" action="update-score">
                         <input type="hidden" name="player" value="firstPlayer">
-                        <button type="submit" name="action" value="increment">+1</button>
-                        <button type="submit" name="action" value="decrement">-1</button>
+                        <section class="button-container">
+                            <button type="submit" name="action" value="increment">+1</button>
+                            <button type="submit" name="action" value="decrement">-1</button>
+                        </section>
                     </form>
                 </td>
             </tr>
@@ -40,22 +44,28 @@
                 <td>
                     <form method="post" action="update-score">
                         <input type="hidden" name="player" value="secondPlayer">
-                        <button type="submit" name="action" value="increment">+1</button>
-                        <button type="submit" name="action" value="decrement">-1</button>
+                        <section class="button-container">
+                            <button type="submit" name="action" value="increment">+1</button>
+                            <button type="submit" name="action" value="decrement">-1</button>
+                        </section>
                     </form>
                 </td>
             </tr>
             </tbody>
         </table>
-        <form method="post" action="finish-game">
-            <button type="submit" class="btn">Finish Game</button>
-        </form>
+        <section class="button-container">
+            <form method="post" action="finish-game">
+                <button type="submit" class="btn">Finish Game</button>
+            </form>
+        </section>
     </c:if>
     <c:if test="${empty currentGame}">
         <p>No active game. Please register a new game.</p>
-        <form method="post" action="new-match">
-            <button type="submit" class="btn">Register Game</button>
-        </form>
+        <section class="button-container">
+            <form method="post" action="new-match">
+                <button type="submit" class="btn">Register Game</button>
+            </form>
+        </section>
     </c:if>
 </main>
 </body>

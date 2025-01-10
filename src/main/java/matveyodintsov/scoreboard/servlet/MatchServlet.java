@@ -9,7 +9,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/match")
+@WebServlet("/match-score")
 public class MatchServlet extends HttpServlet {
 
     private GameService gameService;
@@ -37,8 +37,9 @@ public class MatchServlet extends HttpServlet {
             request.setAttribute("message", "Match not found");
             request.getRequestDispatcher("error").forward(request, response);
         } else {
-            request.setAttribute("games", List.of(game));
-            getServletContext().getRequestDispatcher("/match-score.jsp").forward(request, response);
+            request.setAttribute("name", game.getFirstPlayer().getName() + " vs " + game.getSecondPlayer().getName());
+            request.setAttribute("game", game);
+            getServletContext().getRequestDispatcher("/single-match.jsp").forward(request, response);
         }
 
     }
