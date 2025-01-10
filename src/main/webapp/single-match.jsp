@@ -4,14 +4,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Match ${name}</title>
+    <title>Match details</title>
     <style>
         <%@include file="css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <h1>Match ${name}</h1>
+    <h1>Match details</h1>
 </header>
 <main>
     <div class="match-card">

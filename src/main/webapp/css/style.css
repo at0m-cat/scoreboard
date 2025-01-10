@@ -153,7 +153,7 @@ h3 {
 }
 
 .match-card {
-    background-color: #2b2d30;
+    background-color: #001339;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
@@ -182,7 +182,7 @@ h3 {
 
 .match-card .player {
     width: 40%;
-    background-color: #252729;
+    background-color: #1a3561;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);

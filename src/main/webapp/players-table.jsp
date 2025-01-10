@@ -31,11 +31,14 @@
                 </tbody>
             </table>
             <section class="button-container">
-                <form method="get" action="new-match">
-                    <button type="submit" class="btn">Go to Match Registration</button>
-                </form>
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
+                </form>
+                <form method="get" action="scoreboard">
+                    <button type="submit" class="btn">All matches</button>
+                </form>
+                <form method="get" action="new-match">
+                    <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
             </section>
         </c:when>

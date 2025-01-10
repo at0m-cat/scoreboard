@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tennis Scoreboard</title>
-    <style><%@include file="css/style.css"%></style>
+    <style>
+        <%@include file="css/style.css" %>
+    </style>
 </head>
 <body>
 <header>
@@ -29,7 +31,7 @@
                 <tbody>
                 <c:forEach var="game" items="${games}">
                     <tr>
-                        <td>${game.id}</td>
+                        <td onclick="response.status">${game.id}</td>
                         <td>${game.uuid}</td>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
@@ -40,20 +42,26 @@
                 </tbody>
             </table>
             <section class="button-container">
-                <form method="get" action="new-match">
-                    <button type="submit" class="btn">Go to Match Registration</button>
-                </form>
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
+                </form>
+                <form method="get" action="players">
+                    <button type="submit" class="btn">All players</button>
+                </form>
+                <form method="get" action="new-match">
+                    <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
             </section>
         </c:when>
         <c:otherwise>
-            <section>
-                <form>
-                    <p>Not a single game has been played :(</p>
+            <form>
+                <p>Not a single game has been played :(</p>
+            </form>
+            <br>
+            <section class="button-container">
+                <form method="get" action="/">
+                    <button type="submit" class="btn">Start page</button>
                 </form>
-                <br>
                 <form method="get" action="new-match">
                     <button type="submit" class="btn">Go to Match Registration</button>
                 </form>
