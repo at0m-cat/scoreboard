@@ -17,6 +17,10 @@ public class GameService {
         repository.save(game);
     }
 
+    public Game getGameByUuid(String uuid) {
+        return repository.findGameByUuid(uuid);
+    }
+
     public List<Game> getGames() {
         return repository.findAllGames();
     }
