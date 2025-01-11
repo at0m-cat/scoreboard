@@ -9,9 +9,7 @@
         <%@include file="../css/style.css" %>
     </style>
     <script>
-        function redirectToMatch(uuid) {
-            window.location.href = `/match-score?uuid=` + uuid;
-        }
+        <%@include file="../js/redirectToMatch.js" %>
     </script>
 </head>
 <body>

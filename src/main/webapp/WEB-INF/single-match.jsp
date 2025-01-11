@@ -9,9 +9,7 @@
         <%@include file="../css/style.css" %>
     </style>
     <script>
-        function redirectToPlayerInfo(name) {
-            window.location.href = `/player?name=` + name;
-        }
+        <%@include file="../js/redirectToPlayerInfo.js" %>
     </script>
 </head>
 <body>
