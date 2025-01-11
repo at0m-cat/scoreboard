@@ -48,4 +48,13 @@ public class Game {
         this.gameDate = LocalDate.now();
     }
 
+    public String getWinner() {
+        if (firstPlayerScore > secondPlayerScore) {
+            return "firstPlayer";
+        } else if (secondPlayerScore > firstPlayerScore) {
+            return "secondPlayer";
+        }
+        return "draw";
+    }
+
 }
