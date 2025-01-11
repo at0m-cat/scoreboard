@@ -30,7 +30,6 @@ public class MatchServlet extends HttpServlet {
                 request.setAttribute("message", "Match not found");
                 request.getRequestDispatcher("error").forward(request, response);
             } else {
-                request.setAttribute("name", game.getFirstPlayer().getName() + " vs " + game.getSecondPlayer().getName());
                 request.setAttribute("game", game);
                 getServletContext().getRequestDispatcher("/single-match.jsp").forward(request, response);
             }

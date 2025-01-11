@@ -36,6 +36,9 @@
         <form method="get" action="new-match">
             <button type="submit" class="btn">Register New Match</button>
         </form>
+        <form method="get" action="matches">
+            <button type="submit" class="btn">All matches</button>
+        </form>
         <form method="get" action="/">
             <button type="submit" class="btn">Back to Start</button>
         </form>

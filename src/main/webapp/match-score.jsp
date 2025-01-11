@@ -8,6 +8,11 @@
     <style>
         <%@include file="css/style.css" %>
     </style>
+    <script>
+        function redirectToMatch(uuid) {
+            window.location.href = `/match-score?uuid=` + uuid;
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -30,8 +35,8 @@
                 </thead>
                 <tbody>
                 <c:forEach var="game" items="${games}">
-                    <tr>
-                        <td onclick="response.status">${game.id}</td>
+                    <tr onclick="redirectToMatch('${game.uuid}')" style="cursor: pointer;">
+                        <td>${game.id}</td>
                         <td>${game.uuid}</td>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
