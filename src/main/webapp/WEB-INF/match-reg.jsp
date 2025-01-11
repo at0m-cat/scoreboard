@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Game Registration</title>
     <style>
-        <%@include file="css/style.css" %>
+        <%@include file="../css/style.css" %>
     </style>
 </head>
 <body>

@@ -21,7 +21,7 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("match-reg.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/match-reg.jsp").forward(req, resp);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RegisterGameServlet extends HttpServlet {
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Player cannot play against themselves.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
             return;
         }
 

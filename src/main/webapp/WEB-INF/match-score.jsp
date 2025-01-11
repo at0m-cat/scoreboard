@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Tennis Scoreboard</title>
     <style>
-        <%@include file="css/style.css" %>
+        <%@include file="../css/style.css" %>
     </style>
     <script>
         function redirectToMatch(uuid) {

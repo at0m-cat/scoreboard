@@ -31,7 +31,7 @@ public class MatchServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } else {
                 request.setAttribute("game", game);
-                getServletContext().getRequestDispatcher("/single-match.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("WEB-INF/single-match.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

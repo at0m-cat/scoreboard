@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Match details</title>
     <style>
-        <%@include file="css/style.css" %>
+        <%@include file="../css/style.css" %>
     </style>
 </head>
 <body>

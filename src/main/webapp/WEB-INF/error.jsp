@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Error</title>
     <style>
-        <%@include file="css/style.css" %>
+        <%@include file="../css/style.css" %>
     </style>
 </head>
 <header>

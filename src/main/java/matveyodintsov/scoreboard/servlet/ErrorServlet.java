@@ -14,6 +14,6 @@ public class ErrorServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String message = req.getParameter("message");
         session.setAttribute("message", message);
-        req.getRequestDispatcher("/error.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/error.jsp").forward(req, resp);
     }
 }
