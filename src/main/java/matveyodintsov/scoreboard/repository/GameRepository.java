@@ -39,7 +39,7 @@ public class GameRepository implements Repository<Game>{
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
         hibernateSession.beginTransaction();
         try {
-            hibernateSession.save(game);
+            hibernateSession.saveOrUpdate(game);
             hibernateSession.getTransaction().commit();
         } catch (Exception e) {
             hibernateSession.getTransaction().rollback();
