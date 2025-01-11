@@ -34,6 +34,12 @@ public class RegisterGameServlet extends HttpServlet {
         String p1 = request.getParameter("p1");
         String p2 = request.getParameter("p2");
 
+        if (p1 == null || p2 == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("message", "Invalid parameters");
+            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+        }
+
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Player cannot play against themselves.");

@@ -27,9 +27,11 @@ public class MatchServlet extends HttpServlet {
             Game game = gameService.getByKey(uuid);
 
             if (game == null) {
+                // todo: изменить, бросать ошибку
+
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", "Match not found");
-                request.getRequestDispatcher("error").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
             } else {
                 request.setAttribute("game", game);
                 getServletContext().getRequestDispatcher("/WEB-INF/single-match.jsp").forward(request, response);
@@ -38,7 +40,7 @@ public class MatchServlet extends HttpServlet {
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher("error").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
         }
     }
 }

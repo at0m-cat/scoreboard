@@ -17,10 +17,11 @@
 <main>
     <div class="player-card">
         <h2>${player.name}</h2>
-        <br>
         <p><strong>ID:</strong> ${player.id}</p>
-        <p><strong>Total Wins:</strong> ${player.totalWins}</p>
-        <p><strong>Total Losses:</strong> ${player.totalLosses}</p>
+        <br>
+        <p><strong>Matches:</strong> ${player.totalMatches}</p>
+        <p><strong>Wins:</strong> ${player.totalWins}</p>
+        <p><strong>Losses:</strong> ${player.totalLosses}</p>
     </div>
 
     <section class="button-container">
