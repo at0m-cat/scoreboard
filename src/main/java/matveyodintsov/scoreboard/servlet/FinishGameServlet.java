@@ -40,15 +40,17 @@ public class FinishGameServlet extends HttpServlet {
 
             if (currentGame.getWinner().equals("firstPlayer")) {
                 currentGame.getFirstPlayer().setTotalWins(currentGame.getFirstPlayer().getTotalWins() + 1);
-                playerService.save(currentGame.getFirstPlayer());
             }
             if (currentGame.getWinner().equals("secondPlayer")) {
                 currentGame.getSecondPlayer().setTotalWins(currentGame.getSecondPlayer().getTotalWins() + 1);
-                playerService.save(currentGame.getSecondPlayer());
             }
+
+            playerService.save(currentGame.getFirstPlayer());
+            playerService.save(currentGame.getSecondPlayer());
+
             session.removeAttribute("currentGame");
         }
 
-        response.sendRedirect("match-score?uuid=" + currentGame.getUuid());
+        response.sendRedirect("match-score?uuid=" + uuid);
     }
 }
