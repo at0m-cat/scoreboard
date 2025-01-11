@@ -2,27 +2,30 @@ package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
+import matveyodintsov.scoreboard.repository.Repository;
 
 import java.util.List;
 
 public class PlayerService {
 
-    private final PlayerRepository repository;
 
-    public PlayerService() {
-        this.repository = new PlayerRepository();
+
+    private final Repository<Player> repository;
+
+    public PlayerService(Repository<Player> repository) {
+        this.repository = repository;
     }
 
     public List<Player> getPlayers() {
-        return repository.findAllPlayers();
+        return repository.getAll();
     }
 
     public boolean isPlayer(String playerName) {
-        return repository.findPlayerByName(playerName) != null;
+        return repository.getByKey(playerName) != null;
     }
 
     public Player getPlayer(String playerName) {
-        return repository.findPlayerByName(playerName);
+        return repository.getByKey(playerName);
     }
 
     public void save(Player player) {

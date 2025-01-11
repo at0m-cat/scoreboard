@@ -1,16 +1,16 @@
 package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameRepository;
+import matveyodintsov.scoreboard.repository.Repository;
 
 import java.util.List;
 
 public class GameService {
 
-    private final GameRepository repository;
+    private final Repository<Game> repository;
 
-    public GameService() {
-        this.repository = new GameRepository();
+    public GameService(Repository<Game> repository) {
+        this.repository = repository;
     }
 
     public void save(Game game) {
@@ -18,10 +18,10 @@ public class GameService {
     }
 
     public Game getGameByUuid(String uuid) {
-        return repository.findGameByUuid(uuid);
+        return repository.getByKey(uuid);
     }
 
     public List<Game> getGames() {
-        return repository.findAllGames();
+        return repository.getAll();
     }
 }

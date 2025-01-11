@@ -5,6 +5,7 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.PlayerService;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new PlayerService();
+        this.playerService = new PlayerService(new PlayerRepository());
     }
 
     @Override
