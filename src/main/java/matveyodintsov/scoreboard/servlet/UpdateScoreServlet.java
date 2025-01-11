@@ -43,8 +43,13 @@ public class UpdateScoreServlet extends HttpServlet {
                 currentGame.setSecondPlayerScore((Math.max(0, currentGame.getSecondPlayerScore() - 1)));
             }
         }
+//
+//        session.setAttribute("currentGame", currentGame);
+//        response.sendRedirect("update-score");
 
-        session.setAttribute("currentGame", currentGame);
-        response.sendRedirect("update-score");
+        response.setContentType("application/json");
+        response.getWriter().write(String.format("{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d}",
+                currentGame.getFirstPlayerScore(),
+                currentGame.getSecondPlayerScore()));
     }
 }
