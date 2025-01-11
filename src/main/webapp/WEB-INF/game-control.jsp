@@ -55,6 +55,7 @@
         </table>
         <section class="button-container">
             <form method="post" action="finish-game">
+                <input type="hidden" name="uuid" value="${currentGame.uuid}">
                 <button type="submit" class="btn">Finish Game</button>
             </form>
         </section>

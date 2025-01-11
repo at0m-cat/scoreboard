@@ -27,11 +27,9 @@ public class FinishGameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Game currentGame = (Game) session.getAttribute("currentGame");
+        String uuid = request.getParameter("uuid");
         GameService localGames = (GameService) session.getAttribute("localGames");
-
-        // todo: извлечь матч из localGames, передав сюда его uuid.
-        //  изменить логику, добавить вычисления исходя из правил игры
+        Game currentGame = localGames.getByKey(uuid);
 
         if (currentGame != null) {
             gameService.save(currentGame);
