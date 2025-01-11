@@ -21,10 +21,9 @@ public class UpdateScoreServlet extends HttpServlet {
         Game currentGame = (Game) session.getAttribute("currentGame");
 
         if (currentGame == null) {
-
-//          todo: redirect to error page
-
-            response.sendRedirect("WEB-INF/game-control.jsp");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            request.setAttribute("message", "Match does not exist.");
+            request.getRequestDispatcher("error").forward(request, response);
             return;
         }
 
