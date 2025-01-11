@@ -25,8 +25,8 @@
             <table>
                 <thead>
                 <tr>
-                    <th>ID Game</th>
-                    <th>UUID Game</th>
+<%--                    <th>ID Game</th>--%>
+<%--                    <th>UUID Game</th>--%>
                     <th>Player 1</th>
                     <th>Player 2</th>
                     <th>Scores</th>
@@ -36,8 +36,8 @@
                 <tbody>
                 <c:forEach var="game" items="${games}">
                     <tr onclick="redirectToMatch('${game.uuid}')" style="cursor: pointer;">
-                        <td>${game.id}</td>
-                        <td>${game.uuid}</td>
+<%--                        <td>${game.id}</td>--%>
+<%--                        <td>${game.uuid}</td>--%>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
                         <td>${game.firstPlayerScore} : ${game.secondPlayerScore}</td>

@@ -18,8 +18,8 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Long uuid;
+    @Column(columnDefinition = "uuid", nullable = false)
+    private UUID uuid;
 
     @ManyToOne
     @JoinColumn(name = "first_player", nullable = false)
@@ -40,7 +40,7 @@ public class Game {
 
     public Game(Player firstPlayer, Player secondPlayer) {
         this.id = null;
-        this.uuid = UUID.randomUUID().getMostSignificantBits();
+        this.uuid = UUID.randomUUID();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
         this.firstPlayerScore = 0;

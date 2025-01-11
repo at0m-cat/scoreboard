@@ -5,7 +5,9 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
+import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.PlayerService;
 
 import java.io.IOException;
@@ -14,10 +16,12 @@ import java.io.IOException;
 public class RegisterGameServlet extends HttpServlet {
 
     private PlayerService playerService;
+    private GameService gameService;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerRepository());
+        this.gameService = new GameService(new GameLocalRepository());
     }
 
     @Override
@@ -55,9 +59,10 @@ public class RegisterGameServlet extends HttpServlet {
         }
 
         Game game = new Game(firstPlayer, secondPlayer);
+        gameService.save(game);
 
         HttpSession session = request.getSession();
-        session.setAttribute("currentGame", game);
+        session.setAttribute("currentGame", gameService.getByKey(String.valueOf(game.getUuid())));
 
         response.sendRedirect("update-score");
     }

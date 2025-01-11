@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class GameRepository implements Repository<Game>{
 
@@ -15,7 +16,7 @@ public class GameRepository implements Repository<Game>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query<Game> query = session.createQuery("from Game where uuid = :uuid");
-        query.setParameter("uuid", uuid);
+        query.setParameter("uuid", UUID.fromString(uuid));
         Optional<Game> game = Optional.ofNullable(query.uniqueResult());
         session.close();
         return game.orElse(null);
