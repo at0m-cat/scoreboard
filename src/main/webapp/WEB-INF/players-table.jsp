@@ -25,12 +25,18 @@
                 <thead>
                 <tr>
                     <th>Player</th>
+                    <th>Matches</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="player" items="${players}">
                     <tr onclick="redirectToPlayerInfo('${player.name}')" style="cursor: pointer;">
                         <td>${player.name}</td>
+                        <td>${player.totalMatches}</td>
+                        <td>${player.totalWins}</td>
+                        <td>${player.totalLosses}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
