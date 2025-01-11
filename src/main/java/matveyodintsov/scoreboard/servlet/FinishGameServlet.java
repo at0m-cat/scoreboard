@@ -28,6 +28,9 @@ public class FinishGameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String uuid = request.getParameter("uuid");
+        session.removeAttribute("currentGame");
+        session.removeAttribute("uuid");
+
         GameService localGames = (GameService) session.getAttribute("localGames");
         Game currentGame = localGames.getByKey(uuid);
 
@@ -48,7 +51,6 @@ public class FinishGameServlet extends HttpServlet {
             playerService.save(currentGame.getFirstPlayer());
             playerService.save(currentGame.getSecondPlayer());
 
-            session.removeAttribute("currentGame");
         }
 
         response.sendRedirect("match-score?uuid=" + uuid);
