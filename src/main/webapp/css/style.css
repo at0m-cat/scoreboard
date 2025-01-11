@@ -242,6 +242,12 @@ h3 {
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.match-card .player:hover {
+    background-color: #223e6f;
+    transform: scale(1.05);
 }
 
 .player.winner {
@@ -279,6 +285,47 @@ h3 {
     padding: 20px;
     color: #ff6f61;
     font-size: 18px;
+}
+
+.player-card {
+    background-color: #1a3561;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.player-card h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.player-card p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.match-history {
+    margin-top: 30px;
+}
+
+.match-history h3 {
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.win {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.loss {
+    color: #f44336;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {

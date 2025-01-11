@@ -35,7 +35,7 @@ public class PlayerRepository implements Repository<Player> {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            session.save(player);
+            session.saveOrUpdate(player);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -45,11 +45,11 @@ public class PlayerRepository implements Repository<Player> {
     }
 
     @Override
-    public void delete(Player object) {
+    public void delete(Player player) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            session.delete(object);
+            session.delete(player);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

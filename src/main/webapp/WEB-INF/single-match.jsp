@@ -8,6 +8,11 @@
     <style>
         <%@include file="../css/style.css" %>
     </style>
+    <script>
+        function redirectToPlayerInfo(name) {
+            window.location.href = `/player?name=` + name;
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -18,12 +23,12 @@
         <h2>Match ID: ${game.id}</h2>
         <p><strong>UUID:</strong> ${game.uuid}</p>
         <div class="players">
-            <div class="player ${game.winner == 'firstPlayer' ? 'winner' : ''}">
+            <div class="player ${game.winner == 'firstPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${game.firstPlayer.name}')">
                 <h3>${game.firstPlayer.name}</h3>
                 <p>Score: <span class="score">${game.firstPlayerScore}</span></p>
             </div>
             <div class="versus">VS</div>
-            <div class="player ${game.winner == 'secondPlayer' ? 'winner' : ''}">
+            <div class="player ${game.winner == 'secondPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${game.secondPlayer.name}')">
                 <h3>${game.secondPlayer.name}</h3>
                 <p>Score: <span class="score">${game.secondPlayerScore}</span></p>
             </div>

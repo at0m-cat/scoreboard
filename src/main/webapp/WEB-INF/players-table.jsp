@@ -8,6 +8,11 @@
     <style>
         <%@include file="../css/style.css" %>
     </style>
+    <script>
+        function redirectToPlayerInfo(name) {
+            window.location.href = `/player?name=` + name;
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -24,7 +29,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="player" items="${players}">
-                    <tr>
+                    <tr onclick="redirectToPlayerInfo('${player.name}')" style="cursor: pointer;">
                         <td>${player.name}</td>
                     </tr>
                 </c:forEach>
