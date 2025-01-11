@@ -63,6 +63,7 @@ public class RegisterGameServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("currentGame", gameService.getByKey(String.valueOf(game.getUuid())));
+        session.setAttribute("localGames", gameService);
 
         response.sendRedirect("update-score");
     }

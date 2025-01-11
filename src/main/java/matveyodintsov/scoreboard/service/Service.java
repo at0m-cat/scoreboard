@@ -10,4 +10,6 @@ public interface Service<T> {
 
     public void save(T val);
 
+    public void delete(T val);
+
 }

@@ -28,4 +28,9 @@ public class GameService implements Service<Game> {
         repository.save(game);
     }
 
+    @Override
+    public void delete(Game val) {
+        repository.delete(val);
+    }
+
 }

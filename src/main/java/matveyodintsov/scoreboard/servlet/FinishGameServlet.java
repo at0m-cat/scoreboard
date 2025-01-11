@@ -24,9 +24,11 @@ public class FinishGameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Game currentGame = (Game) session.getAttribute("currentGame");
+        GameService localGames = (GameService) session.getAttribute("localGames");
 
         if (currentGame != null) {
             gameService.save(currentGame);
+            localGames.delete(currentGame);
             session.removeAttribute("currentGame");
         }
 

@@ -28,6 +28,11 @@ public class PlayerService implements Service<Player> {
         repository.save(player);
     }
 
+    @Override
+    public void delete(Player val) {
+        repository.delete(val);
+    }
+
     public boolean isPlayer(String playerName) {
         return repository.getByKey(playerName) != null;
     }
