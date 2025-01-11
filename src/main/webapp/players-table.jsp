@@ -34,7 +34,7 @@
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
                 </form>
-                <form method="get" action="scoreboard">
+                <form method="get" action="matches">
                     <button type="submit" class="btn">All matches</button>
                 </form>
                 <form method="get" action="new-match">

@@ -20,7 +20,7 @@
             <button type="submit" class="btn">All players</button>
         </form>
         <br>
-        <form method="get" action="scoreboard">
+        <form method="get" action="matches">
             <button type="submit" class="btn">All matches</button>
         </form>
     </section>

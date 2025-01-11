@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
-@WebServlet("/scoreboard")
+@WebServlet("/matches")
 public class ScoreboardServlet extends HttpServlet {
 
     private GameService gameService;
