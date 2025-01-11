@@ -12,7 +12,7 @@ public class UpdateScoreServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/game-control.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/game-control.jsp").forward(req, resp);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class UpdateScoreServlet extends HttpServlet {
 
 //          todo: redirect to error page
 
-            response.sendRedirect("game-control.jsp");
+            response.sendRedirect("WEB-INF/game-control.jsp");
             return;
         }
 

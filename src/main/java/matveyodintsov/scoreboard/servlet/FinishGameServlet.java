@@ -29,6 +29,6 @@ public class FinishGameServlet extends HttpServlet {
             session.removeAttribute("currentGame");
         }
 
-        response.sendRedirect("WEB-INF/match-score?uuid=" + currentGame.getUuid());
+        response.sendRedirect("match-score?uuid=" + currentGame.getUuid());
     }
 }

@@ -86,15 +86,22 @@ input:focus {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     text-align: center;
+    background-color: #1f2023;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: auto;
 }
 
 th, td {
-    padding: 12px;
-    border: 1px solid #474d57;
+    padding: 14px 20px;
+    border-bottom: 1px solid #474d57;
     font-size: 16px;
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
 }
 
 th {
@@ -102,15 +109,63 @@ th {
     color: #ffffff;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    color: #d1d1d1;
+    font-size: 15px;
+    font-weight: 500;
+    width: auto;
 }
 
 tr:nth-child(even) {
     background-color: #252729;
 }
 
+tr:nth-child(odd) {
+    background-color: #1f2023;
+}
+
 tr:hover {
     background-color: #3a3d40;
     transition: background-color 0.3s ease-in-out;
+}
+
+th:first-child, td:first-child {
+    text-align: center;
+}
+
+th:last-child, td:last-child {
+    text-align: center;
+}
+
+table:only-child th, table:only-child td {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.table-footer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.table-footer button {
+    background-color: #26396c;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.table-footer button:hover {
+    background-color: #3a3d40;
+    transform: scale(1.05);
 }
 
 button {

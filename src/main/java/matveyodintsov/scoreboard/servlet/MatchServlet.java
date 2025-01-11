@@ -31,12 +31,12 @@ public class MatchServlet extends HttpServlet {
                 request.getRequestDispatcher("error").forward(request, response);
             } else {
                 request.setAttribute("game", game);
-                getServletContext().getRequestDispatcher("WEB-INF/single-match.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/WEB-INF/single-match.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message","Invalid UUID");
+            request.setAttribute("message",e.getMessage());
             request.getRequestDispatcher("error").forward(request, response);
         }
     }

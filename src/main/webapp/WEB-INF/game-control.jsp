@@ -62,7 +62,7 @@
     <c:if test="${empty currentGame}">
         <p>No active game. Please register a new game.</p>
         <section class="button-container">
-            <form method="post" action="new-match">
+            <form method="get" action="new-match">
                 <button type="submit" class="btn">Register Game</button>
             </form>
         </section>
