@@ -41,14 +41,14 @@ public class RegisterGameServlet extends HttpServlet {
         Player secondPlayer;
 
         if (playerService.isPlayer(p1)) {
-            firstPlayer = playerService.getPlayer(p1);
+            firstPlayer = playerService.getByKey(p1);
         } else {
             firstPlayer = new Player(p1);
             playerService.save(firstPlayer);
         }
 
         if (playerService.isPlayer(p2)) {
-            secondPlayer = playerService.getPlayer(p2);
+            secondPlayer = playerService.getByKey(p2);
         } else {
             secondPlayer = new Player(p2);
             playerService.save(secondPlayer);

@@ -20,7 +20,7 @@ public class ScoreboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("games", gameService.getGames());
+        request.setAttribute("games", gameService.getAll());
         request.getRequestDispatcher("WEB-INF/match-score.jsp").forward(request, response);
     }
 }

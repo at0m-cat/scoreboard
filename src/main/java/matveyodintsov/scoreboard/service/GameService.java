@@ -5,7 +5,7 @@ import matveyodintsov.scoreboard.repository.Repository;
 
 import java.util.List;
 
-public class GameService {
+public class GameService implements Service<Game> {
 
     private final Repository<Game> repository;
 
@@ -13,15 +13,19 @@ public class GameService {
         this.repository = repository;
     }
 
+    @Override
+    public Game getByKey(String uuid) {
+        return repository.getByKey(uuid);
+    }
+
+    @Override
+    public List<Game> getAll() {
+        return repository.getAll();
+    }
+
+    @Override
     public void save(Game game) {
         repository.save(game);
     }
 
-    public Game getGameByUuid(String uuid) {
-        return repository.getByKey(uuid);
-    }
-
-    public List<Game> getGames() {
-        return repository.getAll();
-    }
 }

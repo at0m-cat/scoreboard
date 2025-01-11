@@ -20,7 +20,7 @@ public class PlayersTableServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("players", playerService.getPlayers());
+        request.setAttribute("players", playerService.getAll());
         request.getRequestDispatcher("WEB-INF/players-table.jsp").forward(request, response);
     }
 }

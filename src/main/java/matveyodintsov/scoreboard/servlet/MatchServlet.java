@@ -24,7 +24,7 @@ public class MatchServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
 
         try {
-            Game game = gameService.getGameByUuid(uuid);
+            Game game = gameService.getByKey(uuid);
 
             if (game == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
