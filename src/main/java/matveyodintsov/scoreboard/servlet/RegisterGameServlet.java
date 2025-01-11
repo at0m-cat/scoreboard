@@ -62,6 +62,9 @@ public class RegisterGameServlet extends HttpServlet {
         gameService.save(game);
 
         HttpSession session = request.getSession();
+
+        // todo: отправлять localGames, затем вытащить из него игру по uuid в jsp. переделать
+
         session.setAttribute("currentGame", gameService.getByKey(String.valueOf(game.getUuid())));
         session.setAttribute("localGames", gameService);
 
