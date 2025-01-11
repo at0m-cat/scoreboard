@@ -14,13 +14,13 @@ public class PlayerService implements Service<Player> {
     }
 
     @Override
-    public List<Player> getAll() {
-        return repository.getAll();
+    public Player getByKey(String playerName) {
+        return repository.getByKey(playerName);
     }
 
     @Override
-    public Player getByKey(String playerName) {
-        return repository.getByKey(playerName);
+    public List<Player> getAll() {
+        return repository.getAll();
     }
 
     @Override
