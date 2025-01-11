@@ -30,6 +30,9 @@ public class FinishGameServlet extends HttpServlet {
         Game currentGame = (Game) session.getAttribute("currentGame");
         GameService localGames = (GameService) session.getAttribute("localGames");
 
+        // todo: извлечь матч из localGames, передав сюда его uuid.
+        //  изменить логику, добавить вычисления исходя из правил игры
+
         if (currentGame != null) {
             gameService.save(currentGame);
             localGames.delete(currentGame);
