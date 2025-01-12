@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.PlayerRepository;
+import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.FinishedGamePersistenceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ public class FinishGameServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
         this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();

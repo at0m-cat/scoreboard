@@ -1,7 +1,5 @@
 package matveyodintsov.scoreboard.servlet;
 
-import matveyodintsov.scoreboard.repository.GameRepository;
-import matveyodintsov.scoreboard.service.BaseGameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

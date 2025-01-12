@@ -7,9 +7,9 @@ import org.hibernate.query.Query;
 
 import java.util.Optional;
 
-public class PlayerRepository extends BaseHibernateRepository<Player> {
+public class PlayerPersistenceRepository extends BaseHibernateRepository<Player> {
 
-    public PlayerRepository() {
+    public PlayerPersistenceRepository() {
         super(Player.class);
     }
 

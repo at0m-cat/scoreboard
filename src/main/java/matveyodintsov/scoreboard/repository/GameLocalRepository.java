@@ -19,7 +19,6 @@ public class GameLocalRepository implements Repository<Game> {
         return repository.get(UUID.fromString(uuid));
     }
 
-
     @Override
     public List<Game> getAll() {
         lock.readLock().lock();

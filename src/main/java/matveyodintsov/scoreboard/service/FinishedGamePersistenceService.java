@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameRepository;
+import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class FinishedGamePersistenceService implements Service<Game> {
     private final BaseGameService service;
 
     public FinishedGamePersistenceService() {
-        GameRepository gameRepository = new GameRepository();
+        GamePersistenceRepository gameRepository = new GamePersistenceRepository();
         this.service = new BaseGameService(gameRepository);
     }
 

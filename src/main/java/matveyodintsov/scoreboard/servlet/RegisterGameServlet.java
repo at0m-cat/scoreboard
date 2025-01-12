@@ -5,7 +5,7 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.repository.PlayerRepository;
+import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.service.BasePlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
@@ -23,7 +23,7 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();

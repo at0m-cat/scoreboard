@@ -1,6 +1,6 @@
 package matveyodintsov.scoreboard.servlet;
 
-import matveyodintsov.scoreboard.repository.PlayerRepository;
+import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.BasePlayerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ public class PlayersTableServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
         this.playersTablePage = PathContainer.redirectToPlayersTablePage();
     }
 

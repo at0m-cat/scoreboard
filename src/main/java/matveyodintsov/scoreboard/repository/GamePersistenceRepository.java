@@ -8,9 +8,9 @@ import org.hibernate.query.Query;
 import java.util.Optional;
 import java.util.UUID;
 
-public class GameRepository extends BaseHibernateRepository<Game> {
+public class GamePersistenceRepository extends BaseHibernateRepository<Game> {
 
-    public GameRepository() {
+    public GamePersistenceRepository() {
         super(Game.class);
     }
 
