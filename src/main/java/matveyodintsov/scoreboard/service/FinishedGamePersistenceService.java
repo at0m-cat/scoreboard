@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FinishedGamePersistenceService implements Service<Game> {
 
-    private static FinishedGamePersistenceService instance;
+    private static volatile FinishedGamePersistenceService instance;
     private final GameService gameService;
 
     public FinishedGamePersistenceService() {
@@ -18,7 +18,11 @@ public class FinishedGamePersistenceService implements Service<Game> {
 
     public static FinishedGamePersistenceService getInstance() {
         if (instance == null) {
-            instance = new FinishedGamePersistenceService();
+            synchronized (FinishedGamePersistenceService.class) {
+                if (instance == null) {
+                    instance = new FinishedGamePersistenceService();
+                }
+            }
         }
         return instance;
     }
