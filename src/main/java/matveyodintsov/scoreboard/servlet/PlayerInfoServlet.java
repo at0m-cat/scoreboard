@@ -25,32 +25,30 @@ public class PlayerInfoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        if (req.getParameter("name") != null) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            req.setAttribute("message", "Name cannot be empty");
-            req.getRequestDispatcher(errorPage).forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("name") != null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("message", "Name cannot be empty");
+            request.getRequestDispatcher(errorPage).forward(request, response);
         }
 
-        String name = req.getParameter("name");
-
+        String name = request.getParameter("name");
         try {
             Player player = playerService.getByKey(name);
 
             if (player == null) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                req.setAttribute("message", "Player not found");
-                req.getRequestDispatcher(errorPage).forward(req, resp);
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                request.setAttribute("message", "Player not found");
+                request.getRequestDispatcher(errorPage).forward(request, response);
             } else {
-                req.setAttribute("player", player);
-                getServletContext().getRequestDispatcher("/WEB-INF/player-info.jsp").forward(req, resp);
+                request.setAttribute("player", player);
+                getServletContext().getRequestDispatcher("/WEB-INF/player-info.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            req.setAttribute("message",e.getMessage());
-            req.getRequestDispatcher(errorPage).forward(req, resp);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("message",e.getMessage());
+            request.getRequestDispatcher(errorPage).forward(request, response);
         }
 
     }

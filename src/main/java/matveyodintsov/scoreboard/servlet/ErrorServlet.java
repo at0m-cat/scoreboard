@@ -18,10 +18,10 @@ public class ErrorServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String message = req.getParameter("message");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = request.getParameter("message");
         session.setAttribute("message", message);
-        req.getRequestDispatcher(errorPage).forward(req, resp);
+        request.getRequestDispatcher(errorPage).forward(request, response);
     }
 }

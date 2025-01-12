@@ -16,7 +16,6 @@ import java.io.IOException;
 @WebServlet("/finish-game")
 public class FinishGameServlet extends HttpServlet {
 
-//    private GameService gameService;
     private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
     private FinishedGamePersistenceService finishedGamePersistenceService;
@@ -24,7 +23,6 @@ public class FinishGameServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-//        this.gameService = new GameService(new GameRepository());
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
@@ -33,13 +31,10 @@ public class FinishGameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String uuid = request.getParameter("uuid");
-        session.removeAttribute("currentGame");
-        session.removeAttribute("uuid");
+        request.removeAttribute("uuid");
 
         Game currentGame = ongoingGameService.getByKey(uuid);
-
         if (currentGame != null) {
             finishedGamePersistenceService.save(currentGame);
             ongoingGameService.delete(currentGame);
@@ -56,7 +51,6 @@ public class FinishGameServlet extends HttpServlet {
 
             playerService.save(currentGame.getFirstPlayer());
             playerService.save(currentGame.getSecondPlayer());
-
         }
 
         response.sendRedirect(singleMatchServlet + "?uuid=" + uuid);

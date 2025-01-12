@@ -18,7 +18,6 @@ public class RegisterGameServlet extends HttpServlet {
     private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
     private String errorPage;
-    private String gameControlPage;
     private String gameRegPage;
     private String gameScoreUpdate;
 
@@ -27,14 +26,13 @@ public class RegisterGameServlet extends HttpServlet {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
-        this.gameControlPage = PathContainer.redirectToGameControlPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();
         this.gameScoreUpdate = PathContainer.redirectToMatchScoreUpdateServlet();
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher(gameRegPage).forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher(gameRegPage).forward(request, response);
     }
 
     @Override
@@ -73,8 +71,8 @@ public class RegisterGameServlet extends HttpServlet {
         }
 
         Game game = new Game(firstPlayer, secondPlayer);
-
         ongoingGameService.save(game);
+
         response.sendRedirect(gameScoreUpdate + "?uuid=" + game.getUuid());
     }
 }

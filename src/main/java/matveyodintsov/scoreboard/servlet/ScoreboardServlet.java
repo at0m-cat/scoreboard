@@ -5,6 +5,7 @@ import matveyodintsov.scoreboard.service.BaseGameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.service.FinishedGamePersistenceService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -12,12 +13,12 @@ import java.io.IOException;
 @WebServlet("/matches")
 public class ScoreboardServlet extends HttpServlet {
 
-    private BaseGameService gameService;
+    private FinishedGamePersistenceService gameService;
     private String scoreboardPage;
 
     @Override
     public void init() throws ServletException {
-        this.gameService = new BaseGameService(new GameRepository());
+        this.gameService = FinishedGamePersistenceService.getInstance();
         this.scoreboardPage = PathContainer.redirectToScoreboardPage();
     }
 
