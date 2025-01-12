@@ -27,7 +27,7 @@ public class RegisterGameServlet extends HttpServlet {
         this.ongoingGameService = OngoingGameService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();
-        this.gameScoreUpdate = PathContainer.redirectToMatchScoreUpdateServlet();
+        this.gameScoreUpdate = PathContainer.redirectToGameScoreUpdateServlet();
     }
 
     @Override

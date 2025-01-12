@@ -17,11 +17,13 @@ public class PlayerInfoServlet extends HttpServlet {
 
     private BasePlayerService playerService;
     private String errorPage;
+    private String playerInfoPage;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.errorPage = PathContainer.redirectToErrorPage();
+        this.playerInfoPage = PathContainer.redirectToPlayerPage();
     }
 
     @Override
@@ -42,7 +44,7 @@ public class PlayerInfoServlet extends HttpServlet {
                 request.getRequestDispatcher(errorPage).forward(request, response);
             } else {
                 request.setAttribute("player", player);
-                getServletContext().getRequestDispatcher("/WEB-INF/player-info.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher(playerInfoPage).forward(request, response);
             }
 
         } catch (Exception e) {

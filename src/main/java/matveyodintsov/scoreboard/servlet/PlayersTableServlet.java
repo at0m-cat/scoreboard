@@ -5,6 +5,7 @@ import matveyodintsov.scoreboard.service.BasePlayerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
@@ -12,15 +13,17 @@ import java.io.IOException;
 public class PlayersTableServlet extends HttpServlet {
 
     private BasePlayerService playerService;
+    private String playersTablePage;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new BasePlayerService(new PlayerRepository());
+        this.playersTablePage = PathContainer.redirectToPlayersTablePage();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("players", playerService.getAll());
-        request.getRequestDispatcher("WEB-INF/players-table.jsp").forward(request, response);
+        request.getRequestDispatcher(playersTablePage).forward(request, response);
     }
 }

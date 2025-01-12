@@ -26,7 +26,7 @@ public class FinishGameServlet extends HttpServlet {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
-        this.singleMatchServlet = PathContainer.redirectToSingleMatchServlet();
+        this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();
     }
 
     @Override

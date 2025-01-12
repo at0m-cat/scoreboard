@@ -1,8 +1,6 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameRepository;
-import matveyodintsov.scoreboard.service.BaseGameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -16,11 +14,13 @@ public class MatchServlet extends HttpServlet {
 
     private FinishedGamePersistenceService gameService;
     private String errorPage;
+    private String singleGamePage;
 
     @Override
     public void init() throws ServletException {
         this.gameService = FinishedGamePersistenceService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
+        this.singleGamePage = PathContainer.redirectToSingleGamePage();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MatchServlet extends HttpServlet {
                 request.getRequestDispatcher(errorPage).forward(request, response);
             } else {
                 request.setAttribute("game", game);
-                getServletContext().getRequestDispatcher("/WEB-INF/single-match.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher(singleGamePage).forward(request, response);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
