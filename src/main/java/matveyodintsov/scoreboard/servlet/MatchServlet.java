@@ -6,6 +6,7 @@ import matveyodintsov.scoreboard.service.BaseGameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
@@ -13,10 +14,12 @@ import java.io.IOException;
 public class MatchServlet extends HttpServlet {
 
     private BaseGameService gameService;
+    private String errorPage;
 
     @Override
     public void init() throws ServletException {
         this.gameService = new BaseGameService(new GameRepository());
+        this.errorPage = PathContainer.redirectToErrorPage();
     }
 
     @Override
@@ -31,7 +34,7 @@ public class MatchServlet extends HttpServlet {
 
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", "Match not found");
-                request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+                request.getRequestDispatcher(errorPage).forward(request, response);
             } else {
                 request.setAttribute("game", game);
                 getServletContext().getRequestDispatcher("/WEB-INF/single-match.jsp").forward(request, response);
@@ -40,7 +43,7 @@ public class MatchServlet extends HttpServlet {
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+            request.getRequestDispatcher(errorPage).forward(request, response);
         }
     }
 }

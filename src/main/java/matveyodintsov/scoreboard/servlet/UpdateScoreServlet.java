@@ -4,15 +4,25 @@ import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
 @WebServlet("/update-score")
 public class UpdateScoreServlet extends HttpServlet {
 
+    private String errorPage;
+    private String gameControlPage;
+
+    @Override
+    public void init() throws ServletException {
+        this.errorPage = PathContainer.redirectToErrorPage();
+        this.gameControlPage = PathContainer.redirectToGameControlPage();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/game-control.jsp").forward(req, resp);
+        req.getRequestDispatcher(gameControlPage).forward(req, resp);
     }
 
     @Override
@@ -23,7 +33,7 @@ public class UpdateScoreServlet extends HttpServlet {
         if (currentGame == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             request.setAttribute("message", "Match does not exist.");
-            request.getRequestDispatcher("error").forward(request, response);
+            request.getRequestDispatcher(errorPage).forward(request, response);
             return;
         }
 

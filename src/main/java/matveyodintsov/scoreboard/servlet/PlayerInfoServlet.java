@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
@@ -15,10 +16,12 @@ import java.io.IOException;
 public class PlayerInfoServlet extends HttpServlet {
 
     private BasePlayerService playerService;
+    private String errorPage;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new BasePlayerService(new PlayerRepository());
+        this.errorPage = PathContainer.redirectToErrorPage();
     }
 
     @Override
@@ -31,7 +34,7 @@ public class PlayerInfoServlet extends HttpServlet {
             if (player == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 req.setAttribute("message", "Match not found");
-                req.getRequestDispatcher("error").forward(req, resp);
+                req.getRequestDispatcher(errorPage).forward(req, resp);
             } else {
                 req.setAttribute("player", player);
                 getServletContext().getRequestDispatcher("/WEB-INF/player-info.jsp").forward(req, resp);
@@ -40,7 +43,7 @@ public class PlayerInfoServlet extends HttpServlet {
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             req.setAttribute("message",e.getMessage());
-            req.getRequestDispatcher("error").forward(req, resp);
+            req.getRequestDispatcher(errorPage).forward(req, resp);
         }
 
     }

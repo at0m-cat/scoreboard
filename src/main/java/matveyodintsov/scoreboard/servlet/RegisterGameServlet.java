@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -18,16 +19,22 @@ public class RegisterGameServlet extends HttpServlet {
 
     private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
+    private String errorPage;
+    private String gameControlPage;
+    private String gameRegPage;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
+        this.errorPage = PathContainer.redirectToErrorPage();
+        this.gameControlPage = PathContainer.redirectToGameControlPage();
+        this.gameRegPage = PathContainer.redirectToGameRegPage();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/match-reg.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher(gameRegPage).forward(req, resp);
     }
 
     @Override
@@ -38,13 +45,13 @@ public class RegisterGameServlet extends HttpServlet {
         if (p1 == null || p2 == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Invalid parameters");
-            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+            request.getRequestDispatcher(errorPage).forward(request, response);
         }
 
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Player cannot play against themselves.");
-            request.getRequestDispatcher("WEB-INF/error.jsp").forward(request, response);
+            request.getRequestDispatcher(errorPage).forward(request, response);
             return;
         }
 
@@ -85,7 +92,9 @@ public class RegisterGameServlet extends HttpServlet {
 
         session.setAttribute("currentGame", game);
         synchronized (session) {
-            response.sendRedirect("update-score");
+//            response.sendRedirect("update-score");
+//            response.sendRedirect("WEB-INF/game-control.jsp");
+            getServletContext().getRequestDispatcher(gameControlPage).forward(request, response);
         }
 
         //todo: убрать GET запрос к update-score (match-control.jsp) + убрать сессии

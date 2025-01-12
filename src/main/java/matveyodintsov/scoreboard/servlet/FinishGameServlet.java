@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.util.PathContainer;
 
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class FinishGameServlet extends HttpServlet {
     private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
     private FinishedGamePersistenceService finishedGamePersistenceService;
+    private String scoreboardServlet;
 
     @Override
     public void init() throws ServletException {
@@ -26,6 +28,7 @@ public class FinishGameServlet extends HttpServlet {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
+        this.scoreboardServlet = PathContainer.redirectToSingleMatchServlet();
     }
 
     @Override
@@ -36,9 +39,6 @@ public class FinishGameServlet extends HttpServlet {
         session.removeAttribute("uuid");
 
         Game currentGame = ongoingGameService.getByKey(uuid);
-
-//        GameService localGames = (GameService) session.getAttribute("localGames");
-//        Game currentGame = localGames.getByKey(uuid);
 
         if (currentGame != null) {
             finishedGamePersistenceService.save(currentGame);
@@ -59,6 +59,6 @@ public class FinishGameServlet extends HttpServlet {
 
         }
 
-        response.sendRedirect("match-score?uuid=" + uuid);
+        response.sendRedirect(scoreboardServlet + "?uuid=" + uuid);
     }
 }
