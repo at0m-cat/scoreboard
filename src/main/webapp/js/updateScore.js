@@ -1,10 +1,11 @@
 async function updateScore(player, action) {
     try {
         const body = new URLSearchParams();
+        body.append("uuid", gameUuid);
         body.append("player", player);
         body.append("action", action);
 
-        const response = await fetch('update-score', {
+        const response = await fetch('match-score', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

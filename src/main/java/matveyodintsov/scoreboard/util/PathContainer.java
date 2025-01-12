@@ -22,6 +22,10 @@ public class PathContainer {
     }
 
     public static String redirectToSingleMatchServlet() {
+        return "/match";
+    }
+
+    public static String redirectToMatchScoreUpdateServlet() {
         return "/match-score";
     }
 }

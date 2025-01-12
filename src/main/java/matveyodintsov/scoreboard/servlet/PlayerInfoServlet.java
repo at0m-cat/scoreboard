@@ -26,6 +26,13 @@ public class PlayerInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if (req.getParameter("name") != null) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute("message", "Name cannot be empty");
+            req.getRequestDispatcher(errorPage).forward(req, resp);
+        }
+
         String name = req.getParameter("name");
 
         try {
@@ -33,7 +40,7 @@ public class PlayerInfoServlet extends HttpServlet {
 
             if (player == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                req.setAttribute("message", "Match not found");
+                req.setAttribute("message", "Player not found");
                 req.getRequestDispatcher(errorPage).forward(req, resp);
             } else {
                 req.setAttribute("player", player);

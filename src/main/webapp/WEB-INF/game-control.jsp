@@ -10,6 +10,11 @@
     </style>
     <script> <%@include file="../js/updateScore.js"%></script>
     <script> <%@include file="../js/loadingIndicator.js"%></script>
+    <c:if test="${not empty currentGame}">
+        <script>
+            const gameUuid = '${currentGame.uuid}';
+        </script>
+    </c:if>
 </head>
 <body>
 <header>
@@ -18,7 +23,7 @@
 
 <div id="loadingIndicator" style="display: none;">
     <main>
-        <p>Match is being created, please wait...</p>
+        <p>Wait for it...</p>
     </main>
 </div>
 

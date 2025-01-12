@@ -1,3 +1,3 @@
 function redirectToMatch(uuid) {
-    window.location.href = `/match-score?uuid=` + uuid;
+    window.location.href = `/match?uuid=` + uuid;
 }

@@ -10,7 +10,7 @@ import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
-@WebServlet("/match-score")
+@WebServlet("/match")
 public class MatchServlet extends HttpServlet {
 
     private BaseGameService gameService;

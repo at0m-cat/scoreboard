@@ -4,33 +4,57 @@ import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
 
-@WebServlet("/update-score")
+@WebServlet("/match-score")
 public class UpdateScoreServlet extends HttpServlet {
 
     private String errorPage;
     private String gameControlPage;
+    private OngoingGameService ongoingGameService;
 
     @Override
     public void init() throws ServletException {
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameControlPage = PathContainer.redirectToGameControlPage();
+        this.ongoingGameService = OngoingGameService.getInstance();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(gameControlPage).forward(req, resp);
+        if (req.getParameter("uuid") == null) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute("message", "Missing required parameter 'uuid'.");
+            req.getRequestDispatcher(errorPage).forward(req, resp);
+        }
+
+        String uuid = req.getParameter("uuid");
+        try {
+            Game currentGame = ongoingGameService.getByKey(uuid);
+            if (currentGame != null) {
+                req.setAttribute("currentGame", currentGame);
+                getServletContext().getRequestDispatcher(gameControlPage).forward(req, resp);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                req.setAttribute("message", "Match does not exist.");
+                req.getRequestDispatcher(errorPage).forward(req, resp);
+            }
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute("message", e.getMessage());
+            req.getRequestDispatcher(errorPage).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Game currentGame = (Game) session.getAttribute("currentGame");
+        String uuidParam = request.getParameter("uuid");
+        Game currentGame = ongoingGameService.getByKey(uuidParam);
 
-        if (currentGame == null) {
+        if (currentGame == null || uuidParam == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             request.setAttribute("message", "Match does not exist.");
             request.getRequestDispatcher(errorPage).forward(request, response);
@@ -44,18 +68,15 @@ public class UpdateScoreServlet extends HttpServlet {
             if ("increment".equals(action)) {
                 currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.setFirstPlayerScore((Math.max(0, currentGame.getFirstPlayerScore() - 1)));
+                currentGame.setFirstPlayerScore(Math.max(0, currentGame.getFirstPlayerScore() - 1));
             }
         } else if ("secondPlayer".equals(player)) {
             if ("increment".equals(action)) {
                 currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.setSecondPlayerScore((Math.max(0, currentGame.getSecondPlayerScore() - 1)));
+                currentGame.setSecondPlayerScore(Math.max(0, currentGame.getSecondPlayerScore() - 1));
             }
         }
-//
-//        session.setAttribute("currentGame", currentGame);
-//        response.sendRedirect("update-score");
 
         response.setContentType("application/json");
         response.getWriter().write(String.format("{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d}",

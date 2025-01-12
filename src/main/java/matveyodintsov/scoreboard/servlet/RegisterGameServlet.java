@@ -11,8 +11,6 @@ import matveyodintsov.scoreboard.service.BasePlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
@@ -22,6 +20,7 @@ public class RegisterGameServlet extends HttpServlet {
     private String errorPage;
     private String gameControlPage;
     private String gameRegPage;
+    private String gameScoreUpdate;
 
     @Override
     public void init() throws ServletException {
@@ -30,6 +29,7 @@ public class RegisterGameServlet extends HttpServlet {
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameControlPage = PathContainer.redirectToGameControlPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();
+        this.gameScoreUpdate = PathContainer.redirectToMatchScoreUpdateServlet();
     }
 
     @Override
@@ -74,34 +74,7 @@ public class RegisterGameServlet extends HttpServlet {
 
         Game game = new Game(firstPlayer, secondPlayer);
 
-        HttpSession session = request.getSession();
-
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.submit(() -> {
-
-            try {
-                Thread.sleep(2800);
-                ongoingGameService.save(game);
-                synchronized (session) {
-                    session.setAttribute("localGames", ongoingGameService.getAll());
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        session.setAttribute("currentGame", game);
-        synchronized (session) {
-//            response.sendRedirect("update-score");
-//            response.sendRedirect("WEB-INF/game-control.jsp");
-            getServletContext().getRequestDispatcher(gameControlPage).forward(request, response);
-        }
-
-        //todo: убрать GET запрос к update-score (match-control.jsp) + убрать сессии
-        // подумать над логикой передачи локального репозитория к update-score (match-control.jsp)
-
-        //todo: первые шаги к потокобезопасности:
-        // 1 - задержка, для добавления в concurrentHashMap игры (синглет локального репозитория)
-        // 2 - в game-control из репозитория вытащить игру
+        ongoingGameService.save(game);
+        response.sendRedirect(gameScoreUpdate + "?uuid=" + game.getUuid());
     }
 }

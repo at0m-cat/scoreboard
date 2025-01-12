@@ -20,7 +20,7 @@ public class FinishGameServlet extends HttpServlet {
     private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
     private FinishedGamePersistenceService finishedGamePersistenceService;
-    private String scoreboardServlet;
+    private String singleMatchServlet;
 
     @Override
     public void init() throws ServletException {
@@ -28,7 +28,7 @@ public class FinishGameServlet extends HttpServlet {
         this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
-        this.scoreboardServlet = PathContainer.redirectToSingleMatchServlet();
+        this.singleMatchServlet = PathContainer.redirectToSingleMatchServlet();
     }
 
     @Override
@@ -59,6 +59,6 @@ public class FinishGameServlet extends HttpServlet {
 
         }
 
-        response.sendRedirect(scoreboardServlet + "?uuid=" + uuid);
+        response.sendRedirect(singleMatchServlet + "?uuid=" + uuid);
     }
 }
