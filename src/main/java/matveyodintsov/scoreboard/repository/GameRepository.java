@@ -60,7 +60,6 @@ public class GameRepository implements Repository<Game>{
         } finally {
             hibernateSession.close();
         }
-
     }
 }
 

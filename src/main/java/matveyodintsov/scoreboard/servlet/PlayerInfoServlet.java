@@ -7,18 +7,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
-import matveyodintsov.scoreboard.service.PlayerService;
+import matveyodintsov.scoreboard.service.BasePlayerService;
 
 import java.io.IOException;
 
 @WebServlet("/player")
 public class PlayerInfoServlet extends HttpServlet {
 
-    private PlayerService playerService;
+    private BasePlayerService playerService;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new PlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerRepository());
     }
 
     @Override

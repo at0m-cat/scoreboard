@@ -5,11 +5,11 @@ import matveyodintsov.scoreboard.repository.Repository;
 
 import java.util.List;
 
-public class PlayerService implements Service<Player> {
+public class BasePlayerService implements Service<Player> {
 
     private final Repository<Player> repository;
 
-    public PlayerService(Repository<Player> repository) {
+    public BasePlayerService(Repository<Player> repository) {
         this.repository = repository;
     }
 

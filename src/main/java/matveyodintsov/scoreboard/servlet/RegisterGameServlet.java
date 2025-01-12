@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.OngoingGameService;
-import matveyodintsov.scoreboard.service.PlayerService;
+import matveyodintsov.scoreboard.service.BasePlayerService;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -16,12 +16,12 @@ import java.util.concurrent.Executors;
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
 
-    private PlayerService playerService;
+    private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new PlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
     }
 
@@ -84,9 +84,11 @@ public class RegisterGameServlet extends HttpServlet {
         });
 
         session.setAttribute("currentGame", game);
-        response.sendRedirect("update-score");
+        synchronized (session) {
+            response.sendRedirect("update-score");
+        }
 
-        //todo: убрать GET запрос к update-score (match-control.jsp)
+        //todo: убрать GET запрос к update-score (match-control.jsp) + убрать сессии
         // подумать над логикой передачи локального репозитория к update-score (match-control.jsp)
 
         //todo: первые шаги к потокобезопасности:

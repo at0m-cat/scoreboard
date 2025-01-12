@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.repository.GameRepository;
-import matveyodintsov.scoreboard.service.GameService;
+import matveyodintsov.scoreboard.service.BaseGameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,11 +11,11 @@ import java.io.IOException;
 @WebServlet("/matches")
 public class ScoreboardServlet extends HttpServlet {
 
-    private GameService gameService;
+    private BaseGameService gameService;
 
     @Override
     public void init() throws ServletException {
-        this.gameService = new GameService(new GameRepository());
+        this.gameService = new BaseGameService(new GameRepository());
     }
 
     @Override

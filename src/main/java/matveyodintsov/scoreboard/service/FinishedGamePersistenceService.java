@@ -9,11 +9,11 @@ import java.util.List;
 public class FinishedGamePersistenceService implements Service<Game> {
 
     private static volatile FinishedGamePersistenceService instance;
-    private final GameService gameService;
+    private final BaseGameService service;
 
     public FinishedGamePersistenceService() {
         GameRepository gameRepository = new GameRepository();
-        gameService = new GameService(gameRepository);
+        this.service = new BaseGameService(gameRepository);
     }
 
     public static FinishedGamePersistenceService getInstance() {
@@ -29,21 +29,21 @@ public class FinishedGamePersistenceService implements Service<Game> {
 
     @Override
     public Game getByKey(String key) {
-        return gameService.getByKey(key);
+        return service.getByKey(key);
     }
 
     @Override
     public List<Game> getAll() {
-        return new ArrayList<>(gameService.getAll());
+        return new ArrayList<>(service.getAll());
     }
 
     @Override
     public void save(Game val) {
-        gameService.save(val);
+        service.save(val);
     }
 
     @Override
     public void delete(Game val) {
-        gameService.delete(val);
+        service.delete(val);
     }
 }

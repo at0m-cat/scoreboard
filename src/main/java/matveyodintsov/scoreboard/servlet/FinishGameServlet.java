@@ -1,15 +1,13 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameRepository;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.FinishedGamePersistenceService;
-import matveyodintsov.scoreboard.service.GameService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.service.OngoingGameService;
-import matveyodintsov.scoreboard.service.PlayerService;
+import matveyodintsov.scoreboard.service.BasePlayerService;
 
 
 import java.io.IOException;
@@ -18,14 +16,14 @@ import java.io.IOException;
 public class FinishGameServlet extends HttpServlet {
 
 //    private GameService gameService;
-    private PlayerService playerService;
+    private BasePlayerService playerService;
     private OngoingGameService ongoingGameService;
     private FinishedGamePersistenceService finishedGamePersistenceService;
 
     @Override
     public void init() throws ServletException {
 //        this.gameService = new GameService(new GameRepository());
-        this.playerService = new PlayerService(new PlayerRepository());
+        this.playerService = new BasePlayerService(new PlayerRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
     }
