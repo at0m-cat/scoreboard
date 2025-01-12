@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -15,13 +15,13 @@ import java.io.IOException;
 @WebServlet("/player")
 public class PlayerInfoServlet extends HttpServlet {
 
-    private BasePlayerService playerService;
+    private PlayerService playerService;
     private String errorPage;
     private String playerInfoPage;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
+        this.playerService = new PlayerService(new PlayerPersistenceRepository());
         this.errorPage = PathContainer.redirectToErrorPage();
         this.playerInfoPage = PathContainer.redirectToPlayerPage();
     }

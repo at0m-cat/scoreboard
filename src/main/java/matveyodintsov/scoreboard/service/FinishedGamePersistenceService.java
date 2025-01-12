@@ -9,11 +9,11 @@ import java.util.List;
 public class FinishedGamePersistenceService implements Service<Game> {
 
     private static volatile FinishedGamePersistenceService instance;
-    private final BaseGameService service;
+    private final GameService service;
 
     public FinishedGamePersistenceService() {
         GamePersistenceRepository gameRepository = new GamePersistenceRepository();
-        this.service = new BaseGameService(gameRepository);
+        this.service = new GameService(gameRepository);
     }
 
     public static FinishedGamePersistenceService getInstance() {

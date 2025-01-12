@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.OngoingGameService;
-import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
 
-    private BasePlayerService playerService;
+    private PlayerService playerService;
     private OngoingGameService ongoingGameService;
     private String errorPage;
     private String gameRegPage;
@@ -23,7 +23,7 @@ public class RegisterGameServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
+        this.playerService = new PlayerService(new PlayerPersistenceRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();

@@ -7,7 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.service.OngoingGameService;
-import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 
@@ -16,14 +16,14 @@ import java.io.IOException;
 @WebServlet("/finish-game")
 public class FinishGameServlet extends HttpServlet {
 
-    private BasePlayerService playerService;
+    private PlayerService playerService;
     private OngoingGameService ongoingGameService;
     private FinishedGamePersistenceService finishedGamePersistenceService;
     private String singleMatchServlet;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
+        this.playerService = new PlayerService(new PlayerPersistenceRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
         this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
         this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();

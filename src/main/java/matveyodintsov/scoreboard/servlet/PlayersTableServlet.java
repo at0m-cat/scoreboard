@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.BasePlayerService;
+import matveyodintsov.scoreboard.service.PlayerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -12,12 +12,12 @@ import java.io.IOException;
 @WebServlet("/players")
 public class PlayersTableServlet extends HttpServlet {
 
-    private BasePlayerService playerService;
+    private PlayerService playerService;
     private String playersTablePage;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new BasePlayerService(new PlayerPersistenceRepository());
+        this.playerService = new PlayerService(new PlayerPersistenceRepository());
         this.playersTablePage = PathContainer.redirectToPlayersTablePage();
     }
 

@@ -9,11 +9,11 @@ import java.util.List;
 public class OngoingGameService implements Service<Game> {
 
     private static volatile OngoingGameService instance;
-    private final BaseGameService service;
+    private final GameService service;
 
     private OngoingGameService() {
         GameLocalRepository gameLocalRepository = new GameLocalRepository();
-        this.service = new BaseGameService(gameLocalRepository);
+        this.service = new GameService(gameLocalRepository);
     }
 
     public static OngoingGameService getInstance() {
