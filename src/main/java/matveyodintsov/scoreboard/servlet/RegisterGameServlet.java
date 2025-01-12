@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.OngoingGameService;
+import matveyodintsov.scoreboard.service.GameLocalSingletonService;
 import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class RegisterGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private OngoingGameService ongoingGameService;
+    private GameLocalSingletonService gameLocalService;
     private String errorPage;
     private String gameRegPage;
     private String gameScoreUpdate;
@@ -24,7 +24,7 @@ public class RegisterGameServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.ongoingGameService = OngoingGameService.getInstance();
+        this.gameLocalService = GameLocalSingletonService.getInstance();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();
         this.gameScoreUpdate = PathContainer.redirectToGameScoreUpdateServlet();
@@ -71,7 +71,7 @@ public class RegisterGameServlet extends HttpServlet {
         }
 
         Game game = new Game(firstPlayer, secondPlayer);
-        ongoingGameService.save(game);
+        gameLocalService.save(game);
 
         response.sendRedirect(gameScoreUpdate + "?uuid=" + game.getUuid());
     }

@@ -4,7 +4,7 @@ import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.service.OngoingGameService;
+import matveyodintsov.scoreboard.service.GameLocalSingletonService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -14,13 +14,13 @@ public class UpdateScoreServlet extends HttpServlet {
 
     private String errorPage;
     private String gameControlPage;
-    private OngoingGameService ongoingGameService;
+    private GameLocalSingletonService gameLocalService;
 
     @Override
     public void init() throws ServletException {
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameControlPage = PathContainer.redirectToGameControlPage();
-        this.ongoingGameService = OngoingGameService.getInstance();
+        this.gameLocalService = GameLocalSingletonService.getInstance();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UpdateScoreServlet extends HttpServlet {
 
         String uuid = req.getParameter("uuid");
         try {
-            Game currentGame = ongoingGameService.getByKey(uuid);
+            Game currentGame = gameLocalService.getByKey(uuid);
             if (currentGame != null) {
                 req.setAttribute("currentGame", currentGame);
                 getServletContext().getRequestDispatcher(gameControlPage).forward(req, resp);
@@ -52,7 +52,7 @@ public class UpdateScoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuidParam = request.getParameter("uuid");
-        Game currentGame = ongoingGameService.getByKey(uuidParam);
+        Game currentGame = gameLocalService.getByKey(uuidParam);
 
         if (currentGame == null || uuidParam == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

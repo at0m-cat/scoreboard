@@ -1,26 +1,26 @@
 package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameLocalRepository;
+import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OngoingGameService implements Service<Game> {
+public class GamePersistenceSingletonService implements Service<Game> {
 
-    private static volatile OngoingGameService instance;
+    private static volatile GamePersistenceSingletonService instance;
     private final GameService service;
 
-    private OngoingGameService() {
-        GameLocalRepository gameLocalRepository = new GameLocalRepository();
-        this.service = new GameService(gameLocalRepository);
+    public GamePersistenceSingletonService() {
+        GamePersistenceRepository gameRepository = new GamePersistenceRepository();
+        this.service = new GameService(gameRepository);
     }
 
-    public static OngoingGameService getInstance() {
+    public static GamePersistenceSingletonService getInstance() {
         if (instance == null) {
-            synchronized (OngoingGameService.class) {
+            synchronized (GamePersistenceSingletonService.class) {
                 if (instance == null) {
-                    instance = new OngoingGameService();
+                    instance = new GamePersistenceSingletonService();
                 }
             }
         }

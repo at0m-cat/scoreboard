@@ -2,11 +2,11 @@ package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.FinishedGamePersistenceService;
+import matveyodintsov.scoreboard.service.GamePersistenceSingletonService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.service.OngoingGameService;
+import matveyodintsov.scoreboard.service.GameLocalSingletonService;
 import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
@@ -17,15 +17,15 @@ import java.io.IOException;
 public class FinishGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private OngoingGameService ongoingGameService;
-    private FinishedGamePersistenceService finishedGamePersistenceService;
+    private GameLocalSingletonService gameLocalService;
+    private GamePersistenceSingletonService gamePersistenceService;
     private String singleMatchServlet;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.ongoingGameService = OngoingGameService.getInstance();
-        this.finishedGamePersistenceService = FinishedGamePersistenceService.getInstance();
+        this.gameLocalService = GameLocalSingletonService.getInstance();
+        this.gamePersistenceService = GamePersistenceSingletonService.getInstance();
         this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();
     }
 
@@ -34,10 +34,10 @@ public class FinishGameServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         request.removeAttribute("uuid");
 
-        Game currentGame = ongoingGameService.getByKey(uuid);
+        Game currentGame = gameLocalService.getByKey(uuid);
         if (currentGame != null) {
-            finishedGamePersistenceService.save(currentGame);
-            ongoingGameService.delete(currentGame);
+            gamePersistenceService.save(currentGame);
+            gameLocalService.delete(currentGame);
 
             currentGame.getFirstPlayer().setTotalMatches(currentGame.getFirstPlayer().getTotalMatches() + 1);
             currentGame.getSecondPlayer().setTotalMatches(currentGame.getSecondPlayer().getTotalMatches() + 1);
