@@ -9,12 +9,20 @@
         <%@include file="../css/style.css" %>
     </style>
     <script> <%@include file="../js/updateScore.js"%></script>
+    <script> <%@include file="../js/loadingIndicator.js"%></script>
 </head>
 <body>
 <header>
     <h1>Game Control</h1>
 </header>
-<main>
+
+<div id="loadingIndicator" style="display: none;">
+    <main>
+        <p>Match is being created, please wait...</p>
+    </main>
+</div>
+
+<main id="content" style="display: none;">
     <c:if test="${not empty currentGame}">
         <table>
             <thead>

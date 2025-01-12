@@ -5,25 +5,23 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
-import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.service.PlayerService;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @WebServlet("/new-match")
 public class RegisterGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-//    private GameService gameService;
     private OngoingGameService ongoingGameService;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerRepository());
-//        this.gameService = new GameService(new GameLocalRepository());
         this.ongoingGameService = OngoingGameService.getInstance();
     }
 
@@ -68,16 +66,31 @@ public class RegisterGameServlet extends HttpServlet {
         }
 
         Game game = new Game(firstPlayer, secondPlayer);
-        ongoingGameService.save(game);
-//        gameService.save(game);
 
         HttpSession session = request.getSession();
 
-        // todo: отправлять localGames, затем вытащить из него игру по uuid в jsp. переделать
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.submit(() -> {
 
-        session.setAttribute("currentGame", ongoingGameService.getByKey(String.valueOf(game.getUuid())));
-        session.setAttribute("localGames", ongoingGameService.getAll());
+            try {
+                Thread.sleep(2800);
+                ongoingGameService.save(game);
+                synchronized (session) {
+                    session.setAttribute("localGames", ongoingGameService.getAll());
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
+        session.setAttribute("currentGame", game);
         response.sendRedirect("update-score");
+
+        //todo: убрать GET запрос к update-score (match-control.jsp)
+        // подумать над логикой передачи локального репозитория к update-score (match-control.jsp)
+
+        //todo: первые шаги к потокобезопасности:
+        // 1 - задержка, для добавления в concurrentHashMap игры (синглет локального репозитория)
+        // 2 - в game-control из репозитория вытащить игру
     }
 }

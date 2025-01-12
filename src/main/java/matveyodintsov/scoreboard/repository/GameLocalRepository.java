@@ -3,11 +3,13 @@ package matveyodintsov.scoreboard.repository;
 import matveyodintsov.scoreboard.model.Game;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class GameLocalRepository implements Repository<Game> {
 
-    private final Map<UUID, Game> repository = new HashMap<>();
+    private final Map<UUID, Game> repository = new ConcurrentHashMap<>();
+    private volatile List<Game> cachedGames;
 
     @Override
     public Game getByKey(String uuid) {
@@ -16,12 +18,13 @@ public class GameLocalRepository implements Repository<Game> {
 
     @Override
     public List<Game> getAll() {
-        return new ArrayList<>(repository.values());
+        return cachedGames;
     }
 
     @Override
     public void save(Game game) {
         repository.put(game.getUuid(), game);
+        cachedGames = new ArrayList<>(repository.values());
     }
 
     @Override
