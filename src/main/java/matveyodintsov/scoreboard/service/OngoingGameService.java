@@ -9,7 +9,6 @@ import java.util.List;
 public class OngoingGameService implements Service<Game> {
 
     private static OngoingGameService instance;
-
     private final GameService gameService;
 
     private OngoingGameService() {

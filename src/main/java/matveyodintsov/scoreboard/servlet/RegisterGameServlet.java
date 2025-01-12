@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.repository.PlayerRepository;
 import matveyodintsov.scoreboard.service.GameService;
+import matveyodintsov.scoreboard.service.OngoingGameService;
 import matveyodintsov.scoreboard.service.PlayerService;
 
 import java.io.IOException;
@@ -16,12 +17,14 @@ import java.io.IOException;
 public class RegisterGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private GameService gameService;
+//    private GameService gameService;
+    private OngoingGameService ongoingGameService;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerRepository());
-        this.gameService = new GameService(new GameLocalRepository());
+//        this.gameService = new GameService(new GameLocalRepository());
+        this.ongoingGameService = OngoingGameService.getInstance();
     }
 
     @Override
@@ -65,14 +68,15 @@ public class RegisterGameServlet extends HttpServlet {
         }
 
         Game game = new Game(firstPlayer, secondPlayer);
-        gameService.save(game);
+        ongoingGameService.save(game);
+//        gameService.save(game);
 
         HttpSession session = request.getSession();
 
         // todo: отправлять localGames, затем вытащить из него игру по uuid в jsp. переделать
 
-        session.setAttribute("currentGame", gameService.getByKey(String.valueOf(game.getUuid())));
-        session.setAttribute("localGames", gameService);
+        session.setAttribute("currentGame", ongoingGameService.getByKey(String.valueOf(game.getUuid())));
+        session.setAttribute("localGames", ongoingGameService.getAll());
 
         response.sendRedirect("update-score");
     }
