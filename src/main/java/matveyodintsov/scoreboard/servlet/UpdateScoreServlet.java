@@ -4,7 +4,9 @@ import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.service.GameLocalSingletonService;
+import matveyodintsov.scoreboard.repository.GameLocalRepository;
+import matveyodintsov.scoreboard.service.GameService;
+import matveyodintsov.scoreboard.service.SingletonServiceFactory;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -14,13 +16,13 @@ public class UpdateScoreServlet extends HttpServlet {
 
     private String errorPage;
     private String gameControlPage;
-    private GameLocalSingletonService gameLocalService;
+    private GameService gameLocalService;
 
     @Override
     public void init() throws ServletException {
+        this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameControlPage = PathContainer.redirectToGameControlPage();
-        this.gameLocalService = GameLocalSingletonService.getInstance();
     }
 
     @Override

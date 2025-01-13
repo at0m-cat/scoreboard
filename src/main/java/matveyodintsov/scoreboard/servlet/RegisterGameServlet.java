@@ -5,9 +5,11 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.GameLocalSingletonService;
+import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.PlayerService;
+import matveyodintsov.scoreboard.service.SingletonServiceFactory;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ import java.io.IOException;
 public class RegisterGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private GameLocalSingletonService gameLocalService;
+    private GameService gameLocalService;
     private String errorPage;
     private String gameRegPage;
     private String gameScoreUpdate;
@@ -24,7 +26,7 @@ public class RegisterGameServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.gameLocalService = GameLocalSingletonService.getInstance();
+        this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
         this.errorPage = PathContainer.redirectToErrorPage();
         this.gameRegPage = PathContainer.redirectToGameRegPage();
         this.gameScoreUpdate = PathContainer.redirectToGameScoreUpdateServlet();

@@ -1,13 +1,13 @@
 package matveyodintsov.scoreboard.servlet;
 
 import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.repository.GameLocalRepository;
+import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.GamePersistenceSingletonService;
+import matveyodintsov.scoreboard.service.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.service.GameLocalSingletonService;
-import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 
@@ -17,15 +17,15 @@ import java.io.IOException;
 public class FinishGameServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private GameLocalSingletonService gameLocalService;
-    private GamePersistenceSingletonService gamePersistenceService;
+    private GameService gameLocalService;
+    private GameService gamePersistenceService;
     private String singleMatchServlet;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.gameLocalService = GameLocalSingletonService.getInstance();
-        this.gamePersistenceService = GamePersistenceSingletonService.getInstance();
+        this.gamePersistenceService = new GameService(new GamePersistenceRepository());
+        this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
         this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();
     }
 

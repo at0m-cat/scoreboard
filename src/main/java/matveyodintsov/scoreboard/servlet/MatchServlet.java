@@ -4,7 +4,8 @@ import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.service.GamePersistenceSingletonService;
+import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
+import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.util.PathContainer;
 
 import java.io.IOException;
@@ -12,13 +13,13 @@ import java.io.IOException;
 @WebServlet("/match")
 public class MatchServlet extends HttpServlet {
 
-    private GamePersistenceSingletonService gamePersistenceService;
+    private GameService gamePersistenceService;
     private String errorPage;
     private String singleGamePage;
 
     @Override
     public void init() throws ServletException {
-        this.gamePersistenceService = GamePersistenceSingletonService.getInstance();
+        this.gamePersistenceService = new GameService(new GamePersistenceRepository());
         this.errorPage = PathContainer.redirectToErrorPage();
         this.singleGamePage = PathContainer.redirectToSingleGamePage();
     }
