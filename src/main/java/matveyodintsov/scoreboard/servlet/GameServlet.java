@@ -11,7 +11,7 @@ import matveyodintsov.scoreboard.util.PathContainer;
 import java.io.IOException;
 
 @WebServlet("/match")
-public class MatchServlet extends HttpServlet {
+public class GameServlet extends HttpServlet {
 
     private GameService gamePersistenceService;
     private String errorPage;
@@ -26,13 +26,14 @@ public class MatchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("uuid") == null) {
+        String uuid = request.getParameter("uuid");
+
+        if (uuid == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", "Missing required parameter 'uuid'.");
+            request.setAttribute("message", "Missing required parameter 'uuid'");
             request.getRequestDispatcher(errorPage).forward(request, response);
         }
 
-        String uuid = request.getParameter("uuid");
         try {
             Game game = gamePersistenceService.getByKey(uuid);
             if (game == null) {

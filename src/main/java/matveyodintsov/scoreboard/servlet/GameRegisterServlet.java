@@ -15,7 +15,7 @@ import matveyodintsov.scoreboard.util.PathContainer;
 import java.io.IOException;
 
 @WebServlet("/new-match")
-public class RegisterGameServlet extends HttpServlet {
+public class GameRegisterServlet extends HttpServlet {
 
     private PlayerService playerService;
     private GameService gameLocalService;

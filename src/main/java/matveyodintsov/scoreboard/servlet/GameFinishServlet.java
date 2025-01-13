@@ -14,7 +14,7 @@ import matveyodintsov.scoreboard.util.PathContainer;
 import java.io.IOException;
 
 @WebServlet("/finish-game")
-public class FinishGameServlet extends HttpServlet {
+public class GameFinishServlet extends HttpServlet {
 
     private PlayerService playerService;
     private GameService gameLocalService;
