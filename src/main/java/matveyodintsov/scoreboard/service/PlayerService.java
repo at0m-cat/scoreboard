@@ -9,7 +9,12 @@ public class PlayerService extends BaseService<Player> {
         super(repository);
     }
 
-    public boolean isPlayer(String playerName) {
-        return repository.getByKey(playerName) != null;
+    public Player getOrCreatePlayer(String playerName) {
+        Player player = repository.getByKey(playerName);
+        if (player == null) {
+            player = new Player(playerName);
+            save(player);
+        }
+        return player;
     }
 }

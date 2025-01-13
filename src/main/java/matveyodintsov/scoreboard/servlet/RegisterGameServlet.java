@@ -55,22 +55,22 @@ public class RegisterGameServlet extends HttpServlet {
             return;
         }
 
-        Player firstPlayer;
-        Player secondPlayer;
+        Player firstPlayer = playerService.getOrCreatePlayer(p1);
+        Player secondPlayer = playerService.getOrCreatePlayer(p2);
 
-        if (playerService.isPlayer(p1)) {
-            firstPlayer = playerService.getByKey(p1);
-        } else {
-            firstPlayer = new Player(p1);
-            playerService.save(firstPlayer);
-        }
-
-        if (playerService.isPlayer(p2)) {
-            secondPlayer = playerService.getByKey(p2);
-        } else {
-            secondPlayer = new Player(p2);
-            playerService.save(secondPlayer);
-        }
+//        if (playerService.isPlayer(p1)) {
+//            firstPlayer = playerService.getByKey(p1);
+//        } else {
+//            firstPlayer = new Player(p1);
+//            playerService.save(firstPlayer);
+//        }
+//
+//        if (playerService.isPlayer(p2)) {
+//            secondPlayer = playerService.getByKey(p2);
+//        } else {
+//            secondPlayer = new Player(p2);
+//            playerService.save(secondPlayer);
+//        }
 
         Game game = new Game(firstPlayer, secondPlayer);
         gameLocalService.save(game);
