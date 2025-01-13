@@ -9,7 +9,7 @@
         <%@include file="../css/style.css" %>
     </style>
     <script>
-        <%@include file="../js/redirectToPlayerInfo.js" %>
+        <%@include file="../js/redirect.js" %>
     </script>
 </head>
 <body>
