@@ -50,27 +50,13 @@ public class GameRegisterServlet extends HttpServlet {
 
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", "Player cannot play against themselves.");
+            request.setAttribute("message", "Player cannot play against themselves");
             request.getRequestDispatcher(errorPage).forward(request, response);
             return;
         }
 
         Player firstPlayer = playerService.getOrCreatePlayer(p1);
         Player secondPlayer = playerService.getOrCreatePlayer(p2);
-
-//        if (playerService.isPlayer(p1)) {
-//            firstPlayer = playerService.getByKey(p1);
-//        } else {
-//            firstPlayer = new Player(p1);
-//            playerService.save(firstPlayer);
-//        }
-//
-//        if (playerService.isPlayer(p2)) {
-//            secondPlayer = playerService.getByKey(p2);
-//        } else {
-//            secondPlayer = new Player(p2);
-//            playerService.save(secondPlayer);
-//        }
 
         Game game = new Game(firstPlayer, secondPlayer);
         gameLocalService.save(game);

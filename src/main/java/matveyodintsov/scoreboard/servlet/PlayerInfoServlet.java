@@ -28,13 +28,13 @@ public class PlayerInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
         if (request.getParameter("name") == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", "Name cannot be empty");
             request.getRequestDispatcher(errorPage).forward(request, response);
         }
 
-        String name = request.getParameter("name");
         try {
             Player player = playerService.getByKey(name);
 
