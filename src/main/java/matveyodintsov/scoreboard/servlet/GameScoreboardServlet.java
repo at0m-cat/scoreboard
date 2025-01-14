@@ -22,6 +22,6 @@ public class GameScoreboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("games", gamePersistenceService.getAll());
-        request.getRequestDispatcher(StringContainer.redirectToScoreboardPage).forward(request, response);
+        request.getRequestDispatcher(StringContainer.Route.SCOREBOARD_JSP).forward(request, response);
     }
 }

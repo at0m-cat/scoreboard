@@ -26,24 +26,24 @@ public class GameUpdateScoreServlet extends HttpServlet {
         String uuid = req.getParameter("uuid");
         if (uuid == null) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            req.setAttribute("message", "Missing required parameter 'uuid'.");
-            req.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(req, resp);
+            req.setAttribute("message", StringContainer.Message.ERROR_UUID);
+            req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
         }
 
         try {
             Game currentGame = gameLocalService.getByKey(uuid);
             if (currentGame != null) {
                 req.setAttribute("currentGame", currentGame);
-                getServletContext().getRequestDispatcher(StringContainer.redirectToGameControlPage).forward(req, resp);
+                getServletContext().getRequestDispatcher(StringContainer.Route.GAME_CONTROL_JSP).forward(req, resp);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                req.setAttribute("message", StringContainer.msgGameNotExist);
-                req.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(req, resp);
+                req.setAttribute("message", StringContainer.Message.GAME_NOT_FOUND);
+                req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
             }
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(req, resp);
+            req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
         }
     }
 
@@ -53,8 +53,8 @@ public class GameUpdateScoreServlet extends HttpServlet {
         Game currentGame = gameLocalService.getByKey(uuidParam);
         if (currentGame == null || uuidParam == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            request.setAttribute("message", StringContainer.msgGameNotExist);
-            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
+            request.setAttribute("message", StringContainer.Message.GAME_NOT_EXIST);
+            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
             return;
         }
 

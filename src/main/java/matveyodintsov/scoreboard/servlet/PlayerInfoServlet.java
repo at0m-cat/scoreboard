@@ -27,8 +27,8 @@ public class PlayerInfoServlet extends HttpServlet {
         String name = request.getParameter("name");
         if (name == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", StringContainer.msgPlayerNameEmpty);
-            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
+            request.setAttribute("message", StringContainer.Message.PLAYER_NAME_EMPTY);
+            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
         }
 
         try {
@@ -36,17 +36,17 @@ public class PlayerInfoServlet extends HttpServlet {
 
             if (player == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                request.setAttribute("message", StringContainer.msgPlayerNotFound);
-                request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
+                request.setAttribute("message", StringContainer.Message.PLAYER_NOT_FOUND);
+                request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
             } else {
                 request.setAttribute("player", player);
-                getServletContext().getRequestDispatcher(StringContainer.redirectToPlayerPage).forward(request, response);
+                getServletContext().getRequestDispatcher(StringContainer.Route.PLAYER_INFO_JSP).forward(request, response);
             }
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", e.getMessage());
-            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
+            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
         }
     }
 }

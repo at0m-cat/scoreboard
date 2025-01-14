@@ -15,6 +15,6 @@ public class ErrorServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String message = request.getParameter("message");
         session.setAttribute("message", message);
-        request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
+        request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
     }
 }

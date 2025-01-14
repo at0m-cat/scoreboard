@@ -22,6 +22,6 @@ public class PlayersTableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("players", playerService.getAll());
-        request.getRequestDispatcher(StringContainer.redirectToPlayersTablePage).forward(request, response);
+        request.getRequestDispatcher(StringContainer.Route.PLAYERS_TABLE_JSP).forward(request, response);
     }
 }

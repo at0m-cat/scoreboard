@@ -1,24 +1,29 @@
 package matveyodintsov.scoreboard.util;
 
-import lombok.Getter;
-
-@Getter
 public class StringContainer {
 
-    public static String redirectToErrorPage = "/WEB-INF/error.jsp";
-    public static String redirectToGameControlPage = "/WEB-INF/game-control.jsp";
-    public static String redirectToGameRegPage = "/WEB-INF/match-reg.jsp";
-    public static String redirectToScoreboardPage = "/WEB-INF/match-score.jsp";
-    public static String redirectToSingleGamePage = "/WEB-INF/single-match.jsp";
-    public static String redirectToPlayersTablePage = "/WEB-INF/players-table.jsp";
-    public static String redirectToPlayerPage = "/WEB-INF/player-info.jsp";
-    public static String redirectToSingleGameServlet = "/match";
-    public static String redirectToGameScoreUpdateServlet = "/match-score";
+    public static final class Route {
+        public static final String ERROR_JSP = "/WEB-INF/error.jsp";
+        public static final String GAME_CONTROL_JSP = "/WEB-INF/game-control.jsp";
+        public static final String REG_JSP = "/WEB-INF/match-reg.jsp";
+        public static final String SCOREBOARD_JSP = "/WEB-INF/match-score.jsp";
+        public static final String MATCH_JSP = "/WEB-INF/single-match.jsp";
+        public static final String PLAYERS_TABLE_JSP = "/WEB-INF/players-table.jsp";
+        public static final String PLAYER_INFO_JSP = "/WEB-INF/player-info.jsp";
+        public static final String MATCH_SERVLET = "/match";
+        public static final String MATCH_SCORE_SERVLET = "/match-score";
+    }
 
-    public static String msgInvalidParam = "Invalid parameters";
-    public static String msgPlayerThemselves = "Player cannot play against themselves";
-    public static String msgErrorUUID = "Missing required parameter 'uuid'";
-    public static String msgPlayerNameEmpty = "Name cannot be empty";
-    public static String msgPlayerNotFound = "Player not found";
-    public static String msgGameNotExist = "Match does not exist";
+    public static final class Message {
+        public static final String INVALID_PARAM = "Invalid parameters";
+        public static final String PLAYER_THEMSELVES = "Player cannot play against themselves";
+        public static final String ERROR_UUID = "Missing required parameter 'uuid'";
+        public static final String PLAYER_NAME_EMPTY = "Name cannot be empty";
+        public static final String PLAYER_NOT_FOUND = "Player not found";
+        public static final String GAME_NOT_EXIST = "Match does not exist";
+        public static final String GAME_NOT_FOUND = "Match not found";
+    }
+
+    private StringContainer() {
+    }
 }

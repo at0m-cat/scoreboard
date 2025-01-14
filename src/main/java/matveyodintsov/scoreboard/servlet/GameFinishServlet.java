@@ -51,6 +51,6 @@ public class GameFinishServlet extends HttpServlet {
             playerService.save(currentGame.getSecondPlayer());
         }
 
-        response.sendRedirect(StringContainer.redirectToSingleGameServlet + "?uuid=" + uuid);
+        response.sendRedirect(StringContainer.Route.MATCH_SERVLET + "?uuid=" + uuid);
     }
 }
