@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.PlayerService;
-import matveyodintsov.scoreboard.util.PathContainer;
+import matveyodintsov.scoreboard.util.StringContainer;
 
 import java.io.IOException;
 
@@ -16,23 +16,19 @@ import java.io.IOException;
 public class PlayerInfoServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private String errorPage;
-    private String playerInfoPage;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.errorPage = PathContainer.redirectToErrorPage();
-        this.playerInfoPage = PathContainer.redirectToPlayerPage();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
-        if (request.getParameter("name") == null) {
+        if (name == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", "Name cannot be empty");
-            request.getRequestDispatcher(errorPage).forward(request, response);
+            request.setAttribute("message", StringContainer.msgPlayerNameEmpty);
+            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
         }
 
         try {
@@ -40,18 +36,17 @@ public class PlayerInfoServlet extends HttpServlet {
 
             if (player == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                request.setAttribute("message", "Player not found");
-                request.getRequestDispatcher(errorPage).forward(request, response);
+                request.setAttribute("message", StringContainer.msgPlayerNotFound);
+                request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
             } else {
                 request.setAttribute("player", player);
-                getServletContext().getRequestDispatcher(playerInfoPage).forward(request, response);
+                getServletContext().getRequestDispatcher(StringContainer.redirectToPlayerPage).forward(request, response);
             }
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher(errorPage).forward(request, response);
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
         }
-
     }
 }

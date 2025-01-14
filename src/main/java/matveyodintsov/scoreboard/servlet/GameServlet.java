@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 import matveyodintsov.scoreboard.service.GameService;
-import matveyodintsov.scoreboard.util.PathContainer;
+import matveyodintsov.scoreboard.util.StringContainer;
 
 import java.io.IOException;
 
@@ -14,24 +14,19 @@ import java.io.IOException;
 public class GameServlet extends HttpServlet {
 
     private GameService gamePersistenceService;
-    private String errorPage;
-    private String singleGamePage;
 
     @Override
     public void init() throws ServletException {
         this.gamePersistenceService = new GameService(new GamePersistenceRepository());
-        this.errorPage = PathContainer.redirectToErrorPage();
-        this.singleGamePage = PathContainer.redirectToSingleGamePage();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuid = request.getParameter("uuid");
-
         if (uuid == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", "Missing required parameter 'uuid'");
-            request.getRequestDispatcher(errorPage).forward(request, response);
+            request.setAttribute("message", StringContainer.msgErrorUUID);
+            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
         }
 
         try {
@@ -39,15 +34,15 @@ public class GameServlet extends HttpServlet {
             if (game == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", "Match not found");
-                request.getRequestDispatcher(errorPage).forward(request, response);
+                request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
             } else {
                 request.setAttribute("game", game);
-                getServletContext().getRequestDispatcher(singleGamePage).forward(request, response);
+                getServletContext().getRequestDispatcher(StringContainer.redirectToSingleGamePage).forward(request, response);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher(errorPage).forward(request, response);
+            request.getRequestDispatcher(StringContainer.redirectToErrorPage).forward(request, response);
         }
     }
 }

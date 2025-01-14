@@ -8,7 +8,7 @@ import matveyodintsov.scoreboard.service.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.util.PathContainer;
+import matveyodintsov.scoreboard.util.StringContainer;
 
 
 import java.io.IOException;
@@ -19,14 +19,12 @@ public class GameFinishServlet extends HttpServlet {
     private PlayerService playerService;
     private GameService gameLocalService;
     private GameService gamePersistenceService;
-    private String singleMatchServlet;
 
     @Override
     public void init() throws ServletException {
         this.playerService = new PlayerService(new PlayerPersistenceRepository());
         this.gamePersistenceService = new GameService(new GamePersistenceRepository());
         this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
-        this.singleMatchServlet = PathContainer.redirectToSingleGameServlet();
     }
 
     @Override
@@ -53,6 +51,6 @@ public class GameFinishServlet extends HttpServlet {
             playerService.save(currentGame.getSecondPlayer());
         }
 
-        response.sendRedirect(singleMatchServlet + "?uuid=" + uuid);
+        response.sendRedirect(StringContainer.redirectToSingleGameServlet + "?uuid=" + uuid);
     }
 }
