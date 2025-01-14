@@ -2,6 +2,9 @@ package matveyodintsov.scoreboard.util;
 
 public class StringContainer {
 
+    private StringContainer() {
+    }
+
     public static final class Route {
         public static final String ERROR_JSP = "/WEB-INF/error.jsp";
         public static final String GAME_CONTROL_JSP = "/WEB-INF/game-control.jsp";
@@ -22,8 +25,5 @@ public class StringContainer {
         public static final String PLAYER_NOT_FOUND = "Player not found";
         public static final String GAME_NOT_EXIST = "Match does not exist";
         public static final String GAME_NOT_FOUND = "Match not found";
-    }
-
-    private StringContainer() {
     }
 }
