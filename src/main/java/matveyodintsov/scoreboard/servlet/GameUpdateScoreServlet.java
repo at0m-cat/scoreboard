@@ -1,9 +1,11 @@
 package matveyodintsov.scoreboard.servlet;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.SingletonServiceFactory;
@@ -18,7 +20,8 @@ public class GameUpdateScoreServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
+        this.gameLocalService = SingletonServiceFactory
+                .getInstance(new GameService(new GameLocalRepository())).getService();
     }
 
     @Override

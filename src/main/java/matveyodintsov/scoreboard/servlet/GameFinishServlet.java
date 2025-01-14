@@ -39,7 +39,6 @@ public class GameFinishServlet extends HttpServlet {
 
             currentGame.getFirstPlayer().setTotalMatches(currentGame.getFirstPlayer().getTotalMatches() + 1);
             currentGame.getSecondPlayer().setTotalMatches(currentGame.getSecondPlayer().getTotalMatches() + 1);
-
             if (currentGame.getWinner().equals("firstPlayer")) {
                 currentGame.getFirstPlayer().setTotalWins(currentGame.getFirstPlayer().getTotalWins() + 1);
             }
