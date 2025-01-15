@@ -23,8 +23,6 @@
             <table>
                 <thead>
                 <tr>
-<%--                    <th>ID Game</th>--%>
-<%--                    <th>UUID Game</th>--%>
                     <th>Player 1</th>
                     <th>Player 2</th>
                     <th>Scores</th>
@@ -34,8 +32,6 @@
                 <tbody>
                 <c:forEach var="game" items="${games}">
                     <tr onclick="redirectToMatch('${game.uuid}')" style="cursor: pointer;">
-<%--                        <td>${game.id}</td>--%>
-<%--                        <td>${game.uuid}</td>--%>
                         <td>${game.firstPlayer.name}</td>
                         <td>${game.secondPlayer.name}</td>
                         <td>${game.firstPlayerScore} : ${game.secondPlayerScore}</td>
@@ -44,6 +40,23 @@
                 </c:forEach>
                 </tbody>
             </table>
+<%--            <section class="pagination">--%>
+<%--                <ul>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn">First</button>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn" id="prevPage" disabled>Prev</button>--%>
+<%--                    </li>--%>
+<%--                    <li><span id="currentPageDisplay">Page 1</span></li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn" id="nextPage">Next</button>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn">Last</button>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--            </section>--%>
             <section class="button-container">
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>

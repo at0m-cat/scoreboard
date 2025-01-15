@@ -328,6 +328,52 @@ h3 {
     font-weight: bold;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #d1d1d1;
+    margin-bottom: 25px;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    display: inline-flex;
+    align-items: center;
+}
+
+.pagination .btn {
+    background-color: #26396c;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.pagination .btn:hover {
+    background-color: #3a3d40;
+    transform: scale(1.05);
+}
+
+.pagination .btn:disabled {
+    background-color: #474d57;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     main {
         width: 95%;

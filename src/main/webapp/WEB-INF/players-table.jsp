@@ -39,6 +39,23 @@
                 </c:forEach>
                 </tbody>
             </table>
+<%--            <section class="pagination">--%>
+<%--                <ul>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn">First</button>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn" id="prevPage" disabled>Prev</button>--%>
+<%--                    </li>--%>
+<%--                    <li><span id="currentPageDisplay">Page 1</span></li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn" id="nextPage">Next</button>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <button onclick=" " class="btn">Last</button>--%>
+<%--                    </li>--%>
+<%--                </ul>--%>
+<%--            </section>--%>
             <section class="button-container">
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>
