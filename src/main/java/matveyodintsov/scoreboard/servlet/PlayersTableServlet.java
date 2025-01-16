@@ -23,7 +23,11 @@ public class PlayersTableServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("players", playerService.getAll());
+        int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
+        if (page < 1) {
+            page = 1;
+        }
+        request.setAttribute("players", playerService.getPage(page));
         request.getRequestDispatcher(StringContainer.Route.PLAYERS_TABLE_JSP).forward(request, response);
     }
 }

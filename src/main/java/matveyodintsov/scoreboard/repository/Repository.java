@@ -14,4 +14,6 @@ public interface Repository<T> {
 
     long count();
 
+    List<T> findAllWithPage(int offset, int pageSize);
+
 }

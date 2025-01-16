@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class BaseHibernateRepository<T> implements Repository<T> {
 
@@ -52,6 +53,21 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Long> query = session.createQuery("select count(*) from " + entityType.getSimpleName(), Long.class);
             return query.uniqueResult();
+        }
+    }
+
+    @Override
+    public List<T> findAllWithPage(int offset, int limit) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<T> query = session.createQuery("from " + entityType.getSimpleName(), entityType);
+            query.setFirstResult(offset);
+            query.setMaxResults(limit);
+            if (!query.getResultList().isEmpty()) {
+                return query.getResultList();
+            } else {
+                throw new NoSuchElementException();
+            }
+
         }
     }
 }

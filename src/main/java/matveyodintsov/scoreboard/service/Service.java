@@ -4,12 +4,16 @@ import java.util.List;
 
 public interface Service<T> {
 
-    public T getByKey(String key);
+    T getByKey(String key);
 
-    public List<T> getAll();
+    List<T> getAll();
 
-    public void save(T val);
+    void save(T val);
 
-    public void delete(T val);
+    void delete(T val);
+
+    long count();
+
+    List<T> getPage(int page);
 
 }

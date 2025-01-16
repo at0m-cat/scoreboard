@@ -49,4 +49,14 @@ public class GameLocalRepository implements Repository<Game> {
     public long count() {
         return repository.size();
     }
+
+    @Override
+    public List<Game> findAllWithPage(int offset, int pageSize) {
+        lock.readLock().lock();
+        try {
+            return new ArrayList<>(cachedGames.subList(offset, offset + pageSize));
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
 }

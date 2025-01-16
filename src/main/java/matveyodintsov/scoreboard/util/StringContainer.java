@@ -5,6 +5,10 @@ public class StringContainer {
     private StringContainer() {
     }
 
+    public static final class Constants {
+        public static final int PAGE_SIZE = 10;
+    }
+
     public static final class Route {
         public static final String ERROR_JSP = "/WEB-INF/error.jsp";
         public static final String GAME_CONTROL_JSP = "/WEB-INF/game-control.jsp";

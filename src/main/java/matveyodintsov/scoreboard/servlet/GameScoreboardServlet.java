@@ -21,7 +21,11 @@ public class GameScoreboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("games", gamePersistenceService.getAll());
+        int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
+        if (page < 1) {
+            page = 1;
+        }
+        request.setAttribute("games", gamePersistenceService.getPage(page));
         request.getRequestDispatcher(StringContainer.Route.SCOREBOARD_JSP).forward(request, response);
     }
 }
