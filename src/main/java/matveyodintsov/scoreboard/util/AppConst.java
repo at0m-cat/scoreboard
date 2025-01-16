@@ -6,7 +6,7 @@ public class AppConst {
     }
 
     public static final class Constants {
-        public static final int PAGE_SIZE = 10;
+        public static final int PAGE_SIZE = 7;
     }
 
     public static final class Route {
