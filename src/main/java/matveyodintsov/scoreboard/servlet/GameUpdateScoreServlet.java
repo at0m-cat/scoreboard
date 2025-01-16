@@ -61,6 +61,8 @@ public class GameUpdateScoreServlet extends HttpServlet {
             return;
         }
 
+        // todo: написать калькулятор ведения игры!
+
         String player = request.getParameter("player");
         String action = request.getParameter("action");
         if ("firstPlayer".equals(player)) {
