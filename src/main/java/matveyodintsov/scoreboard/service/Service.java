@@ -12,7 +12,7 @@ public interface Service<T> {
 
     void delete(T val);
 
-    long count();
+    long getMaxPageNum();
 
     List<T> getPage(int page);
 

@@ -25,7 +25,17 @@ public class GameScoreboardServlet extends HttpServlet {
         if (page < 1) {
             page = 1;
         }
-        request.setAttribute("games", gamePersistenceService.getPage(page));
-        request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
+
+        try {
+            int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum());
+            request.setAttribute("games", gamePersistenceService.getPage(page));
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", maxPage);
+            request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("message", AppConst.Message.PAGE_NOT_FOUND);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+        }
     }
 }

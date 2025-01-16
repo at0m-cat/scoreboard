@@ -29,5 +29,6 @@ public class AppConst {
         public static final String PLAYER_NOT_FOUND = "Player not found";
         public static final String GAME_NOT_EXIST = "Match does not exist";
         public static final String GAME_NOT_FOUND = "Match not found";
+        public static final String PAGE_NOT_FOUND = "Page not found";
     }
 }

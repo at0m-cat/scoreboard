@@ -10,6 +10,7 @@
     </style>
     <script>
         <%@include file="../js/redirect.js" %>
+        <%@include file="../js/pagination.js" %>
     </script>
 </head>
 <body>
@@ -39,23 +40,23 @@
                 </c:forEach>
                 </tbody>
             </table>
-<%--            <section class="pagination">--%>
-<%--                <ul>--%>
-<%--                    <li>--%>
-<%--                        <button onclick=" " class="btn">First</button>--%>
-<%--                    </li>--%>
-<%--                    <li>--%>
-<%--                        <button onclick=" " class="btn" id="prevPage" disabled>Prev</button>--%>
-<%--                    </li>--%>
-<%--                    <li><span id="currentPageDisplay">Page 1</span></li>--%>
-<%--                    <li>--%>
-<%--                        <button onclick=" " class="btn" id="nextPage">Next</button>--%>
-<%--                    </li>--%>
-<%--                    <li>--%>
-<%--                        <button onclick=" " class="btn">Last</button>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </section>--%>
+            <section class="pagination">
+                <ul>
+                    <li>
+                        <button onclick="goToPage(1, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>First</button>
+                    </li>
+                    <li>
+                        <button onclick="goToPage(${currentPage - 1}, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>Prev</button>
+                    </li>
+                    <li><span id="currentPageDisplay">Page ${currentPage} of ${totalPages}</span></li>
+                    <li>
+                        <button onclick="goToPage(${currentPage + 1}, ${totalPages})" class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Next</button>
+                    </li>
+                    <li>
+                        <button onclick="goToPage(${totalPages}, ${totalPages})" class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Last</button>
+                    </li>
+                </ul>
+            </section>
             <section class="button-container">
                 <form method="get" action="/">
                     <button type="submit" class="btn">Start page</button>

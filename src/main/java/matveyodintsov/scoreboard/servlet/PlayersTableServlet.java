@@ -27,7 +27,17 @@ public class PlayersTableServlet extends HttpServlet {
         if (page < 1) {
             page = 1;
         }
-        request.setAttribute("players", playerService.getPage(page));
-        request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);
+
+        try {
+            int maxPage = Math.toIntExact(playerService.getMaxPageNum());
+            request.setAttribute("players", playerService.getPage(page));
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", maxPage);
+            request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("message", AppConst.Message.PAGE_NOT_FOUND);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+        }
     }
 }

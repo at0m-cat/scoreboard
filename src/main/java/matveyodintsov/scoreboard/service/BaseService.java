@@ -8,11 +8,11 @@ import java.util.List;
 public abstract class BaseService<T> implements Service<T> {
 
     protected final Repository<T> repository;
-    private final int PAGE_SIZE;
+    private final int pageSize;
 
     public BaseService(Repository<T> repository) {
         this.repository = repository;
-        this.PAGE_SIZE = AppConst.Constants.PAGE_SIZE;
+        this.pageSize = AppConst.Constants.PAGE_SIZE;
     }
 
     @Override
@@ -36,13 +36,17 @@ public abstract class BaseService<T> implements Service<T> {
     }
 
     @Override
-    public long count() {
-        return repository.count();
+    public long getMaxPageNum() {
+        long totalItems = repository.count();
+        if (totalItems == 0) {
+            return 0;
+        }
+        return (totalItems + pageSize - 1) / pageSize;
     }
 
     @Override
     public List<T> getPage(int page) {
-        int offset = (page - 1) * PAGE_SIZE;
-        return repository.findAllWithPage(offset, PAGE_SIZE);
+        int offset = (page - 1) * pageSize;
+        return repository.findAllWithPage(offset, pageSize);
     }
 }

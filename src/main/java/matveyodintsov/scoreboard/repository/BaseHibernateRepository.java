@@ -71,7 +71,6 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
             } else {
                 throw new NoSuchElementException();
             }
-
         }
     }
 }
