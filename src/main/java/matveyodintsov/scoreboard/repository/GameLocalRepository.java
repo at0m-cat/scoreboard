@@ -44,4 +44,9 @@ public class GameLocalRepository implements Repository<Game> {
     public void delete(Game game) {
         repository.remove(game.getUuid());
     }
+
+    @Override
+    public long count() {
+        return repository.size();
+    }
 }

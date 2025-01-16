@@ -4,12 +4,14 @@ import java.util.List;
 
 public interface Repository<T> {
 
-    public T getByKey(String key);
+    T getByKey(String key);
 
-    public List<T> getAll();
+    List<T> getAll();
 
-    public void save(T object);
+    void save(T object);
 
-    public void delete(T object);
+    void delete(T object);
+
+    long count();
 
 }

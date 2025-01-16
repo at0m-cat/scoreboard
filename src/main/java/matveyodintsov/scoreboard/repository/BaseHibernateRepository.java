@@ -46,4 +46,12 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public long count() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Long> query = session.createQuery("select count(*) from " + entityType.getSimpleName(), Long.class);
+            return query.uniqueResult();
+        }
+    }
 }
