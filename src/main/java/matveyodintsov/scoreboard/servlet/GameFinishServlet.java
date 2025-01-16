@@ -8,7 +8,7 @@ import matveyodintsov.scoreboard.service.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 
 import java.io.IOException;
@@ -50,6 +50,6 @@ public class GameFinishServlet extends HttpServlet {
             playerService.save(currentGame.getSecondPlayer());
         }
 
-        response.sendRedirect(StringContainer.Route.MATCH_SERVLET + "?uuid=" + uuid);
+        response.sendRedirect(AppConst.Route.MATCH_SERVLET + "?uuid=" + uuid);
     }
 }

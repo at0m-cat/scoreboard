@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
@@ -28,6 +28,6 @@ public class PlayersTableServlet extends HttpServlet {
             page = 1;
         }
         request.setAttribute("players", playerService.getPage(page));
-        request.getRequestDispatcher(StringContainer.Route.PLAYERS_TABLE_JSP).forward(request, response);
+        request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);
     }
 }

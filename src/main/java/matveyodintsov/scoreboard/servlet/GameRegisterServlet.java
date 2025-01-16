@@ -10,7 +10,7 @@ import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.PlayerService;
 import matveyodintsov.scoreboard.service.SingletonServiceFactory;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class GameRegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher(StringContainer.Route.REG_JSP).forward(request, response);
+        getServletContext().getRequestDispatcher(AppConst.Route.REG_JSP).forward(request, response);
     }
 
     @Override
@@ -37,14 +37,14 @@ public class GameRegisterServlet extends HttpServlet {
         String p2 = request.getParameter("p2");
         if (p1 == null || p2 == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", StringContainer.Message.INVALID_PARAM);
-            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+            request.setAttribute("message", AppConst.Message.INVALID_PARAM);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
         }
 
         if (p1.equals(p2)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", StringContainer.Message.PLAYER_THEMSELVES);
-            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+            request.setAttribute("message", AppConst.Message.PLAYER_THEMSELVES);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             return;
         }
 
@@ -54,6 +54,6 @@ public class GameRegisterServlet extends HttpServlet {
         Game game = new Game(firstPlayer, secondPlayer);
         gameLocalService.save(game);
 
-        response.sendRedirect(StringContainer.Route.MATCH_SCORE_SERVLET + "?uuid=" + game.getUuid());
+        response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + game.getUuid());
     }
 }

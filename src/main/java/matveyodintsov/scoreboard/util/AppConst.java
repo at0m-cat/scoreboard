@@ -1,8 +1,8 @@
 package matveyodintsov.scoreboard.util;
 
-public class StringContainer {
+public class AppConst {
 
-    private StringContainer() {
+    private AppConst() {
     }
 
     public static final class Constants {

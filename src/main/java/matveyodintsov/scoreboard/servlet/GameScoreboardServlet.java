@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 import matveyodintsov.scoreboard.service.GameService;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
@@ -26,6 +26,6 @@ public class GameScoreboardServlet extends HttpServlet {
             page = 1;
         }
         request.setAttribute("games", gamePersistenceService.getPage(page));
-        request.getRequestDispatcher(StringContainer.Route.SCOREBOARD_JSP).forward(request, response);
+        request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
     }
 }

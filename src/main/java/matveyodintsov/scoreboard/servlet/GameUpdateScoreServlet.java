@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.service.GameService;
 import matveyodintsov.scoreboard.service.SingletonServiceFactory;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
@@ -29,24 +29,24 @@ public class GameUpdateScoreServlet extends HttpServlet {
         String uuid = req.getParameter("uuid");
         if (uuid == null) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            req.setAttribute("message", StringContainer.Message.ERROR_UUID);
-            req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
+            req.setAttribute("message", AppConst.Message.ERROR_UUID);
+            req.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(req, resp);
         }
 
         try {
             Game currentGame = gameLocalService.getByKey(uuid);
             if (currentGame != null) {
                 req.setAttribute("currentGame", currentGame);
-                getServletContext().getRequestDispatcher(StringContainer.Route.GAME_CONTROL_JSP).forward(req, resp);
+                getServletContext().getRequestDispatcher(AppConst.Route.GAME_CONTROL_JSP).forward(req, resp);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                req.setAttribute("message", StringContainer.Message.GAME_NOT_FOUND);
-                req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
+                req.setAttribute("message", AppConst.Message.GAME_NOT_FOUND);
+                req.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(req, resp);
             }
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(req, resp);
+            req.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(req, resp);
         }
     }
 
@@ -56,8 +56,8 @@ public class GameUpdateScoreServlet extends HttpServlet {
         Game currentGame = gameLocalService.getByKey(uuidParam);
         if (currentGame == null || uuidParam == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            request.setAttribute("message", StringContainer.Message.GAME_NOT_EXIST);
-            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+            request.setAttribute("message", AppConst.Message.GAME_NOT_EXIST);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             return;
         }
 

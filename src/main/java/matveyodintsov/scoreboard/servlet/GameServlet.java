@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
 import matveyodintsov.scoreboard.service.GameService;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
@@ -27,24 +27,24 @@ public class GameServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         if (uuid == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute("message", StringContainer.Message.ERROR_UUID);
-            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+            request.setAttribute("message", AppConst.Message.ERROR_UUID);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
         }
 
         try {
             Game game = gamePersistenceService.getByKey(uuid);
             if (game == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                request.setAttribute("message", StringContainer.Message.GAME_NOT_FOUND);
-                request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+                request.setAttribute("message", AppConst.Message.GAME_NOT_FOUND);
+                request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             } else {
                 request.setAttribute("game", game);
-                getServletContext().getRequestDispatcher(StringContainer.Route.MATCH_JSP).forward(request, response);
+                getServletContext().getRequestDispatcher(AppConst.Route.MATCH_JSP).forward(request, response);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher(StringContainer.Route.ERROR_JSP).forward(request, response);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
         }
     }
 }

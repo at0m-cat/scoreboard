@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.repository.Repository;
-import matveyodintsov.scoreboard.util.StringContainer;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public abstract class BaseService<T> implements Service<T> {
 
     public BaseService(Repository<T> repository) {
         this.repository = repository;
-        this.PAGE_SIZE = StringContainer.Constants.PAGE_SIZE;
+        this.PAGE_SIZE = AppConst.Constants.PAGE_SIZE;
     }
 
     @Override
