@@ -4,6 +4,7 @@ import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -64,6 +65,9 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
             query.setMaxResults(limit);
             if (!query.getResultList().isEmpty()) {
                 return query.getResultList();
+            }
+            if (count() == 0) {
+                return new ArrayList<>();
             } else {
                 throw new NoSuchElementException();
             }
