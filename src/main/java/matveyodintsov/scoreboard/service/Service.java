@@ -14,6 +14,6 @@ public interface Service<T> {
 
     long getMaxPageNum();
 
-    List<T> getPage(int page);
+    List<T> findAllWithPage(int page);
 
 }

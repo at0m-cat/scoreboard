@@ -45,7 +45,7 @@ public abstract class BaseService<T> implements Service<T> {
     }
 
     @Override
-    public List<T> getPage(int page) {
+    public List<T> findAllWithPage(int page) {
         int offset = (page - 1) * pageSize;
         return repository.findAllWithPage(offset, pageSize);
     }

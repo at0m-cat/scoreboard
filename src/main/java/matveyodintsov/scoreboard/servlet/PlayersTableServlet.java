@@ -30,7 +30,7 @@ public class PlayersTableServlet extends HttpServlet {
 
         try {
             int maxPage = Math.toIntExact(playerService.getMaxPageNum());
-            request.setAttribute("players", playerService.getPage(page));
+            request.setAttribute("players", playerService.findAllWithPage(page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);

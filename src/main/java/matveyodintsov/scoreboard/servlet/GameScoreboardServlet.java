@@ -28,7 +28,7 @@ public class GameScoreboardServlet extends HttpServlet {
 
         try {
             int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum());
-            request.setAttribute("games", gamePersistenceService.getPage(page));
+            request.setAttribute("games", gamePersistenceService.findAllWithPage(page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
