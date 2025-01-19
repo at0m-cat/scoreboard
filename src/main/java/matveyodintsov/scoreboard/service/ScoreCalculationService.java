@@ -11,8 +11,9 @@ import java.util.Random;
 
 public class ScoreCalculationService {
 
-    private final Random RANDOM;
+    private final Random random;
     private final Map<Player, Points> pointsMap;
+    private final Game currentGame;
 
     enum SymmetryDice {
         EVEN,
@@ -29,38 +30,36 @@ public class ScoreCalculationService {
         GAME
     }
 
-    protected ScoreCalculationService() {
-        this.RANDOM = new Random();
+    protected ScoreCalculationService(Game game) {
+        this.currentGame = game;
+        this.random = new Random();
         this.pointsMap = new HashMap<>();
     }
 
-    public void play(Game game) {
+    public void play() {
     }
 
     private SymmetryDice throwDice() {
-        int diceFirst = RANDOM.nextInt(6) + 1;
-        int diceSecond = RANDOM.nextInt(6) + 1;
+        int diceFirst = random.nextInt(6) + 1;
+        int diceSecond = random.nextInt(6) + 1;
         int sum = diceFirst + diceSecond;
         return sum % 2 == 0 ? SymmetryDice.EVEN : SymmetryDice.UNEVEN;
     }
 
-    private void CalcScore(Map<Player, Points> playerPointsMap) {
+    private void CalcScore() {
     }
 
 
-    private void tennisDraw(Game game) {
+    private void tennisDraw() {
     }
 
-    private Game tennisGame(Game game) {
-        return game;
+    private void tennisGame() {
     }
 
-    private Game tennisSet(Game game) {
-        return game;
+    private void tennisSet() {
     }
 
-    private Game tennisTieBreak(Game game) {
-        return game;
+    private void tennisTieBreak() {
     }
 
 }

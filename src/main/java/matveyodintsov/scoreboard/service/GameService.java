@@ -10,11 +10,11 @@ public class GameService extends BaseService<Game> {
         super(repository);
     }
 
-    public ScoreCalculationService getScoreService() {
+    public ScoreCalculationService getScoreService(Game game) {
         if (scoreService == null) {
             synchronized (this) {
                 if (scoreService == null) {
-                    scoreService = new ScoreCalculationService();
+                    scoreService = new ScoreCalculationService(game);
                 }
             }
         }
