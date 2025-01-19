@@ -42,6 +42,7 @@ public class GameLocalRepository implements Repository<Game> {
 
     @Override
     public void delete(Game game) {
+        cachedGames.remove(game);
         repository.remove(game.getUuid());
     }
 

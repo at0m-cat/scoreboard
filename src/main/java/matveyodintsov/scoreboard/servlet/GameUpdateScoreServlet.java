@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import matveyodintsov.scoreboard.repository.GameLocalRepository;
 import matveyodintsov.scoreboard.service.GameService;
+import matveyodintsov.scoreboard.service.ScoreCalculationService;
 import matveyodintsov.scoreboard.service.SingletonServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
