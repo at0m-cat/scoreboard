@@ -12,7 +12,7 @@ public class GameLocalRepository implements Repository<Game> {
 
     private final Map<UUID, Game> repository = new ConcurrentHashMap<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    private volatile List<Game> cachedGames;
+    private volatile List<Game> cachedGames = new ArrayList<>();
 
     @Override
     public Game getByKey(String uuid) {
@@ -23,7 +23,7 @@ public class GameLocalRepository implements Repository<Game> {
     public List<Game> getAll() {
         lock.readLock().lock();
         try {
-            return new ArrayList<>(cachedGames);
+            return cachedGames;
         } finally {
             lock.readLock().unlock();
         }
@@ -52,6 +52,9 @@ public class GameLocalRepository implements Repository<Game> {
 
     @Override
     public long countWithName(String playerName) {
+        if (cachedGames.isEmpty()) {
+            return 0;
+        }
         lock.readLock().lock();
         try {
             if (playerName == null || playerName.trim().isEmpty()) {
@@ -67,6 +70,10 @@ public class GameLocalRepository implements Repository<Game> {
     }
 
     public List<Game> findAllWithPageAndName(String name, int offset, int pageSize) {
+        if (cachedGames.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         if (name == null || name.trim().isEmpty()) {
             return cachedGames.stream()
                     .skip(offset)

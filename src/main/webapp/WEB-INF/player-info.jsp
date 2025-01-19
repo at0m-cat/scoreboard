@@ -13,6 +13,9 @@
 <body>
 <header>
     <h1>Player Info - ${player.name}</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 <main>
     <div class="player-card">

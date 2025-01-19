@@ -14,6 +14,7 @@ public class AppConst {
         public static final String GAME_CONTROL_JSP = "/WEB-INF/game-control.jsp";
         public static final String REG_JSP = "/WEB-INF/match-reg.jsp";
         public static final String SCOREBOARD_JSP = "/WEB-INF/match-score.jsp";
+        public static final String LOCAL_GAME_TABLE_JSP = "/WEB-INF/local-game-table.jsp";
         public static final String MATCH_JSP = "/WEB-INF/single-match.jsp";
         public static final String PLAYERS_TABLE_JSP = "/WEB-INF/players-table.jsp";
         public static final String PLAYER_INFO_JSP = "/WEB-INF/player-info.jsp";

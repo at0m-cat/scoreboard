@@ -15,6 +15,9 @@
 <body>
 <header>
     <h1>Match details</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 <main>
     <div class="match-card">

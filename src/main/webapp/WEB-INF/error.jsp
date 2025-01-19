@@ -12,6 +12,9 @@
 </head>
 <header>
     <h1><%=response.getStatus()%> Error</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 <main>
     <form>

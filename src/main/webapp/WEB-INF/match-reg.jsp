@@ -11,6 +11,9 @@
 <body>
 <header>
     <h1>Game Registration</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 <main>
     <section class="button-container">

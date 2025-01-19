@@ -15,15 +15,25 @@
 <main>
     <section class="button-container">
         <form method="get" action="new-match">
-            <button type="submit" class="btn">Register Game</button>
+            <button type="submit" class="btn">New match</button>
         </form>
         <form method="get" action="players">
-            <button type="submit" class="btn">All players</button>
-        </form>
-        <form method="get" action="matches">
-            <button type="submit" class="btn">All matches</button>
+            <button type="submit" class="btn">Players</button>
         </form>
     </section>
+    <br>
+    <section class="button-container">
+        <form method="get" action="matches">
+            <button type="submit" class="btn">Finished matches</button>
+        </form>
+    </section>
+    <br>
+    <section class="button-container">
+        <form method="get" action="local">
+            <button type="submit" class="btn">Current matches</button>
+        </form>
+    </section>
+
 </main>
 </body>
 </html>

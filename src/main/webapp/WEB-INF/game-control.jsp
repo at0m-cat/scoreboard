@@ -19,6 +19,9 @@
 <body>
 <header>
     <h1>Game Control</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 
 <div id="loadingIndicator" style="display: none;">

@@ -18,6 +18,9 @@
 <body>
 <header>
     <h1>Players</h1>
+    <form method="get" action="/">
+        <button type="submit" class="header-button">Main</button>
+    </form>
 </header>
 <main>
     <c:choose>

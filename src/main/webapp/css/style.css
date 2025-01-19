@@ -14,6 +14,7 @@ header {
     color: #fff;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 header h1 {
@@ -23,6 +24,37 @@ header h1 {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+.header-button {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    padding: 10px 25px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fadeInButton 0.8s ease-in-out forwards;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.05);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.header-button:active {
+    transform: translateY(-50%) scale(0.95);
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 main {
@@ -421,6 +453,21 @@ h3 {
 .pagination.search .btn {
     padding: 10px 20px;
     font-size: 16px;
+}
+
+@keyframes fadeInButton {
+    0% {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-50%) scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
 }
 
 @media (max-width: 768px) {
