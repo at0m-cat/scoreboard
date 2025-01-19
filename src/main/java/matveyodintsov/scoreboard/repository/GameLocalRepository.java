@@ -1,6 +1,7 @@
 package matveyodintsov.scoreboard.repository;
 
 import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.util.AppConst;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +43,9 @@ public class GameLocalRepository implements Repository<Game> {
 
     @Override
     public void delete(Game game) {
-        cachedGames.remove(game);
+        if (cachedGames.size() > (AppConst.Constants.PAGE_SIZE)) {
+            cachedGames.subList(0, AppConst.Constants.PAGE_SIZE);
+        }
         repository.remove(game.getUuid());
     }
 

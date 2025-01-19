@@ -58,6 +58,9 @@ public class PlayerPersistenceRepository extends BaseHibernateRepository<Player>
     @Override
     public List<Player> findAllWithPageAndName(String playerName, int offset, int limit) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            if (count() == 0) {
+                return Collections.emptyList();
+            }
 
             String hql;
             Query<Player> query;
@@ -77,10 +80,6 @@ public class PlayerPersistenceRepository extends BaseHibernateRepository<Player>
             List<Player> result = query.getResultList();
             if (!result.isEmpty()) {
                 return result;
-            }
-
-            if (count() == 0) {
-                return Collections.emptyList();
             } else {
                 throw new NoSuchElementException();
             }
