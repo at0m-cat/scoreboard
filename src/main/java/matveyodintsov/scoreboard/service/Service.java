@@ -12,8 +12,8 @@ public interface Service<T> {
 
     void delete(T val);
 
-    long getMaxPageNum();
+    long getMaxPageNum(String key);
 
-    List<T> findAllWithPage(int page);
+    List<T> findAllWithPageAndName(String name, int page);
 
 }

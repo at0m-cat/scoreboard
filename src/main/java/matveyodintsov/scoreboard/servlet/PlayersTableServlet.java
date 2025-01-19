@@ -23,14 +23,16 @@ public class PlayersTableServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("filter_by_player_name");
         int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
         if (page < 1) {
             page = 1;
         }
 
         try {
-            int maxPage = Math.toIntExact(playerService.getMaxPageNum());
-            request.setAttribute("players", playerService.findAllWithPage(page));
+            int maxPage = Math.toIntExact(playerService.getMaxPageNum(name));
+            request.setAttribute("playerNameInput", name);
+            request.setAttribute("players", playerService.findAllWithPageAndName(name, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);

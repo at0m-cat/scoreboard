@@ -11,6 +11,8 @@
     <script>
         <%@include file="../js/redirect.js" %>
         <%@include file="../js/pagination.js" %>
+        <%@include file="../js/search.js" %>
+
     </script>
 </head>
 <body>
@@ -40,7 +42,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <section class="pagination">
+            <section class="pagination" id="pagination_bar">
                 <ul>
                     <li>
                         <button onclick="goToPage(1, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>First</button>
@@ -56,6 +58,12 @@
                         <button onclick="goToPage(${totalPages}, ${totalPages})" class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Last</button>
                     </li>
                 </ul>
+            </section>
+            <section class="pagination search">
+                <form onsubmit="return search(event)">
+                    <input type="text" id="playerNameInput" placeholder="Enter Player Name" required>
+                    <button type="submit" class="btn">Find Player</button>
+                </form>
             </section>
             <section class="button-container">
                 <form method="get" action="/">

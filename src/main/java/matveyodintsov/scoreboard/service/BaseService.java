@@ -36,8 +36,8 @@ public abstract class BaseService<T> implements Service<T> {
     }
 
     @Override
-    public long getMaxPageNum() {
-        long totalItems = repository.count();
+    public long getMaxPageNum(String playerName) {
+        long totalItems = repository.countWithName(playerName);
         if (totalItems == 0) {
             return 0;
         }
@@ -45,8 +45,8 @@ public abstract class BaseService<T> implements Service<T> {
     }
 
     @Override
-    public List<T> findAllWithPage(int page) {
+    public List<T> findAllWithPageAndName(String name, int page) {
         int offset = (page - 1) * pageSize;
-        return repository.findAllWithPage(offset, pageSize);
+        return repository.findAllWithPageAndName(name, offset, pageSize);
     }
 }

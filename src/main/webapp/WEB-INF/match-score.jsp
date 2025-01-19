@@ -11,6 +11,7 @@
     <script>
         <%@include file="../js/redirect.js" %>
         <%@include file="../js/pagination.js" %>
+        <%@include file="../js/search.js" %>
     </script>
 </head>
 <body>
@@ -44,19 +45,33 @@
             <section class="pagination">
                 <ul>
                     <li>
-                        <button onclick="goToPage(1, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>First</button>
+                        <button onclick="goToPage(1, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>
+                            First
+                        </button>
                     </li>
                     <li>
-                        <button onclick="goToPage(${currentPage - 1}, ${totalPages})" class="btn" ${currentPage == 1 ? 'disabled' : ''}>Prev</button>
+                        <button onclick="goToPage(${currentPage - 1}, ${totalPages})"
+                                class="btn" ${currentPage == 1 ? 'disabled' : ''}>Prev
+                        </button>
                     </li>
                     <li><span id="currentPageDisplay">Page ${currentPage} of ${totalPages}</span></li>
                     <li>
-                        <button onclick="goToPage(${currentPage + 1}, ${totalPages})" class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Next</button>
+                        <button onclick="goToPage(${currentPage + 1}, ${totalPages})"
+                                class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Next
+                        </button>
                     </li>
                     <li>
-                        <button onclick="goToPage(${totalPages}, ${totalPages})" class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Last</button>
+                        <button onclick="goToPage(${totalPages}, ${totalPages})"
+                                class="btn" ${currentPage == totalPages ? 'disabled' : ''}>Last
+                        </button>
                     </li>
                 </ul>
+            </section>
+            <section class="pagination search">
+                <form onsubmit="return search(event)">
+                    <input type="text" id="playerNameInput" placeholder="Enter Player Name" required>
+                    <button type="submit" class="btn">Find Games</button>
+                </form>
             </section>
             <section class="button-container">
                 <form method="get" action="/">

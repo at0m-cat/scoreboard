@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Tennis Game</title>
-    <style><%@include file="css/style.css"%></style>
+    <style>
+        <%@include file="css/style.css" %>
+    </style>
 </head>
 <body>
 <header>
     <h1>Tennis Game</h1>
 </header>
 <main>
-    <section>
+    <section class="button-container">
         <form method="get" action="new-match">
             <button type="submit" class="btn">Register Game</button>
         </form>
-        <br>
         <form method="get" action="players">
             <button type="submit" class="btn">All players</button>
         </form>
-        <br>
         <form method="get" action="matches">
             <button type="submit" class="btn">All matches</button>
         </form>

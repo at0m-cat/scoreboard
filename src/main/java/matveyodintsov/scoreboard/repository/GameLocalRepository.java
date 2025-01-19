@@ -51,12 +51,37 @@ public class GameLocalRepository implements Repository<Game> {
     }
 
     @Override
-    public List<Game> findAllWithPage(int offset, int pageSize) {
+    public long countWithName(String playerName) {
         lock.readLock().lock();
         try {
-            return new ArrayList<>(cachedGames.subList(offset, offset + pageSize));
+            if (playerName == null || playerName.trim().isEmpty()) {
+                return cachedGames.size();
+            }
+            return cachedGames.stream()
+                    .filter(game -> game.getFirstPlayer().getName().contains(playerName) ||
+                            game.getSecondPlayer().getName().contains(playerName))
+                    .count();
         } finally {
             lock.readLock().unlock();
         }
+    }
+
+    public List<Game> findAllWithPageAndName(String name, int offset, int pageSize) {
+        if (name == null || name.trim().isEmpty()) {
+            return cachedGames.stream()
+                    .skip(offset)
+                    .limit(pageSize)
+                    .toList();
+        }
+
+        List<Game> games = cachedGames.stream()
+                .filter(game -> game.getFirstPlayer().getName().contains(name) ||
+                        game.getSecondPlayer().getName().contains(name))
+                .toList();
+
+        return games.stream()
+                .skip(offset)
+                .limit(pageSize)
+                .toList();
     }
 }

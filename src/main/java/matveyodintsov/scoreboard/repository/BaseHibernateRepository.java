@@ -4,9 +4,7 @@ import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public abstract class BaseHibernateRepository<T> implements Repository<T> {
 
@@ -20,12 +18,7 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
     public abstract T getByKey(String key);
 
     @Override
-    public List<T> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<T> query = session.createQuery("from " + entityType.getSimpleName(), entityType);
-            return query.getResultList();
-        }
-    }
+    public abstract List<T> findAllWithPageAndName(String playerName, int offset, int limit);
 
     @Override
     public void save(T object) {
@@ -57,20 +50,5 @@ public abstract class BaseHibernateRepository<T> implements Repository<T> {
         }
     }
 
-    @Override
-    public List<T> findAllWithPage(int offset, int limit) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<T> query = session.createQuery("from " + entityType.getSimpleName(), entityType);
-            query.setFirstResult(offset);
-            query.setMaxResults(limit);
-            if (!query.getResultList().isEmpty()) {
-                return query.getResultList();
-            }
-            if (count() == 0) {
-                return new ArrayList<>();
-            } else {
-                throw new NoSuchElementException();
-            }
-        }
-    }
+
 }

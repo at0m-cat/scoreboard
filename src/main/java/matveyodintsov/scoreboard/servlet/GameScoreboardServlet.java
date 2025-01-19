@@ -21,14 +21,16 @@ public class GameScoreboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("filter_by_player_name");
         int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
         if (page < 1) {
             page = 1;
         }
 
         try {
-            int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum());
-            request.setAttribute("games", gamePersistenceService.findAllWithPage(page));
+            int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum(name));
+            request.setAttribute("playerNameInput", name);
+            request.setAttribute("games", gamePersistenceService.findAllWithPageAndName(name, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);

@@ -14,6 +14,8 @@ public interface Repository<T> {
 
     long count();
 
-    List<T> findAllWithPage(int offset, int pageSize);
+    long countWithName(String playerName);
+
+    List<T> findAllWithPageAndName(String name, int offset, int pageSize);
 
 }
