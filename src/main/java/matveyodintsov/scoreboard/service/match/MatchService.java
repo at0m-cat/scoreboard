@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.service.game;
+package matveyodintsov.scoreboard.service.match;
 
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.repository.base.Repository;

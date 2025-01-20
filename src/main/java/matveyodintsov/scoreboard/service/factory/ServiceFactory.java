@@ -3,7 +3,7 @@ package matveyodintsov.scoreboard.service.factory;
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.base.Repository;
-import matveyodintsov.scoreboard.service.game.MatchService;
+import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.player.PlayerService;
 
 import java.util.Map;

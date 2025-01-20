@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
-import matveyodintsov.scoreboard.service.game.MatchService;
+import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 

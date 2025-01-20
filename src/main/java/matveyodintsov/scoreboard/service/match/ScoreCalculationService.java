@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.service.game;
+package matveyodintsov.scoreboard.service.match;
 
 
 import matveyodintsov.scoreboard.model.Match;
@@ -26,7 +26,6 @@ public class ScoreCalculationService {
         SECOND,
         THIRD,
         ADVANTAGE,
-        DEUCE,
         GAME
     }
 
