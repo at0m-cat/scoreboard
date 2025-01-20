@@ -1,25 +1,25 @@
-package matveyodintsov.scoreboard.servlet.game;
+package matveyodintsov.scoreboard.servlet.match;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
 @WebServlet("/local")
-public class GameLocalTableServlet extends HttpServlet {
+public class MatchLocalTableServlet extends HttpServlet {
 
-    GameService gameLocalService;
+    MatchService gameLocalService;
 
     @Override
     public void init() throws ServletException {
-        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
+        this.gameLocalService = ServiceFactory.getMatchService(new MatchLocalRepository());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class GameLocalTableServlet extends HttpServlet {
 
         try {
             int maxPage = Math.toIntExact(gameLocalService.getMaxPageNum(null));
-            request.setAttribute("games", gameLocalService.findAllWithPageAndName(null, page));
+            request.setAttribute("matches", gameLocalService.findAllWithPageAndName(null, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.LOCAL_GAME_TABLE_JSP).forward(request, response);

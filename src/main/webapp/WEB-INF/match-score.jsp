@@ -24,7 +24,7 @@
 <main>
 
     <c:choose>
-        <c:when test="${not empty games}">
+        <c:when test="${not empty matches}">
             <table>
                 <thead>
                 <tr>
@@ -35,12 +35,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="game" items="${games}">
-                    <tr onclick="redirectToMatch('${game.uuid}')" style="cursor: pointer;">
-                        <td>${game.firstPlayer.name}</td>
-                        <td>${game.secondPlayer.name}</td>
-                        <td>${game.firstPlayerScore} : ${game.secondPlayerScore}</td>
-                        <td>${game.gameDate}</td>
+                <c:forEach var="match" items="${matches}">
+                    <tr onclick="redirectToMatch('${match.uuid}')" style="cursor: pointer;">
+                        <td>${match.firstPlayer.name}</td>
+                        <td>${match.secondPlayer.name}</td>
+                        <td>${match.firstPlayerScore} : ${match.secondPlayerScore}</td>
+                        <td>${match.gameDate}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -90,7 +90,7 @@
         </c:when>
         <c:otherwise>
             <form>
-                <p>Not a single game has been played :(</p>
+                <p>Not a single match has been played :(</p>
             </form>
             <br>
             <section class="button-container">

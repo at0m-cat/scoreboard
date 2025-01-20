@@ -1,9 +1,9 @@
 package matveyodintsov.scoreboard.service.factory;
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.base.Repository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.player.PlayerService;
 
 import java.util.Map;
@@ -16,9 +16,9 @@ public class ServiceFactory {
     private ServiceFactory() {
     }
 
-    public static GameService getGameService(Repository<Game> repository) {
-        String key = createKey(GameService.class, repository);
-        return (GameService) services.computeIfAbsent(key, k -> new GameService(repository));
+    public static MatchService getMatchService(Repository<Match> repository) {
+        String key = createKey(MatchService.class, repository);
+        return (MatchService) services.computeIfAbsent(key, k -> new MatchService(repository));
     }
 
     public static PlayerService getPlayerService(Repository<Player> repository) {

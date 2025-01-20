@@ -1,13 +1,13 @@
-package matveyodintsov.scoreboard.servlet.game;
+package matveyodintsov.scoreboard.servlet.match;
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
+import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
 import matveyodintsov.scoreboard.repository.player.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.player.PlayerService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
@@ -15,15 +15,15 @@ import matveyodintsov.scoreboard.util.AppConst;
 import java.io.IOException;
 
 @WebServlet("/new-match")
-public class GameRegisterServlet extends HttpServlet {
+public class MatchRegisterServlet extends HttpServlet {
 
     private PlayerService playerService;
-    private GameService gameLocalService;
+    private MatchService gameLocalService;
 
     @Override
     public void init() throws ServletException {
         this.playerService = ServiceFactory.getPlayerService(new PlayerPersistenceRepository());
-        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
+        this.gameLocalService = ServiceFactory.getMatchService(new MatchLocalRepository());
     }
 
     @Override
@@ -51,9 +51,9 @@ public class GameRegisterServlet extends HttpServlet {
         Player firstPlayer = playerService.getOrCreatePlayer(p1);
         Player secondPlayer = playerService.getOrCreatePlayer(p2);
 
-        Game game = new Game(firstPlayer, secondPlayer);
-        gameLocalService.save(game);
+        Match match = new Match(firstPlayer, secondPlayer);
+        gameLocalService.save(match);
 
-        response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + game.getUuid());
+        response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + match.getUuid());
     }
 }

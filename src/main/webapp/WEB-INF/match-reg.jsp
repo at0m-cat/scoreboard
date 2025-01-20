@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game Registration</title>
+    <title>Match Registration</title>
     <style>
         <%@include file="../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <h1>Game Registration</h1>
+    <h1>Match Registration</h1>
     <form method="get" action="/">
         <button type="submit" class="header-button">Main</button>
     </form>

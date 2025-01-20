@@ -21,20 +21,20 @@
 </header>
 <main>
     <div class="match-card">
-        <h2>Match ID: ${game.id}</h2>
-        <p><strong>UUID:</strong> ${game.uuid}</p>
+        <h2>Match ID: ${match.id}</h2>
+        <p><strong>UUID:</strong> ${match.uuid}</p>
         <div class="players">
-            <div class="player ${game.winner == 'firstPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${game.firstPlayer.name}')">
-                <h3>${game.firstPlayer.name}</h3>
-                <p>Score: <span class="score">${game.firstPlayerScore}</span></p>
+            <div class="player ${match.winner == 'firstPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.firstPlayer.name}')">
+                <h3>${match.firstPlayer.name}</h3>
+                <p>Score: <span class="score">${match.firstPlayerScore}</span></p>
             </div>
             <div class="versus">VS</div>
-            <div class="player ${game.winner == 'secondPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${game.secondPlayer.name}')">
-                <h3>${game.secondPlayer.name}</h3>
-                <p>Score: <span class="score">${game.secondPlayerScore}</span></p>
+            <div class="player ${match.winner == 'secondPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.secondPlayer.name}')">
+                <h3>${match.secondPlayer.name}</h3>
+                <p>Score: <span class="score">${match.secondPlayerScore}</span></p>
             </div>
         </div>
-        <p><strong>Date:</strong> ${game.gameDate}</p>
+        <p><strong>Date:</strong> ${match.gameDate}</p>
         <p><strong>Status:</strong> Completed</p>
     </div>
     <br>

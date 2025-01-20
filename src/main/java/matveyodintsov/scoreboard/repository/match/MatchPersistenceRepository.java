@@ -1,6 +1,6 @@
-package matveyodintsov.scoreboard.repository.game;
+package matveyodintsov.scoreboard.repository.match;
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.repository.base.BaseHibernateRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
@@ -8,34 +8,34 @@ import org.hibernate.query.Query;
 
 import java.util.*;
 
-public class GamePersistenceRepository extends BaseHibernateRepository<Game> {
+public class MatchPersistenceRepository extends BaseHibernateRepository<Match> {
 
-    public GamePersistenceRepository() {
-        super(Game.class);
+    public MatchPersistenceRepository() {
+        super(Match.class);
     }
 
     @Override
-    public Game getByKey(String uuid) {
+    public Match getByKey(String uuid) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query<Game> query = session.createQuery("from Game where uuid = :uuid");
+        Query<Match> query = session.createQuery("from Match where uuid = :uuid");
         query.setParameter("uuid", UUID.fromString(uuid));
-        Optional<Game> game = Optional.ofNullable(query.uniqueResult());
+        Optional<Match> game = Optional.ofNullable(query.uniqueResult());
         session.close();
         return game.orElse(null);
     }
 
     @Override
-    public List<Game> getAll() {
+    public List<Match> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query<Game> query = session.createQuery("from Game");
-        List<Game> games = query.list();
+        Query<Match> query = session.createQuery("from Match");
+        List<Match> matches = query.list();
         session.close();
-        if (games.isEmpty()) {
+        if (matches.isEmpty()) {
             return Collections.emptyList();
         } else {
-            return games;
+            return matches;
         }
     }
 
@@ -46,10 +46,10 @@ public class GamePersistenceRepository extends BaseHibernateRepository<Game> {
             Query<Long> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
-                hql = "select count(*) from Game";
+                hql = "select count(*) from Match";
                 query = session.createQuery(hql, Long.class);
             } else {
-                hql = "select count(*) from Game g where g.firstPlayer.name = :playerName or g.secondPlayer.name = :playerName";
+                hql = "select count(*) from Match g where g.firstPlayer.name = :playerName or g.secondPlayer.name = :playerName";
                 query = session.createQuery(hql, Long.class);
                 query.setParameter("playerName", playerName.trim());
             }
@@ -59,28 +59,28 @@ public class GamePersistenceRepository extends BaseHibernateRepository<Game> {
     }
 
     @Override
-    public List<Game> findAllWithPageAndName(String playerName, int offset, int limit) {
+    public List<Match> findAllWithPageAndName(String playerName, int offset, int limit) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             if (count() == 0) {
                 return Collections.emptyList();
             }
 
             String hql;
-            Query<Game> query;
+            Query<Match> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
-                hql = "from Game";
-                query = session.createQuery(hql, Game.class);
+                hql = "from Match";
+                query = session.createQuery(hql, Match.class);
             } else {
-                hql = "from Game g where g.firstPlayer.name = :playerName or g.secondPlayer.name = :playerName";
-                query = session.createQuery(hql, Game.class);
+                hql = "from Match g where g.firstPlayer.name = :playerName or g.secondPlayer.name = :playerName";
+                query = session.createQuery(hql, Match.class);
                 query.setParameter("playerName", playerName.trim());
             }
 
             query.setFirstResult(offset);
             query.setMaxResults(limit);
 
-            List<Game> result = query.getResultList();
+            List<Match> result = query.getResultList();
             if (!result.isEmpty()) {
                 return result;
             } else {

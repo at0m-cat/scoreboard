@@ -1,26 +1,26 @@
-package matveyodintsov.scoreboard.servlet.game;
+package matveyodintsov.scoreboard.servlet.match;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
 @WebServlet("/match-score")
-public class GameUpdateScoreServlet extends HttpServlet {
+public class MatchUpdateScoreServlet extends HttpServlet {
 
-    private GameService gameLocalService;
+    private MatchService gameLocalService;
 
     @Override
     public void init() throws ServletException {
-        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
+        this.gameLocalService = ServiceFactory.getMatchService(new MatchLocalRepository());
     }
 
     @Override
@@ -33,9 +33,9 @@ public class GameUpdateScoreServlet extends HttpServlet {
         }
 
         try {
-            Game currentGame = gameLocalService.getByKey(uuid);
-            if (currentGame != null) {
-                req.setAttribute("currentGame", currentGame);
+            Match currentMatch = gameLocalService.getByKey(uuid);
+            if (currentMatch != null) {
+                req.setAttribute("currentMatch", currentMatch);
                 getServletContext().getRequestDispatcher(AppConst.Route.GAME_CONTROL_JSP).forward(req, resp);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -52,8 +52,8 @@ public class GameUpdateScoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuidParam = request.getParameter("uuid");
-        Game currentGame = gameLocalService.getByKey(uuidParam);
-        if (currentGame == null || uuidParam == null) {
+        Match currentMatch = gameLocalService.getByKey(uuidParam);
+        if (currentMatch == null || uuidParam == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             request.setAttribute("message", AppConst.Message.GAME_NOT_EXIST);
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
@@ -66,21 +66,21 @@ public class GameUpdateScoreServlet extends HttpServlet {
         String action = request.getParameter("action");
         if ("firstPlayer".equals(player)) {
             if ("increment".equals(action)) {
-                currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore() + 1);
+                currentMatch.setFirstPlayerScore(currentMatch.getFirstPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.setFirstPlayerScore(Math.max(0, currentGame.getFirstPlayerScore() - 1));
+                currentMatch.setFirstPlayerScore(Math.max(0, currentMatch.getFirstPlayerScore() - 1));
             }
         } else if ("secondPlayer".equals(player)) {
             if ("increment".equals(action)) {
-                currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore() + 1);
+                currentMatch.setSecondPlayerScore(currentMatch.getSecondPlayerScore() + 1);
             } else if ("decrement".equals(action)) {
-                currentGame.setSecondPlayerScore(Math.max(0, currentGame.getSecondPlayerScore() - 1));
+                currentMatch.setSecondPlayerScore(Math.max(0, currentMatch.getSecondPlayerScore() - 1));
             }
         }
 
         response.setContentType("application/json");
         response.getWriter().write(String.format("{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d}",
-                currentGame.getFirstPlayerScore(),
-                currentGame.getSecondPlayerScore()));
+                currentMatch.getFirstPlayerScore(),
+                currentMatch.getSecondPlayerScore()));
     }
 }

@@ -10,9 +10,9 @@
     </style>
     <script> <%@include file="../js/updateScore.js"%></script>
     <script> <%@include file="../js/loadingIndicator.js"%></script>
-    <c:if test="${not empty currentGame}">
+    <c:if test="${not empty currentMatch}">
         <script>
-            const gameUuid = '${currentGame.uuid}';
+            const gameUuid = '${currentMatch.uuid}';
         </script>
     </c:if>
 </head>
@@ -31,7 +31,7 @@
 </div>
 
 <main id="content" style="display: none;">
-    <c:if test="${not empty currentGame}">
+    <c:if test="${not empty currentMatch}">
         <table>
             <thead>
             <tr>
@@ -42,8 +42,8 @@
             </thead>
             <tbody>
             <tr>
-                <td>${currentGame.firstPlayer.name}</td>
-                <td id="firstPlayerScore">${currentGame.firstPlayerScore}</td>
+                <td>${currentMatch.firstPlayer.name}</td>
+                <td id="firstPlayerScore">${currentMatch.firstPlayerScore}</td>
                 <td>
                     <section class="button-container">
                         <button type="button" onclick="updateScore('firstPlayer', 'increment')">+1</button>
@@ -52,8 +52,8 @@
                 </td>
             </tr>
             <tr>
-                <td>${currentGame.secondPlayer.name}</td>
-                <td id="secondPlayerScore">${currentGame.secondPlayerScore}</td>
+                <td>${currentMatch.secondPlayer.name}</td>
+                <td id="secondPlayerScore">${currentMatch.secondPlayerScore}</td>
                 <td>
                     <section class="button-container">
                         <button type="button" onclick="updateScore('secondPlayer', 'increment')">+1</button>
@@ -65,13 +65,13 @@
         </table>
         <section class="button-container">
             <form method="post" action="finish-game">
-                <input type="hidden" name="uuid" value="${currentGame.uuid}">
+                <input type="hidden" name="uuid" value="${currentMatch.uuid}">
                 <button type="submit" class="btn">Finish Game</button>
             </form>
         </section>
     </c:if>
-    <c:if test="${empty currentGame}">
-        <p>No active game. Please register a new game.</p>
+    <c:if test="${empty currentMatch}">
+        <p>No active match. Please register a new match.</p>
         <section class="button-container">
             <form method="get" action="new-match">
                 <button type="submit" class="btn">Register Game</button>

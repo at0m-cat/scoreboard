@@ -1,23 +1,23 @@
-package matveyodintsov.scoreboard.servlet.game;
+package matveyodintsov.scoreboard.servlet.match;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.repository.game.GamePersistenceRepository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.repository.match.MatchPersistenceRepository;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
 @WebServlet("/matches")
-public class GameScoreboardServlet extends HttpServlet {
+public class MatchScoreboardServlet extends HttpServlet {
 
-    private GameService gamePersistenceService;
+    private MatchService gamePersistenceService;
 
     @Override
     public void init() throws ServletException {
-        this.gamePersistenceService = ServiceFactory.getGameService(new GamePersistenceRepository());
+        this.gamePersistenceService = ServiceFactory.getMatchService(new MatchPersistenceRepository());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class GameScoreboardServlet extends HttpServlet {
         try {
             int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum(name));
             request.setAttribute("playerNameInput", name);
-            request.setAttribute("games", gamePersistenceService.findAllWithPageAndName(name, page));
+            request.setAttribute("matches", gamePersistenceService.findAllWithPageAndName(name, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
             request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);

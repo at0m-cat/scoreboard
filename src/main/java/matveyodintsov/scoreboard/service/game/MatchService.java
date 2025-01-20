@@ -1,21 +1,21 @@
 package matveyodintsov.scoreboard.service.game;
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.repository.base.Repository;
 import matveyodintsov.scoreboard.service.base.BaseService;
 
-public class GameService extends BaseService<Game> {
+public class MatchService extends BaseService<Match> {
     private volatile ScoreCalculationService scoreService;
 
-    public GameService(Repository<Game> repository) {
+    public MatchService(Repository<Match> repository) {
         super(repository);
     }
 
-    public ScoreCalculationService getScoreService(Game game) {
+    public ScoreCalculationService getScoreService(Match match) {
         if (scoreService == null) {
             synchronized (this) {
                 if (scoreService == null) {
-                    scoreService = new ScoreCalculationService(game);
+                    scoreService = new ScoreCalculationService(match);
                 }
             }
         }

@@ -12,8 +12,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "games")
-public class Game {
+@Table(name = "match")
+public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -38,7 +38,7 @@ public class Game {
     @Column(name = "game_date", nullable = false)
     private LocalDate gameDate;
 
-    public Game(Player firstPlayer, Player secondPlayer) {
+    public Match(Player firstPlayer, Player secondPlayer) {
         this.id = null;
         this.uuid = UUID.randomUUID();
         this.firstPlayer = firstPlayer;

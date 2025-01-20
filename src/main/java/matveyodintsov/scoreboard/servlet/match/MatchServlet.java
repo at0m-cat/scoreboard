@@ -1,26 +1,26 @@
-package matveyodintsov.scoreboard.servlet.game;
+package matveyodintsov.scoreboard.servlet.match;
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import matveyodintsov.scoreboard.repository.game.GamePersistenceRepository;
-import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.repository.match.MatchPersistenceRepository;
+import matveyodintsov.scoreboard.service.game.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
 @WebServlet("/match")
-public class GameServlet extends HttpServlet {
+public class MatchServlet extends HttpServlet {
 
-    private GameService gamePersistenceService;
+    private MatchService gamePersistenceService;
 
     @Override
     public void init() throws ServletException {
-        this.gamePersistenceService = ServiceFactory.getGameService(new GamePersistenceRepository());
+        this.gamePersistenceService = ServiceFactory.getMatchService(new MatchPersistenceRepository());
     }
 
     @Override
@@ -33,13 +33,13 @@ public class GameServlet extends HttpServlet {
         }
 
         try {
-            Game game = gamePersistenceService.getByKey(uuid);
-            if (game == null) {
+            Match match = gamePersistenceService.getByKey(uuid);
+            if (match == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", AppConst.Message.GAME_NOT_FOUND);
                 request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             } else {
-                request.setAttribute("game", game);
+                request.setAttribute("match", match);
                 getServletContext().getRequestDispatcher(AppConst.Route.MATCH_JSP).forward(request, response);
             }
         } catch (Exception e) {

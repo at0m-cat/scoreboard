@@ -1,7 +1,7 @@
 package matveyodintsov.scoreboard.service.game;
 
 
-import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class ScoreCalculationService {
 
     private final Random random;
     private final Map<Player, Points> pointsMap;
-    private final Game currentGame;
+    private final Match currentMatch;
 
     enum SymmetryDice {
         EVEN,
@@ -30,8 +30,8 @@ public class ScoreCalculationService {
         GAME
     }
 
-    protected ScoreCalculationService(Game game) {
-        this.currentGame = game;
+    protected ScoreCalculationService(Match match) {
+        this.currentMatch = match;
         this.random = new Random();
         this.pointsMap = new HashMap<>();
     }
