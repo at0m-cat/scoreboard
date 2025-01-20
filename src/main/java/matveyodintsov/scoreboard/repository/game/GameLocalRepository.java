@@ -12,9 +12,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class GameLocalRepository implements Repository<Game> {
 
-    private final Map<UUID, Game> repository = new ConcurrentHashMap<>();
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    private volatile List<Game> cachedGames = new ArrayList<>();
+    private final Map<UUID, Game> repository;
+    private volatile List<Game> cachedGames;
+
+    public GameLocalRepository() {
+        this.repository = new ConcurrentHashMap<>();
+        this.cachedGames = new ArrayList<>();
+    }
 
     @Override
     public Game getByKey(String uuid) {
@@ -23,23 +27,13 @@ public class GameLocalRepository implements Repository<Game> {
 
     @Override
     public List<Game> getAll() {
-        lock.readLock().lock();
-        try {
-            return cachedGames;
-        } finally {
-            lock.readLock().unlock();
-        }
+        return cachedGames;
     }
 
     @Override
     public void save(Game game) {
-        lock.writeLock().lock();
-        try {
-            repository.put(game.getUuid(), game);
-            cachedGames = new ArrayList<>(repository.values());
-        } finally {
-            lock.writeLock().unlock();
-        }
+        repository.put(game.getUuid(), game);
+        cachedGames = new ArrayList<>(repository.values());
     }
 
     @Override
@@ -60,40 +54,35 @@ public class GameLocalRepository implements Repository<Game> {
         if (cachedGames.isEmpty()) {
             return 0;
         }
-        lock.readLock().lock();
-        try {
-            if (playerName == null || playerName.trim().isEmpty()) {
-                return cachedGames.size();
-            }
-            return cachedGames.stream()
-                    .filter(game -> game.getFirstPlayer().getName().contains(playerName) ||
-                            game.getSecondPlayer().getName().contains(playerName))
-                    .count();
-        } finally {
-            lock.readLock().unlock();
+        if (playerName == null || playerName.trim().isEmpty()) {
+            return cachedGames.size();
         }
+        return cachedGames.stream()
+                .filter(game -> game.getFirstPlayer().getName().contains(playerName) ||
+                        game.getSecondPlayer().getName().contains(playerName))
+                .count();
     }
 
-    public List<Game> findAllWithPageAndName(String name, int offset, int pageSize) {
-        if (cachedGames.isEmpty()) {
-            return Collections.emptyList();
-        }
+public List<Game> findAllWithPageAndName(String name, int offset, int pageSize) {
+    if (cachedGames.isEmpty()) {
+        return Collections.emptyList();
+    }
 
-        if (name == null || name.trim().isEmpty()) {
-            return cachedGames.stream()
-                    .skip(offset)
-                    .limit(pageSize)
-                    .toList();
-        }
-
-        List<Game> games = cachedGames.stream()
-                .filter(game -> game.getFirstPlayer().getName().contains(name) ||
-                        game.getSecondPlayer().getName().contains(name))
-                .toList();
-
-        return games.stream()
+    if (name == null || name.trim().isEmpty()) {
+        return cachedGames.stream()
                 .skip(offset)
                 .limit(pageSize)
                 .toList();
     }
+
+    List<Game> games = cachedGames.stream()
+            .filter(game -> game.getFirstPlayer().getName().contains(name) ||
+                    game.getSecondPlayer().getName().contains(name))
+            .toList();
+
+    return games.stream()
+            .skip(offset)
+            .limit(pageSize)
+            .toList();
+}
 }
