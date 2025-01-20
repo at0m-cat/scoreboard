@@ -1,39 +1,40 @@
-package matveyodintsov.scoreboard.servlet;
+package matveyodintsov.scoreboard.servlet.game;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
-import matveyodintsov.scoreboard.service.GameService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
+import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
-@WebServlet("/matches")
-public class GameScoreboardServlet extends HttpServlet {
+@WebServlet("/local")
+public class GameLocalTableServlet extends HttpServlet {
 
-    private GameService gamePersistenceService;
+    GameService gameLocalService;
 
     @Override
     public void init() throws ServletException {
-        this.gamePersistenceService = new GameService(new GamePersistenceRepository());
+        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("filter_by_player_name");
         int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
         if (page < 1) {
             page = 1;
         }
 
         try {
-            int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum(name));
-            request.setAttribute("playerNameInput", name);
-            request.setAttribute("games", gamePersistenceService.findAllWithPageAndName(name, page));
+            int maxPage = Math.toIntExact(gameLocalService.getMaxPageNum(null));
+            request.setAttribute("games", gameLocalService.findAllWithPageAndName(null, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
-            request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
+            request.getRequestDispatcher(AppConst.Route.LOCAL_GAME_TABLE_JSP).forward(request, response);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", AppConst.Message.PAGE_NOT_FOUND);

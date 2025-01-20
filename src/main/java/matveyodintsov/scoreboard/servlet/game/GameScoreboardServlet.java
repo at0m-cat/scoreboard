@@ -1,24 +1,23 @@
-package matveyodintsov.scoreboard.servlet;
+package matveyodintsov.scoreboard.servlet.game;
 
-import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.PlayerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.repository.game.GamePersistenceRepository;
+import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
 
-@WebServlet("/players")
-public class PlayersTableServlet extends HttpServlet {
+@WebServlet("/matches")
+public class GameScoreboardServlet extends HttpServlet {
 
-    private PlayerService playerService;
+    private GameService gamePersistenceService;
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new PlayerService(new PlayerPersistenceRepository());
+        this.gamePersistenceService = ServiceFactory.getGameService(new GamePersistenceRepository());
     }
 
     @Override
@@ -30,12 +29,12 @@ public class PlayersTableServlet extends HttpServlet {
         }
 
         try {
-            int maxPage = Math.toIntExact(playerService.getMaxPageNum(name));
+            int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum(name));
             request.setAttribute("playerNameInput", name);
-            request.setAttribute("players", playerService.findAllWithPageAndName(name, page));
+            request.setAttribute("games", gamePersistenceService.findAllWithPageAndName(name, page));
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", maxPage);
-            request.getRequestDispatcher(AppConst.Route.PLAYERS_TABLE_JSP).forward(request, response);
+            request.getRequestDispatcher(AppConst.Route.SCOREBOARD_JSP).forward(request, response);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", AppConst.Message.PAGE_NOT_FOUND);

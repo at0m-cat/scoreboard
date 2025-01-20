@@ -1,6 +1,7 @@
-package matveyodintsov.scoreboard.repository;
+package matveyodintsov.scoreboard.repository.game;
 
 import matveyodintsov.scoreboard.model.Game;
+import matveyodintsov.scoreboard.repository.base.Repository;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.util.*;

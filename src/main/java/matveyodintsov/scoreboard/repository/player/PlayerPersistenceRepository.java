@@ -1,6 +1,7 @@
-package matveyodintsov.scoreboard.repository;
+package matveyodintsov.scoreboard.repository.player;
 
 import matveyodintsov.scoreboard.model.Player;
+import matveyodintsov.scoreboard.repository.base.BaseHibernateRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

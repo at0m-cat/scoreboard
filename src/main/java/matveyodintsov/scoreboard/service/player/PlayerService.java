@@ -1,7 +1,8 @@
-package matveyodintsov.scoreboard.service;
+package matveyodintsov.scoreboard.service.player;
 
 import matveyodintsov.scoreboard.model.Player;
-import matveyodintsov.scoreboard.repository.Repository;
+import matveyodintsov.scoreboard.repository.base.Repository;
+import matveyodintsov.scoreboard.service.base.BaseService;
 
 public class PlayerService extends BaseService<Player> {
 

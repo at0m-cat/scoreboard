@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.service;
+package matveyodintsov.scoreboard.service.game;
 
 
 import matveyodintsov.scoreboard.model.Game;

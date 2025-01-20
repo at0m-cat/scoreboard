@@ -1,6 +1,6 @@
-package matveyodintsov.scoreboard.service;
+package matveyodintsov.scoreboard.service.base;
 
-import matveyodintsov.scoreboard.repository.Repository;
+import matveyodintsov.scoreboard.repository.base.Repository;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.util.List;

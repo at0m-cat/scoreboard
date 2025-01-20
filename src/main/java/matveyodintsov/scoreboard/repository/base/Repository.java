@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.repository;
+package matveyodintsov.scoreboard.repository.base;
 
 import java.util.List;
 

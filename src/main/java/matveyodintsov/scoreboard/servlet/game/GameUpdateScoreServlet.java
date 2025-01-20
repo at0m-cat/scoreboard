@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.servlet;
+package matveyodintsov.scoreboard.servlet.game;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Game;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import matveyodintsov.scoreboard.repository.GameLocalRepository;
-import matveyodintsov.scoreboard.service.GameService;
-import matveyodintsov.scoreboard.service.ScoreCalculationService;
-import matveyodintsov.scoreboard.service.SingletonServiceFactory;
+import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
+import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.factory.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
@@ -21,8 +20,7 @@ public class GameUpdateScoreServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.gameLocalService = SingletonServiceFactory
-                .getInstance(new GameService(new GameLocalRepository())).getService();
+        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.service;
+package matveyodintsov.scoreboard.service.base;
 
 import java.util.List;
 

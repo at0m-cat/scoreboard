@@ -1,13 +1,15 @@
-package matveyodintsov.scoreboard.servlet;
+package matveyodintsov.scoreboard.servlet.game;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.GameLocalRepository;
-import matveyodintsov.scoreboard.repository.GamePersistenceRepository;
-import matveyodintsov.scoreboard.repository.PlayerPersistenceRepository;
-import matveyodintsov.scoreboard.service.*;
+import matveyodintsov.scoreboard.repository.game.GameLocalRepository;
+import matveyodintsov.scoreboard.repository.game.GamePersistenceRepository;
+import matveyodintsov.scoreboard.repository.player.PlayerPersistenceRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import matveyodintsov.scoreboard.service.factory.ServiceFactory;
+import matveyodintsov.scoreboard.service.game.GameService;
+import matveyodintsov.scoreboard.service.player.PlayerService;
 import matveyodintsov.scoreboard.util.AppConst;
 
 
@@ -22,9 +24,9 @@ public class GameFinishServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.playerService = new PlayerService(new PlayerPersistenceRepository());
-        this.gamePersistenceService = new GameService(new GamePersistenceRepository());
-        this.gameLocalService = SingletonServiceFactory.getInstance(new GameService(new GameLocalRepository())).getService();
+        this.playerService = ServiceFactory.getPlayerService(new PlayerPersistenceRepository());
+        this.gamePersistenceService = ServiceFactory.getGameService(new GamePersistenceRepository());
+        this.gameLocalService = ServiceFactory.getGameService(new GameLocalRepository());
     }
 
     @Override

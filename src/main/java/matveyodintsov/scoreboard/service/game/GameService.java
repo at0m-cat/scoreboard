@@ -1,7 +1,8 @@
-package matveyodintsov.scoreboard.service;
+package matveyodintsov.scoreboard.service.game;
 
 import matveyodintsov.scoreboard.model.Game;
-import matveyodintsov.scoreboard.repository.Repository;
+import matveyodintsov.scoreboard.repository.base.Repository;
+import matveyodintsov.scoreboard.service.base.BaseService;
 
 public class GameService extends BaseService<Game> {
     private volatile ScoreCalculationService scoreService;
