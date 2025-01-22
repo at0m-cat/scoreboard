@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
 import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.factory.ServiceFactory;
+import matveyodintsov.scoreboard.service.calculation.CalcMatchScoreService;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class MatchUpdateScoreServlet extends HttpServlet {
 
     private MatchService gameLocalService;
+    private CalcMatchScoreService calcMatchScoreService;
 
     @Override
     public void init() throws ServletException {
@@ -51,6 +53,7 @@ public class MatchUpdateScoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String uuidParam = request.getParameter("uuid");
         Match currentMatch = gameLocalService.getByKey(uuidParam);
         if (currentMatch == null || uuidParam == null) {
@@ -59,28 +62,21 @@ public class MatchUpdateScoreServlet extends HttpServlet {
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             return;
         }
+        calcMatchScoreService = new CalcMatchScoreService(currentMatch);
 
-        // todo: написать калькулятор ведения игры!
-
-        String player = request.getParameter("player");
-        String action = request.getParameter("action");
-        if ("firstPlayer".equals(player)) {
-            if ("increment".equals(action)) {
-                currentMatch.setFirstPlayerScore(currentMatch.getFirstPlayerScore() + 1);
-            } else if ("decrement".equals(action)) {
-                currentMatch.setFirstPlayerScore(Math.max(0, currentMatch.getFirstPlayerScore() - 1));
-            }
-        } else if ("secondPlayer".equals(player)) {
-            if ("increment".equals(action)) {
-                currentMatch.setSecondPlayerScore(currentMatch.getSecondPlayerScore() + 1);
-            } else if ("decrement".equals(action)) {
-                currentMatch.setSecondPlayerScore(Math.max(0, currentMatch.getSecondPlayerScore() - 1));
-            }
-        }
+        String playerName = request.getParameter("playerName");
+        calcMatchScoreService.updateScoreboard(playerName);
+        currentMatch = calcMatchScoreService.getMatch();
 
         response.setContentType("application/json");
-        response.getWriter().write(String.format("{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d}",
-                currentMatch.getFirstPlayerScore(),
-                currentMatch.getSecondPlayerScore()));
+        response.getWriter().write(String.format(
+                "{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d,\"firstPlayerGames\":%d,\"secondPlayerGames\":%d,\"firstPlayerSets\":%d,\"secondPlayerSets\":%d}",
+                currentMatch.getScoreFirstPlayer(),
+                currentMatch.getScoreSecondPlayer(),
+                currentMatch.getGamesFirstPlayer(),
+                currentMatch.getGamesSecondPlayer(),
+                currentMatch.getSetsFirstPlayer(),
+                currentMatch.getSetsSecondPlayer()
+        ));
     }
 }

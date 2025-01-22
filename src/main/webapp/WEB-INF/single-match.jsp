@@ -22,20 +22,21 @@
 <main>
     <div class="match-card">
         <h2>Match ID: ${match.id}</h2>
-        <p><strong>UUID:</strong> ${match.uuid}</p>
         <div class="players">
-            <div class="player ${match.winner == 'firstPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.firstPlayer.name}')">
+            <div class="player ${match.winner == match.firstPlayer ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.firstPlayer.name}')">
                 <h3>${match.firstPlayer.name}</h3>
-                <p>Score: <span class="score">${match.firstPlayerScore}</span></p>
+                <p>Sets: <span class="score">${match.setsFirstPlayer}</span></p>
+                <p>Games: <span class="score">${match.gamesFirstPlayer}</span></p>
             </div>
             <div class="versus">VS</div>
-            <div class="player ${match.winner == 'secondPlayer' ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.secondPlayer.name}')">
+            <div class="player ${match.winner == match.secondPlayer ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.secondPlayer.name}')">
                 <h3>${match.secondPlayer.name}</h3>
-                <p>Score: <span class="score">${match.secondPlayerScore}</span></p>
+                <p>Sets: <span class="score">${match.setsSecondPlayer}</span></p>
+                <p>Games: <span class="score">${match.gamesSecondPlayer}</span></p>
             </div>
         </div>
+        <p><strong>UUID:</strong> ${match.uuid}</p>
         <p><strong>Date:</strong> ${match.gameDate}</p>
-        <p><strong>Status:</strong> Completed</p>
     </div>
     <br>
     <section class="button-container">
