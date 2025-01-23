@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.player.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.player.PlayerService;
-import matveyodintsov.scoreboard.service.factory.ServiceFactory;
+import matveyodintsov.scoreboard.service.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;

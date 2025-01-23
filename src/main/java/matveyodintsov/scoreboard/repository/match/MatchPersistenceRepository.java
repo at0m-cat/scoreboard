@@ -1,18 +1,20 @@
 package matveyodintsov.scoreboard.repository.match;
 
 import matveyodintsov.scoreboard.model.Match;
-import matveyodintsov.scoreboard.repository.base.BaseHibernateRepository;
+import matveyodintsov.scoreboard.repository.PersistenceRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.*;
 
-public class MatchPersistenceRepository extends BaseHibernateRepository<Match> {
+public class MatchPersistenceRepository extends PersistenceRepository<Match> {
 
     public MatchPersistenceRepository() {
         super(Match.class);
     }
+
+    //TODO throw new exception else NULL getByKey
 
     @Override
     public Match getByKey(String uuid) {
@@ -46,6 +48,9 @@ public class MatchPersistenceRepository extends BaseHibernateRepository<Match> {
             Query<Long> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
+
+//                 TODO count() already exist!
+
                 hql = "select count(*) from Match";
                 query = session.createQuery(hql, Long.class);
             } else {

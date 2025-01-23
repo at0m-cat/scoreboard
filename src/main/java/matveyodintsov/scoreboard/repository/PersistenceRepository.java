@@ -1,24 +1,19 @@
-package matveyodintsov.scoreboard.repository.base;
+package matveyodintsov.scoreboard.repository;
 
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.List;
-
-public abstract class BaseHibernateRepository<T> implements Repository<T> {
+public abstract class PersistenceRepository<T> implements Repository<T> {
 
     private final Class<T> entityType;
 
-    protected BaseHibernateRepository(Class<T> entityType) {
+    protected PersistenceRepository(Class<T> entityType) {
         this.entityType = entityType;
     }
 
     @Override
     public abstract T getByKey(String key);
-
-    @Override
-    public abstract List<T> findAllWithPageAndName(String playerName, int offset, int limit);
 
     @Override
     public void save(T object) {

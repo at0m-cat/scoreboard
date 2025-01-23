@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import matveyodintsov.scoreboard.repository.match.MatchPersistenceRepository;
 import matveyodintsov.scoreboard.service.match.MatchService;
-import matveyodintsov.scoreboard.service.factory.ServiceFactory;
+import matveyodintsov.scoreboard.service.ServiceFactory;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;

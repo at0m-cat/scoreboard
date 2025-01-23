@@ -1,16 +1,16 @@
-package matveyodintsov.scoreboard.service.base;
+package matveyodintsov.scoreboard.service;
 
-import matveyodintsov.scoreboard.repository.base.Repository;
+import matveyodintsov.scoreboard.repository.Repository;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.util.List;
 
-public abstract class BaseService<T> implements Service<T> {
+public abstract class MainService<T> implements Service<T> {
 
     protected final Repository<T> repository;
     private final int pageSize;
 
-    public BaseService(Repository<T> repository) {
+    public MainService(Repository<T> repository) {
         this.repository = repository;
         this.pageSize = AppConst.Constants.PAGE_SIZE;
     }

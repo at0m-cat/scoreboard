@@ -1,8 +1,8 @@
-package matveyodintsov.scoreboard.service.factory;
+package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
-import matveyodintsov.scoreboard.repository.base.Repository;
+import matveyodintsov.scoreboard.repository.Repository;
 import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.player.PlayerService;
 

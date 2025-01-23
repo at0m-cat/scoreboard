@@ -1,18 +1,20 @@
 package matveyodintsov.scoreboard.repository.player;
 
 import matveyodintsov.scoreboard.model.Player;
-import matveyodintsov.scoreboard.repository.base.BaseHibernateRepository;
+import matveyodintsov.scoreboard.repository.PersistenceRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.*;
 
-public class PlayerPersistenceRepository extends BaseHibernateRepository<Player> {
+public class PlayerPersistenceRepository extends PersistenceRepository<Player> {
 
     public PlayerPersistenceRepository() {
         super(Player.class);
     }
+
+    //TODO throw new exception else NULL getByKey
 
     @Override
     public Player getByKey(String playerName) {
@@ -44,6 +46,9 @@ public class PlayerPersistenceRepository extends BaseHibernateRepository<Player>
             Query<Long> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
+
+//                TODO count() already exist!
+
                 hql = "select count(*) from Player ";
                 query = session.createQuery(hql, Long.class);
             } else {
