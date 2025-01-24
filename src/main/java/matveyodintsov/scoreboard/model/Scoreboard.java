@@ -25,17 +25,17 @@ public class Scoreboard {
     @Column(columnDefinition = "uuid", nullable = false)
     private UUID uuid;
 
-    @Column(name = "p1_game")
-    private Integer firstPlayerGameScore = 0;
-
-    @Column(name = "p2_game")
-    private Integer secondPlayerGameScore = 0;
-
-    @Transient
+    @Column(name = "p1_set")
     private Integer firstPlayerSetScore = 0;
 
-    @Transient
+    @Column(name = "p2_set")
     private Integer secondPlayerSetScore = 0;
+
+    @Transient
+    private Integer firstPlayerGameScore = 0;
+
+    @Transient
+    private Integer secondPlayerGameScore = 0;
 
     @Transient
     private String firstPlayerScore = RegularGamePlayerPoints.ZERO.name();
