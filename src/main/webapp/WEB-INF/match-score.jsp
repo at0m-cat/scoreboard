@@ -40,7 +40,7 @@
                     <tr onclick="redirectToMatch('${match.uuid}')" style="cursor: pointer;">
                         <td>${match.firstPlayer.name}</td>
                         <td>${match.secondPlayer.name}</td>
-                        <td>${match.winner}</td>
+                        <td>${match.winner.name}</td>
 <%--                        <td>${match.firstPlayerScore} : ${match.secondPlayerScore}</td>--%>
                         <td>${match.gameDate}</td>
                     </tr>

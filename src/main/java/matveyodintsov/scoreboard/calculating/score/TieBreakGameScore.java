@@ -10,7 +10,6 @@ public class TieBreakGameScore extends GameScore<Integer> {
         return 0;
     }
 
-
     @Override
     public State pointWon(int playerNumber) {
         int playerScore = getPlayerScore(playerNumber);

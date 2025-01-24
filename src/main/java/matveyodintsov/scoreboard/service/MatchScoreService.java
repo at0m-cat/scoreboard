@@ -1,6 +1,7 @@
 package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.calculating.GameScore;
+import matveyodintsov.scoreboard.calculating.RegularGamePlayerPoints;
 import matveyodintsov.scoreboard.calculating.State;
 import matveyodintsov.scoreboard.calculating.score.MatchScore;
 import matveyodintsov.scoreboard.calculating.score.SetScore;
@@ -45,7 +46,7 @@ public class MatchScoreService {
         match.setWinner(matchState == State.PLAYER_ONE_WON
                 ? match.getFirstPlayer()
                 : match.getSecondPlayer());
-        scoreboard.setFirstPlayerScore(null);
-        scoreboard.setSecondPlayerScore(null);
+        scoreboard.setFirstPlayerScore(RegularGamePlayerPoints.ZERO.name());
+        scoreboard.setSecondPlayerScore(RegularGamePlayerPoints.ZERO.name());
     }
 }
