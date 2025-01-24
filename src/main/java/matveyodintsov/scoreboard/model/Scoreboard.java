@@ -31,10 +31,10 @@ public class Scoreboard {
     @Column(name = "p2_game")
     private Integer secondPlayerGameScore = 0;
 
-    @Column(name = "p1_set")
+    @Transient
     private Integer firstPlayerSetScore = 0;
 
-    @Column(name = "p2_set")
+    @Transient
     private Integer secondPlayerSetScore = 0;
 
     @Transient
