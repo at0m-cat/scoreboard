@@ -5,7 +5,6 @@ import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import matveyodintsov.scoreboard.model.Scoreboard;
 import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
 import matveyodintsov.scoreboard.repository.player.PlayerPersistenceRepository;
 import matveyodintsov.scoreboard.service.match.MatchService;
@@ -54,7 +53,7 @@ public class MatchRegisterServlet extends HttpServlet {
         Player firstPlayer = playerService.getOrCreatePlayer(p1);
         Player secondPlayer = playerService.getOrCreatePlayer(p2);
 
-        Match match = gameLocalService.createAndSaveMatch(firstPlayer, secondPlayer);
+        Match match = gameLocalService.createAndSaveMatchRegistration(firstPlayer, secondPlayer);
 
         response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + match.getUuid());
     }

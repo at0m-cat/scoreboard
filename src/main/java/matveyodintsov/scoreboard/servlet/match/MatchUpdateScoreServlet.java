@@ -70,23 +70,15 @@ public class MatchUpdateScoreServlet extends HttpServlet {
                 request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             }
 
-//            TODO
-//             MatchScoreService
-//             обновление доски очков и калькуляция
-//
-
             int playerNumber = Integer.parseInt(playerNumberParam);
-
             MatchScoreService matchScoreService = new MatchScoreService(currentMatch);
-            matchScoreService.update(playerNumber);
+            matchScoreService.play(playerNumber);
             Scoreboard scoreboard = currentMatch.getScoreboard();
-
-
 
             String jsonResponse = String.format(
                     "{\"scoreboard\":{\"firstPlayerScore\":\"%s\",\"secondPlayerScore\":\"%s\",\"firstPlayerGames\":%d,\"secondPlayerGames\":%d,\"firstPlayerSets\":%d,\"secondPlayerSets\":%d},\"winner\":\"%s\"}",
-                    scoreboard.getFirstPlayerScore().name(),
-                    scoreboard.getSecondPlayerScore().name(),
+                    scoreboard.getFirstPlayerScore(),
+                    scoreboard.getSecondPlayerScore(),
                     scoreboard.getFirstPlayerGameScore(),
                     scoreboard.getSecondPlayerGameScore(),
                     scoreboard.getFirstPlayerSetScore(),

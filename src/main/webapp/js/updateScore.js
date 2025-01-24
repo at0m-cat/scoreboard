@@ -30,8 +30,8 @@ async function updateScore(buttonElement) {
 
             updateUI(updatedGame.scoreboard);
             if (updatedGame.winner !== "none") {
-                alert(`Winner: ${updatedGame.winner}`);
-                postRedirect('finish-game', { uuid: gameUuid });
+                postRedirect('/finish-game', {uuid: gameUuid});
+                return;
             }
 
         } else {
@@ -50,4 +50,23 @@ function updateUI(scoreboard) {
     document.getElementById('secondPlayerGames').innerText = scoreboard.secondPlayerGames;
     document.getElementById('firstPlayerSets').innerText = scoreboard.firstPlayerSets;
     document.getElementById('secondPlayerSets').innerText = scoreboard.secondPlayerSets;
+}
+
+function postRedirect(url, data) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = data[key];
+            form.appendChild(input);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }

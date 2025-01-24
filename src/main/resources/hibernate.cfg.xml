@@ -15,6 +15,7 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
         <mapping class="matveyodintsov.scoreboard.model.Player"/>
+        <mapping class="matveyodintsov.scoreboard.model.Scoreboard"/>
         <mapping class="matveyodintsov.scoreboard.model.Match"/>
     </session-factory>
 </hibernate-configuration>

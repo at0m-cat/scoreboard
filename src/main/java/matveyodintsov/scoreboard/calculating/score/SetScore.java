@@ -1,11 +1,13 @@
 package matveyodintsov.scoreboard.calculating.score;
 
+import lombok.Getter;
 import matveyodintsov.scoreboard.calculating.GameScore;
 import matveyodintsov.scoreboard.calculating.Score;
 import matveyodintsov.scoreboard.calculating.State;
 
 public class SetScore extends Score<Integer> {
 
+    @Getter
     private GameScore<?> currentGame;
 
     public SetScore() {
@@ -30,20 +32,16 @@ public class SetScore extends Score<Integer> {
 
     private State gameWon(int playerNumber) {
         setPlayerScores(playerNumber, getPlayerScore(playerNumber) + 1);
-        this.currentGame = new RegularGameScore();
+        int opponentScore = getOpponentPlayerScore(playerNumber);
 
-        if (getPlayerScore(playerNumber) == 6) {
-
-            // TODO 2 games advantage and tiebreak logic
-
-            if (playerNumber == 0) {
-                return State.PLAYER_ONE_WON;
-            } else {
-                return State.PLAYER_TWO_WON;
-            }
-
-        } else {
+        if (getPlayerScore(playerNumber) == 6 && opponentScore == 6) {
+            this.currentGame = new TieBreakGameScore();
             return State.ONGOING;
         }
+        if (getPlayerScore(playerNumber) >= 6 && getPlayerScore(playerNumber) - opponentScore >= 2) {
+            return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
+        }
+        this.currentGame = new RegularGameScore();
+        return State.ONGOING;
     }
 }

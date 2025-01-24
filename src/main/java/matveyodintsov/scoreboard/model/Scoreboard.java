@@ -37,13 +37,11 @@ public class Scoreboard {
     @Column(name = "p2_set")
     private Integer secondPlayerSetScore = 0;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "p1_score")
-    private RegularGamePlayerPoints firstPlayerScore = RegularGamePlayerPoints.ZERO;
+    @Transient
+    private String firstPlayerScore = RegularGamePlayerPoints.ZERO.name();
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "p2_score")
-    private RegularGamePlayerPoints secondPlayerScore = RegularGamePlayerPoints.ZERO;
+    @Transient
+    private String secondPlayerScore = RegularGamePlayerPoints.ZERO.name();
 
     @Transient
     private MatchScore matchScore = new MatchScore();

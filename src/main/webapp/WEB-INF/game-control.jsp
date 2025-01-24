@@ -67,12 +67,6 @@
             </tr>
             </tbody>
         </table>
-        <section class="button-container">
-            <form method="post" action="finish-game">
-                <input type="hidden" name="uuid" value="${currentMatch.uuid}">
-                <button type="submit" class="btn">Finish Game</button>
-            </form>
-        </section>
     </c:if>
     <c:if test="${empty currentMatch}">
         <p>No active match. Please register a new match.</p>

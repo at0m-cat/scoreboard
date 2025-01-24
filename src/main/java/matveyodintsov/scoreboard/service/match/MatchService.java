@@ -12,7 +12,7 @@ public class MatchService extends MainService<Match> {
         super(repository);
     }
 
-    public Match createAndSaveMatch(Player firstPlayer, Player secondPlayer) {
+    public Match createAndSaveMatchRegistration(Player firstPlayer, Player secondPlayer) {
         Match match = new Match(firstPlayer, secondPlayer);
         Scoreboard scoreboard = new Scoreboard(match.getUuid());
         match.setScoreboard(scoreboard);

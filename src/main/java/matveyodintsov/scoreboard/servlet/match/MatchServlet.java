@@ -6,9 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import matveyodintsov.scoreboard.model.Scoreboard;
 import matveyodintsov.scoreboard.repository.match.MatchPersistenceRepository;
+import matveyodintsov.scoreboard.repository.scoreboard.ScoreboardPersistenceRepository;
 import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.ServiceFactory;
+import matveyodintsov.scoreboard.service.scoreboard.ScoreboardService;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
@@ -17,10 +20,12 @@ import java.io.IOException;
 public class MatchServlet extends HttpServlet {
 
     private MatchService gamePersistenceService;
+    private ScoreboardService scoreboardService;
 
     @Override
     public void init() throws ServletException {
         this.gamePersistenceService = ServiceFactory.getMatchService(new MatchPersistenceRepository());
+        this.scoreboardService = ServiceFactory.getScoreboardService(new ScoreboardPersistenceRepository());
     }
 
     @Override
@@ -34,6 +39,8 @@ public class MatchServlet extends HttpServlet {
 
         try {
             Match match = gamePersistenceService.getByKey(uuid);
+            Scoreboard scoreboard = scoreboardService.getByKey(uuid);
+            match.setScoreboard(scoreboard);
             if (match == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", AppConst.Message.GAME_NOT_FOUND);

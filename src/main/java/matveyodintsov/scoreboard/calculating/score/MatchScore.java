@@ -1,10 +1,12 @@
 package matveyodintsov.scoreboard.calculating.score;
 
+import lombok.Getter;
 import matveyodintsov.scoreboard.calculating.Score;
 import matveyodintsov.scoreboard.calculating.State;
 
 public class MatchScore extends Score<Integer> {
 
+    @Getter
     private SetScore currentScore;
 
     public MatchScore() {
@@ -39,4 +41,6 @@ public class MatchScore extends Score<Integer> {
         }
         return State.ONGOING;
     }
+
+
 }

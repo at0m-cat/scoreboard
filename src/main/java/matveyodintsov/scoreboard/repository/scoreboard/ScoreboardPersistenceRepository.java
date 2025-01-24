@@ -9,11 +9,12 @@ import org.hibernate.query.Query;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ScoreboardPersistenceRepository extends PersistenceRepository<Scoreboard> {
 
-    public ScoreboardPersistenceRepository(Class<Scoreboard> entityType) {
-        super(entityType);
+    public ScoreboardPersistenceRepository() {
+        super(Scoreboard.class);
     }
 
     //TODO throw new exception else NULL getByKey
@@ -23,7 +24,7 @@ public class ScoreboardPersistenceRepository extends PersistenceRepository<Score
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query<Scoreboard> query = session.createQuery("from Scoreboard where uuid = :uuid");
-        query.setParameter("uuid", key);
+        query.setParameter("uuid", UUID.fromString(key));
         Optional<Scoreboard> scoreboard = Optional.ofNullable(query.uniqueResult());
         session.close();
         return scoreboard.orElse(null);
