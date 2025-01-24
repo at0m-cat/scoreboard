@@ -18,7 +18,7 @@
 </head>
 <body>
 <header>
-    <h1>Game Control</h1>
+    <h1>Match Control</h1>
     <form method="get" action="/">
         <button type="submit" class="header-button">Main</button>
     </form>
