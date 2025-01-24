@@ -1,4 +1,8 @@
-package matveyodintsov.scoreboard.service.points;
+package matveyodintsov.scoreboard.calculating.score;
+
+import matveyodintsov.scoreboard.calculating.GameScore;
+import matveyodintsov.scoreboard.calculating.Score;
+import matveyodintsov.scoreboard.calculating.State;
 
 public class SetScore extends Score<Integer> {
 
@@ -29,6 +33,7 @@ public class SetScore extends Score<Integer> {
         this.currentGame = new RegularGameScore();
 
         if (getPlayerScore(playerNumber) == 6) {
+
             // TODO 2 games advantage and tiebreak logic
 
             if (playerNumber == 0) {

@@ -33,38 +33,17 @@ public class Match {
     @JoinColumn(name = "winner")
     private Player winner;
 
-    @Column(name = "sets_first_player", nullable = false)
-    private Integer setsFirstPlayer;
-
-    @Column(name = "sets_second_player", nullable = false)
-    private Integer setsSecondPlayer = 0;
-
-    @Column(name = "games_first_player", nullable = false)
-    private Integer gamesFirstPlayer = 0;
-
-    @Column(name = "games_second_player", nullable = false)
-    private Integer gamesSecondPlayer = 0;
-
-    @Column(name = "score_first_player", nullable = false)
-    private Integer scoreFirstPlayer;
-
-    @Column(name = "score_second_player", nullable = false)
-    private Integer scoreSecondPlayer;
-
     @Column(name = "game_date", nullable = false)
     private LocalDate gameDate;
+
+    @Transient
+    private Scoreboard scoreboard = null;
 
     public Match(Player firstPlayer, Player secondPlayer) {
         this.id = null;
         this.uuid = UUID.randomUUID();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-        this.setsFirstPlayer = 0;
-        this.setsSecondPlayer = 0;
-        this.gamesFirstPlayer =0;
-        this.gamesSecondPlayer = 0;
-        this.scoreFirstPlayer = 0;
-        this.scoreSecondPlayer = 0;
         this.gameDate = LocalDate.now();
     }
 

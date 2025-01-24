@@ -1,4 +1,4 @@
-package matveyodintsov.scoreboard.service.points;
+package matveyodintsov.scoreboard.calculating;
 
 public enum RegularGamePlayerPoints {
 

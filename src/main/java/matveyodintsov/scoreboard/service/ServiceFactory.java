@@ -2,9 +2,11 @@ package matveyodintsov.scoreboard.service;
 
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
+import matveyodintsov.scoreboard.model.Scoreboard;
 import matveyodintsov.scoreboard.repository.Repository;
 import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.player.PlayerService;
+import matveyodintsov.scoreboard.service.scoreboard.ScoreboardService;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +26,11 @@ public class ServiceFactory {
     public static PlayerService getPlayerService(Repository<Player> repository) {
         String key = createKey(PlayerService.class, repository);
         return (PlayerService) services.computeIfAbsent(key, k -> new PlayerService(repository));
+    }
+
+    public static ScoreboardService getScoreboardService(Repository<Scoreboard> repository) {
+        String key = createKey(ScoreboardService.class, repository);
+        return (ScoreboardService) services.computeIfAbsent(key, k -> new ScoreboardService(repository));
     }
 
     private static String createKey(Class<?> serviceClass, Repository<?> repository) {

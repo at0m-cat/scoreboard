@@ -1,4 +1,5 @@
-package matveyodintsov.scoreboard.service.points;
+package matveyodintsov.scoreboard.calculating;
+
 
 import java.util.ArrayList;
 import java.util.List;

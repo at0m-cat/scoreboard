@@ -1,4 +1,7 @@
-package matveyodintsov.scoreboard.service.points;
+package matveyodintsov.scoreboard.calculating.score;
+
+import matveyodintsov.scoreboard.calculating.Score;
+import matveyodintsov.scoreboard.calculating.State;
 
 public class MatchScore extends Score<Integer> {
 

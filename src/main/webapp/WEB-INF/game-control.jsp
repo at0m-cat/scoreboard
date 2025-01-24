@@ -45,25 +45,23 @@
             <tbody>
             <tr>
                 <td>${currentMatch.firstPlayer.name}</td>
-                <td id="firstPlayerSets">${currentMatch.setsFirstPlayer}</td>
-                <td id="firstPlayerGames">${currentMatch.gamesFirstPlayer}</td>
-                <td id="firstPlayerScore">${currentMatch.scoreFirstPlayer}</td>
+                <td id="firstPlayerSets">${currentMatch.scoreboard.firstPlayerSetScore}</td>
+                <td id="firstPlayerGames">${currentMatch.scoreboard.firstPlayerGameScore}</td>
+                <td id="firstPlayerScore">${currentMatch.scoreboard.firstPlayerScore}</td>
                 <td>
                     <section class="button-container">
-                        <button type="button" data-player="${currentMatch.firstPlayer.name}" onclick="updateScore(this)">+1</button>
-<%--                        <button type="button" onclick="updateScore('firstPlayer', 'decrement')">-1</button>--%>
+                        <button type="button" data-player="${currentMatch.firstPlayer.name}" player-number="0" onclick="updateScore(this)">+1</button>
                     </section>
                 </td>
             </tr>
             <tr>
                 <td>${currentMatch.secondPlayer.name}</td>
-                <td id="secondPlayerSets">${currentMatch.setsSecondPlayer}</td>
-                <td id="secondPlayerGames">${currentMatch.gamesSecondPlayer}</td>
-                <td id="secondPlayerScore">${currentMatch.scoreSecondPlayer}</td>
+                <td id="secondPlayerSets">${currentMatch.scoreboard.secondPlayerSetScore}</td>
+                <td id="secondPlayerGames">${currentMatch.scoreboard.secondPlayerGameScore}</td>
+                <td id="secondPlayerScore">${currentMatch.scoreboard.secondPlayerScore}</td>
                 <td>
                     <section class="button-container">
-                        <button type="button" data-player="${currentMatch.secondPlayer.name}" onclick="updateScore(this)">+1</button>
-<%--                        <button type="button" onclick="updateScore('secondPlayer', 'decrement')">-1</button>--%>
+                        <button type="button" data-player="${currentMatch.secondPlayer.name}" player-number="1" onclick="updateScore(this)">+1</button>
                     </section>
                 </td>
             </tr>

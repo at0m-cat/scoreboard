@@ -38,18 +38,18 @@ public class MatchFinishServlet extends HttpServlet {
         if (currentMatch != null) {
             matchPersistenceService.save(currentMatch);
             matchLocalService.delete(currentMatch);
-
-            currentMatch.getFirstPlayer().setTotalMatches(currentMatch.getFirstPlayer().getTotalMatches() + 1);
-            currentMatch.getSecondPlayer().setTotalMatches(currentMatch.getSecondPlayer().getTotalMatches() + 1);
-            if (currentMatch.getWinner().equals(currentMatch.getFirstPlayer())) {
-                currentMatch.getFirstPlayer().setTotalWins(currentMatch.getFirstPlayer().getTotalWins() + 1);
-            }
-            if (currentMatch.getWinner().equals(currentMatch.getSecondPlayer())) {
-                currentMatch.getSecondPlayer().setTotalWins(currentMatch.getSecondPlayer().getTotalWins() + 1);
-            }
-
-            playerPersistenceService.save(currentMatch.getFirstPlayer());
-            playerPersistenceService.save(currentMatch.getSecondPlayer());
+//
+//            currentMatch.getFirstPlayer().setTotalMatches(currentMatch.getFirstPlayer().getTotalMatches() + 1);
+//            currentMatch.getSecondPlayer().setTotalMatches(currentMatch.getSecondPlayer().getTotalMatches() + 1);
+//            if (currentMatch.getWinner().equals(currentMatch.getFirstPlayer())) {
+//                currentMatch.getFirstPlayer().setTotalWins(currentMatch.getFirstPlayer().getTotalWins() + 1);
+//            }
+//            if (currentMatch.getWinner().equals(currentMatch.getSecondPlayer())) {
+//                currentMatch.getSecondPlayer().setTotalWins(currentMatch.getSecondPlayer().getTotalWins() + 1);
+//            }
+//
+//            playerPersistenceService.save(currentMatch.getFirstPlayer());
+//            playerPersistenceService.save(currentMatch.getSecondPlayer());
         }
 
         response.sendRedirect(AppConst.Route.MATCH_SERVLET + "?uuid=" + uuid);

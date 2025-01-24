@@ -1,4 +1,8 @@
-package matveyodintsov.scoreboard.service.points;
+package matveyodintsov.scoreboard.calculating.score;
+
+import matveyodintsov.scoreboard.calculating.GameScore;
+import matveyodintsov.scoreboard.calculating.RegularGamePlayerPoints;
+import matveyodintsov.scoreboard.calculating.State;
 
 public class RegularGameScore extends GameScore<RegularGamePlayerPoints> {
 

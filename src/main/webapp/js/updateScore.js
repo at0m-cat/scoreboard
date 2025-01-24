@@ -1,7 +1,9 @@
 async function updateScore(buttonElement) {
     const playerName = buttonElement.getAttribute('data-player');
-    if (!playerName) {
-        alert('Player identifier not found');
+    const playerNumber = buttonElement.getAttribute('player-number');
+
+    if (!playerName || !playerNumber) {
+        alert('Invalid player details');
         return;
     }
 
@@ -9,6 +11,7 @@ async function updateScore(buttonElement) {
         const body = new URLSearchParams();
         body.append("uuid", gameUuid);
         body.append("playerName", playerName);
+        body.append("playerNumber", playerNumber);
 
         const response = await fetch('match-score', {
             method: 'POST',
@@ -20,7 +23,17 @@ async function updateScore(buttonElement) {
 
         if (response.ok) {
             const updatedGame = await response.json();
-            updateUI(updatedGame);
+            if (updatedGame.error) {
+                alert(updatedGame.error);
+                return;
+            }
+
+            updateUI(updatedGame.scoreboard);
+            if (updatedGame.winner !== "none") {
+                alert(`Winner: ${updatedGame.winner}`);
+                postRedirect('finish-game', { uuid: gameUuid });
+            }
+
         } else {
             alert('Failed to update the score');
         }
@@ -30,11 +43,11 @@ async function updateScore(buttonElement) {
     }
 }
 
-function updateUI(updatedGame) {
-    document.getElementById('firstPlayerScore').innerText = updatedGame.firstPlayerScore;
-    document.getElementById('secondPlayerScore').innerText = updatedGame.secondPlayerScore;
-    document.getElementById('firstPlayerGames').innerText = updatedGame.firstPlayerGames;
-    document.getElementById('secondPlayerGames').innerText = updatedGame.secondPlayerGames;
-    document.getElementById('firstPlayerSets').innerText = updatedGame.firstPlayerSets;
-    document.getElementById('secondPlayerSets').innerText = updatedGame.secondPlayerSets;
+function updateUI(scoreboard) {
+    document.getElementById('firstPlayerScore').innerText = scoreboard.firstPlayerScore;
+    document.getElementById('secondPlayerScore').innerText = scoreboard.secondPlayerScore;
+    document.getElementById('firstPlayerGames').innerText = scoreboard.firstPlayerGames;
+    document.getElementById('secondPlayerGames').innerText = scoreboard.secondPlayerGames;
+    document.getElementById('firstPlayerSets').innerText = scoreboard.firstPlayerSets;
+    document.getElementById('secondPlayerSets').innerText = scoreboard.secondPlayerSets;
 }

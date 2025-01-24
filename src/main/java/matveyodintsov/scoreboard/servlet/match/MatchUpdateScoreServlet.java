@@ -6,10 +6,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import matveyodintsov.scoreboard.model.Match;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import matveyodintsov.scoreboard.model.Scoreboard;
 import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
+import matveyodintsov.scoreboard.service.MatchScoreService;
 import matveyodintsov.scoreboard.service.match.MatchService;
 import matveyodintsov.scoreboard.service.ServiceFactory;
-import matveyodintsov.scoreboard.service.calculation.CalcMatchScoreService;
 import matveyodintsov.scoreboard.util.AppConst;
 
 import java.io.IOException;
@@ -18,7 +19,6 @@ import java.io.IOException;
 public class MatchUpdateScoreServlet extends HttpServlet {
 
     private MatchService gameLocalService;
-    private CalcMatchScoreService calcMatchScoreService;
 
     @Override
     public void init() throws ServletException {
@@ -53,30 +53,51 @@ public class MatchUpdateScoreServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String uuidParam = request.getParameter("uuid");
-        Match currentMatch = gameLocalService.getByKey(uuidParam);
-        if (currentMatch == null || uuidParam == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        String playerNumberParam = request.getParameter("playerNumber");
+        if (uuidParam == null || playerNumberParam == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", AppConst.Message.GAME_NOT_EXIST);
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             return;
         }
-        calcMatchScoreService = new CalcMatchScoreService(currentMatch);
 
-        String playerName = request.getParameter("playerName");
-        calcMatchScoreService.updateScoreboard(playerName);
-        currentMatch = calcMatchScoreService.getMatch();
+        try {
+            Match currentMatch = gameLocalService.getByKey(uuidParam);
+            if (currentMatch == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                request.setAttribute("message", AppConst.Message.GAME_NOT_FOUND);
+                request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+            }
 
-        response.setContentType("application/json");
-        response.getWriter().write(String.format(
-                "{\"firstPlayerScore\":%d,\"secondPlayerScore\":%d,\"firstPlayerGames\":%d,\"secondPlayerGames\":%d,\"firstPlayerSets\":%d,\"secondPlayerSets\":%d}",
-                currentMatch.getScoreFirstPlayer(),
-                currentMatch.getScoreSecondPlayer(),
-                currentMatch.getGamesFirstPlayer(),
-                currentMatch.getGamesSecondPlayer(),
-                currentMatch.getSetsFirstPlayer(),
-                currentMatch.getSetsSecondPlayer()
-        ));
+//            TODO
+//             MatchScoreService
+//             обновление доски очков и калькуляция
+//
+
+            int playerNumber = Integer.parseInt(playerNumberParam);
+
+            MatchScoreService matchScoreService = new MatchScoreService(currentMatch);
+            matchScoreService.update(playerNumber);
+            Scoreboard scoreboard = currentMatch.getScoreboard();
+
+
+
+            String jsonResponse = String.format(
+                    "{\"scoreboard\":{\"firstPlayerScore\":\"%s\",\"secondPlayerScore\":\"%s\",\"firstPlayerGames\":%d,\"secondPlayerGames\":%d,\"firstPlayerSets\":%d,\"secondPlayerSets\":%d},\"winner\":\"%s\"}",
+                    scoreboard.getFirstPlayerScore().name(),
+                    scoreboard.getSecondPlayerScore().name(),
+                    scoreboard.getFirstPlayerGameScore(),
+                    scoreboard.getSecondPlayerGameScore(),
+                    scoreboard.getFirstPlayerSetScore(),
+                    scoreboard.getSecondPlayerSetScore(),
+                    currentMatch.getWinner() != null ? currentMatch.getWinner().getName() : "none"
+            );
+            response.getWriter().write(jsonResponse);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            request.setAttribute("message", AppConst.Message.PAGE_NOT_FOUND);
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+        }
     }
 }

@@ -25,14 +25,14 @@
         <div class="players">
             <div class="player ${match.winner == match.firstPlayer ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.firstPlayer.name}')">
                 <h3>${match.firstPlayer.name}</h3>
-                <p>Sets: <span class="score">${match.setsFirstPlayer}</span></p>
-                <p>Games: <span class="score">${match.gamesFirstPlayer}</span></p>
+                <p>Sets: <span class="score">${match.scoreboard.firstPlayerSetScore}</span></p>
+                <p>Games: <span class="score">${match.scoreboard.firstPlayerGameScore}</span></p>
             </div>
             <div class="versus">VS</div>
             <div class="player ${match.winner == match.secondPlayer ? 'winner' : ''}" onclick="redirectToPlayerInfo('${match.secondPlayer.name}')">
                 <h3>${match.secondPlayer.name}</h3>
-                <p>Sets: <span class="score">${match.setsSecondPlayer}</span></p>
-                <p>Games: <span class="score">${match.gamesSecondPlayer}</span></p>
+                <p>Sets: <span class="score">${match.scoreboard.secondPlayerSetScore}</span></p>
+                <p>Games: <span class="score">${match.scoreboard.secondPlayerGameScore}</span></p>
             </div>
         </div>
         <p><strong>UUID:</strong> ${match.uuid}</p>
