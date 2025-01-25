@@ -4,6 +4,7 @@ import matveyodintsov.scoreboard.calculating.State;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Set points")
 public class SetScoreTest {
 
     @Test
