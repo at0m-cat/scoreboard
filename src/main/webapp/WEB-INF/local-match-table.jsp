@@ -14,7 +14,7 @@
 </head>
 <body>
 <header>
-    <h1>Local matches</h1>
+    <h1>Last matches</h1>
     <form method="get" action="/">
         <button type="submit" class="header-button">Main</button>
     </form>

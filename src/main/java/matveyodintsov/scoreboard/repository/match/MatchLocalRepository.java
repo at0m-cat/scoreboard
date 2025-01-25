@@ -12,7 +12,11 @@ public class MatchLocalRepository extends LocalRepository<Match, UUID> {
     @Override
     public void save(Match match) {
         repository.put(match.getUuid(), match);
-        cachedList = new ArrayList<>(repository.values());
+        if (cachedList.isEmpty()) {
+            cachedList = new ArrayList<>(repository.values());
+        } else {
+            cachedList.addAll(repository.values());
+        }
     }
 
     @Override

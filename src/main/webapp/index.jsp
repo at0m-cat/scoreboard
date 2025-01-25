@@ -1,3 +1,4 @@
+<%@ page import="matveyodintsov.scoreboard.util.AppConst" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,7 @@
     <br>
     <section class="button-container">
         <form method="get" action="local">
-            <button type="submit" class="btn">Current matches</button>
+            <button type="submit" class="btn">Last <%=AppConst.Constants.PAGE_SIZE %> registered match</button>
         </form>
     </section>
 
