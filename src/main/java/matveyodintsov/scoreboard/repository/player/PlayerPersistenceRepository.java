@@ -1,5 +1,6 @@
 package matveyodintsov.scoreboard.repository.player;
 
+import jakarta.persistence.EntityNotFoundException;
 import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.PersistenceRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
@@ -17,13 +18,13 @@ public class PlayerPersistenceRepository extends PersistenceRepository<Player> {
     //TODO throw new exception else NULL getByKey
 
     @Override
-    public Player getByKey(String playerName) {
+    public Player getByKey(String playerName) throws EntityNotFoundException {
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
         Query<Player> query = hibernateSession.createQuery("FROM Player WHERE name = :name", Player.class);
         query.setParameter("name", playerName);
         Optional<Player> player = Optional.ofNullable(query.uniqueResult());
         hibernateSession.close();
-        return player.orElse(null);
+        return player.orElseThrow(() -> new EntityNotFoundException("Player with name " + playerName + " not found"));
     }
 
     @Override

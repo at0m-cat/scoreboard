@@ -31,5 +31,7 @@ public class AppConst {
         public static final String GAME_NOT_EXIST = "Match does not exist";
         public static final String GAME_NOT_FOUND = "Match not found";
         public static final String PAGE_NOT_FOUND = "Page not found";
+        public static final String CANNOT_SAVE = "Cannot save object";
+        public static final String FAILED_DELETE = "Failed to delete object";
     }
 }

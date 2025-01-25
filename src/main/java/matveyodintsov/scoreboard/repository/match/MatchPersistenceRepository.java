@@ -1,5 +1,6 @@
 package matveyodintsov.scoreboard.repository.match;
 
+import jakarta.persistence.EntityNotFoundException;
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.repository.PersistenceRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
@@ -17,14 +18,14 @@ public class MatchPersistenceRepository extends PersistenceRepository<Match> {
     //TODO throw new exception else NULL getByKey
 
     @Override
-    public Match getByKey(String uuid) {
+    public Match getByKey(String uuid) throws EntityNotFoundException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query<Match> query = session.createQuery("from Match where uuid = :uuid");
         query.setParameter("uuid", UUID.fromString(uuid));
         Optional<Match> game = Optional.ofNullable(query.uniqueResult());
         session.close();
-        return game.orElse(null);
+        return game.orElseThrow(() -> new EntityNotFoundException("Could not find match with uuid " + uuid));
     }
 
     @Override

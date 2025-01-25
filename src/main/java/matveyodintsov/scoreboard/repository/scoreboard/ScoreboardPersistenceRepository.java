@@ -1,5 +1,6 @@
 package matveyodintsov.scoreboard.repository.scoreboard;
 
+import jakarta.persistence.EntityNotFoundException;
 import matveyodintsov.scoreboard.model.Scoreboard;
 import matveyodintsov.scoreboard.repository.PersistenceRepository;
 import matveyodintsov.scoreboard.util.HibernateUtil;
@@ -27,7 +28,7 @@ public class ScoreboardPersistenceRepository extends PersistenceRepository<Score
         query.setParameter("uuid", UUID.fromString(key));
         Optional<Scoreboard> scoreboard = Optional.ofNullable(query.uniqueResult());
         session.close();
-        return scoreboard.orElse(null);
+        return scoreboard.orElseThrow(() -> new EntityNotFoundException("Could not find Scoreboard with key: " + key));
     }
 
     @Override

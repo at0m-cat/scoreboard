@@ -1,5 +1,6 @@
 package matveyodintsov.scoreboard.servlet.match;
 
+import jakarta.persistence.EntityNotFoundException;
 import matveyodintsov.scoreboard.model.Match;
 import matveyodintsov.scoreboard.model.Player;
 import jakarta.servlet.ServletException;
@@ -48,13 +49,31 @@ public class MatchRegisterServlet extends HttpServlet {
             return;
         }
 
-//        TODO refactoring method getOrCreate -> createOrGet!
+        Player firstPlayer;
+        Player secondPlayer;
 
-        Player firstPlayer = playerService.getOrCreatePlayer(p1);
-        Player secondPlayer = playerService.getOrCreatePlayer(p2);
+        try {
+            firstPlayer = playerService.getByKey(p1);
+        } catch (EntityNotFoundException e) {
+            firstPlayer = new Player(p1);
+            playerService.save(firstPlayer);
+        }
 
-        Match match = gameLocalService.createAndSaveMatchRegistration(firstPlayer, secondPlayer);
+        try {
+            secondPlayer = playerService.getByKey(p2);
+        } catch (EntityNotFoundException e) {
+            secondPlayer = new Player(p2);
+            playerService.save(secondPlayer);
+        }
 
-        response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + match.getUuid());
+        try {
+            Match match = gameLocalService.createAndSaveMatchRegistration(firstPlayer, secondPlayer);
+            response.sendRedirect(AppConst.Route.MATCH_SCORE_SERVLET + "?uuid=" + match.getUuid());
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+        }
+
     }
 }

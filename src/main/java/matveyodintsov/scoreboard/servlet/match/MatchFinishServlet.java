@@ -1,6 +1,7 @@
 package matveyodintsov.scoreboard.servlet.match;
 
 import matveyodintsov.scoreboard.model.Match;
+import matveyodintsov.scoreboard.model.Player;
 import matveyodintsov.scoreboard.repository.match.MatchLocalRepository;
 import matveyodintsov.scoreboard.repository.match.MatchPersistenceRepository;
 import matveyodintsov.scoreboard.repository.player.PlayerPersistenceRepository;
@@ -41,24 +42,34 @@ public class MatchFinishServlet extends HttpServlet {
         Match currentMatch = matchLocalService.getByKey(uuid);
         if (currentMatch != null) {
 
-            currentMatch.getFirstPlayer().setTotalMatches(currentMatch.getFirstPlayer().getTotalMatches() + 1);
-            currentMatch.getSecondPlayer().setTotalMatches(currentMatch.getSecondPlayer().getTotalMatches() + 1);
+            Player firstPlayer = playerPersistenceService.getByKey(currentMatch.getFirstPlayer().getName());
+            Player secondPlayer = playerPersistenceService.getByKey(currentMatch.getSecondPlayer().getName());
+
+
+            currentMatch.getFirstPlayer().setTotalMatches(firstPlayer.getTotalMatches() + 1);
+            currentMatch.getSecondPlayer().setTotalMatches(secondPlayer.getTotalMatches() + 1);
 
             if (currentMatch.getWinner().equals(currentMatch.getFirstPlayer())) {
-                currentMatch.getFirstPlayer().setTotalWins(currentMatch.getFirstPlayer().getTotalWins() + 1);
-                currentMatch.getSecondPlayer().setTotalLosses(currentMatch.getSecondPlayer().getTotalLosses() + 1);
+                currentMatch.getFirstPlayer().setTotalWins(firstPlayer.getTotalWins() + 1);
+                currentMatch.getSecondPlayer().setTotalLosses(secondPlayer.getTotalLosses() + 1);
             }
             if (currentMatch.getWinner().equals(currentMatch.getSecondPlayer())) {
-                currentMatch.getSecondPlayer().setTotalWins(currentMatch.getFirstPlayer().getTotalWins() + 1);
-                currentMatch.getFirstPlayer().setTotalLosses(currentMatch.getFirstPlayer().getTotalLosses() + 1);
+                currentMatch.getSecondPlayer().setTotalWins(secondPlayer.getTotalWins() + 1);
+                currentMatch.getFirstPlayer().setTotalLosses(firstPlayer.getTotalLosses() + 1);
             }
 
-            playerPersistenceService.save(currentMatch.getFirstPlayer());
-            playerPersistenceService.save(currentMatch.getSecondPlayer());
-            scoreboardService.save(currentMatch.getScoreboard());
-            matchPersistenceService.save(currentMatch);
-
-            matchLocalService.delete(currentMatch);
+            try {
+                playerPersistenceService.save(currentMatch.getFirstPlayer());
+                playerPersistenceService.save(currentMatch.getSecondPlayer());
+                scoreboardService.save(currentMatch.getScoreboard());
+                matchPersistenceService.save(currentMatch);
+                matchLocalService.delete(currentMatch);
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                request.setAttribute("message", e.getMessage());
+                request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
+                return;
+            }
         }
 
         response.sendRedirect(AppConst.Route.MATCH_SERVLET + "?uuid=" + uuid);

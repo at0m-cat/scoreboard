@@ -14,8 +14,9 @@ public class MatchLocalRepository extends LocalRepository<Match, UUID> {
         repository.put(match.getUuid(), match);
         if (cachedList.isEmpty()) {
             cachedList = new ArrayList<>(repository.values());
-        } else {
-            cachedList.addAll(repository.values());
+        }
+        if (!cachedList.contains(match)) {
+            cachedList.add(match);
         }
     }
 
