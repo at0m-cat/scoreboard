@@ -17,6 +17,7 @@ public class HibernateUtil {
                         sessionFactory = new Configuration()
                                 .configure("hibernate.cfg.xml")
                                 .buildSessionFactory();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
