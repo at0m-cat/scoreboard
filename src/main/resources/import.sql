@@ -1,4 +1,3 @@
--- Добавление игроков
 INSERT INTO PLAYERS (LOSSES, MATCHES, WINS, ID, NAME)
 VALUES (5, 15, 10, 1, 'Novak Djokovic'),
        (7, 20, 13, 2, 'Rafael Nadal'),
@@ -11,7 +10,6 @@ VALUES (5, 15, 10, 1, 'Novak Djokovic'),
        (6, 18, 12, 9, 'Jannik Sinner'),
        (7, 20, 13, 10, 'Dominic Thiem');
 
--- Добавление матчей
 INSERT INTO MATCH (GAME_DATE, ID, FIRST_PLAYER, SECOND_PLAYER, WINNER, UUID)
 VALUES ('2025-01-01', 1, 1, 2, 1, '111e4567-e89b-12d3-a456-426614174001'),
        ('2025-01-02', 2, 3, 4, 3, '111e4567-e89b-12d3-a456-426614174002'),
@@ -44,7 +42,6 @@ VALUES ('2025-01-01', 1, 1, 2, 1, '111e4567-e89b-12d3-a456-426614174001'),
        ('2025-01-29', 29, 2, 10, 10, '111e4567-e89b-12d3-a456-426614174029'),
        ('2025-01-30', 30, 3, 7, 7, '111e4567-e89b-12d3-a456-426614174030');
 
--- Добавление досок очков
 INSERT INTO SCOREBOARD (ID, P1_SET, P2_SET, UUID)
 VALUES (1, 3, 2, '111e4567-e89b-12d3-a456-426614174001'),
        (2, 4, 1, '111e4567-e89b-12d3-a456-426614174002'),
