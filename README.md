@@ -142,7 +142,7 @@ Home page, which has buttons to navigate to the following pages: **new match**,
 
 ## Diagram Description
 
-![img_1.png](img_1.png)
+![Image](https://github.com/user-attachments/assets/9fd48da9-1cef-4a6d-9cce-28b383cb1dae)
 This diagram represents the structure of the `MATCH`, `PLAYERS`, and `SCOREBOARD` entities and their relationships.
 
 ### Classes
