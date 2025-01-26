@@ -10,10 +10,6 @@
     <name>scoreboard</name>
     <packaging>war</packaging>
 
-    <build>
-        <finalName>ROOT</finalName>
-    </build>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>17</maven.compiler.target>
@@ -74,11 +70,13 @@
     </dependencies>
 
     <build>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
+
             </plugin>
         </plugins>
     </build>
