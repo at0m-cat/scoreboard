@@ -10,4 +10,10 @@ public class PlayerService extends MainService<Player> {
         super(repository);
     }
 
+    public Player createAndSave(String playerName) {
+        Player player = new Player();
+        player.setName(playerName);
+        super.save(player);
+        return player;
+    }
 }

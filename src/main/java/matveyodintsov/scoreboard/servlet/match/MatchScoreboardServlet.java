@@ -27,7 +27,6 @@ public class MatchScoreboardServlet extends HttpServlet {
         if (page < 1) {
             page = 1;
         }
-
         try {
             int maxPage = Math.toIntExact(gamePersistenceService.getMaxPageNum(name));
             request.setAttribute("playerNameInput", name);

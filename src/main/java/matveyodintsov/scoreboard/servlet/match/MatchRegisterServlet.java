@@ -55,17 +55,13 @@ public class MatchRegisterServlet extends HttpServlet {
         try {
             firstPlayer = playerService.getByKey(p1);
         } catch (EntityNotFoundException e) {
-            firstPlayer = new Player();
-            firstPlayer.setName(p1);
-            playerService.save(firstPlayer);
+            firstPlayer = playerService.createAndSave(p1);
         }
 
         try {
             secondPlayer = playerService.getByKey(p2);
         } catch (EntityNotFoundException e) {
-            secondPlayer = new Player();
-            secondPlayer.setName(p2);
-            playerService.save(secondPlayer);
+            secondPlayer = playerService.createAndSave(p2);
         }
 
         try {

@@ -28,7 +28,6 @@ public class MatchLocalTableServlet extends HttpServlet {
         if (page < 1) {
             page = 1;
         }
-
         try {
             int maxPage = Math.toIntExact(gameLocalService.getMaxPageNum(null));
             request.setAttribute("matches", gameLocalService.findAllWithPageAndName(null, page));

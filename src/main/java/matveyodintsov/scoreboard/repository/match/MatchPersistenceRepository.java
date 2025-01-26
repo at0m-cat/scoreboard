@@ -15,8 +15,6 @@ public class MatchPersistenceRepository extends PersistenceRepository<Match> {
         super(Match.class);
     }
 
-    //TODO throw new exception else NULL getByKey
-
     @Override
     public Match getByKey(String uuid) throws EntityNotFoundException {
         Session session = HibernateUtil.getSessionFactory().openSession();

@@ -15,8 +15,6 @@ public class PlayerPersistenceRepository extends PersistenceRepository<Player> {
         super(Player.class);
     }
 
-    //TODO throw new exception else NULL getByKey
-
     @Override
     public Player getByKey(String playerName) throws EntityNotFoundException {
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();

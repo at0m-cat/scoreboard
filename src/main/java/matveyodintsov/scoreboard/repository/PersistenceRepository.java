@@ -51,6 +51,4 @@ public abstract class PersistenceRepository<T> implements Repository<T> {
             return query.uniqueResult();
         }
     }
-
-
 }

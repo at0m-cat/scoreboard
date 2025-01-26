@@ -16,9 +16,10 @@ public class MatchService extends MainService<Match> {
         Match match = new Match();
         match.setFirstPlayer(firstPlayer);
         match.setSecondPlayer(secondPlayer);
-        Scoreboard scoreboard = new Scoreboard(match.getUuid());
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.setUuid(match.getUuid());
         match.setScoreboard(scoreboard);
-        repository.save(match);
+        super.save(match);
         return match;
     }
 

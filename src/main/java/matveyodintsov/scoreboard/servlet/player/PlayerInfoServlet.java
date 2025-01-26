@@ -31,10 +31,8 @@ public class PlayerInfoServlet extends HttpServlet {
             request.setAttribute("message", AppConst.Message.PLAYER_NAME_EMPTY);
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
         }
-
         try {
             Player player = playerService.getByKey(name);
-
             if (player == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 request.setAttribute("message", AppConst.Message.PLAYER_NOT_FOUND);
@@ -43,7 +41,6 @@ public class PlayerInfoServlet extends HttpServlet {
                 request.setAttribute("player", player);
                 getServletContext().getRequestDispatcher(AppConst.Route.PLAYER_INFO_JSP).forward(request, response);
             }
-
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("message", e.getMessage());

@@ -36,7 +36,6 @@ public class MatchServlet extends HttpServlet {
             request.setAttribute("message", AppConst.Message.ERROR_UUID);
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
         }
-
         try {
             Match match = gamePersistenceService.getByKey(uuid);
             Scoreboard scoreboard = scoreboardService.getByKey(uuid);

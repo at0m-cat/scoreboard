@@ -1,7 +1,5 @@
 package matveyodintsov.scoreboard.repository;
 
-import matveyodintsov.scoreboard.util.AppConst;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -35,6 +33,4 @@ public abstract class LocalRepository<T, K> implements Repository<T> {
 
     @Override
     public abstract void delete(T object);
-
-
 }

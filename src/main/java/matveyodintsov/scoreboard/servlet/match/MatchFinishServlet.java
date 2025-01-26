@@ -45,7 +45,6 @@ public class MatchFinishServlet extends HttpServlet {
             Player firstPlayer = playerPersistenceService.getByKey(currentMatch.getFirstPlayer().getName());
             Player secondPlayer = playerPersistenceService.getByKey(currentMatch.getSecondPlayer().getName());
 
-
             currentMatch.getFirstPlayer().setTotalMatches(firstPlayer.getTotalMatches() + 1);
             currentMatch.getSecondPlayer().setTotalMatches(secondPlayer.getTotalMatches() + 1);
 
@@ -57,7 +56,6 @@ public class MatchFinishServlet extends HttpServlet {
                 currentMatch.getSecondPlayer().setTotalWins(secondPlayer.getTotalWins() + 1);
                 currentMatch.getFirstPlayer().setTotalLosses(firstPlayer.getTotalLosses() + 1);
             }
-
             try {
                 playerPersistenceService.save(currentMatch.getFirstPlayer());
                 playerPersistenceService.save(currentMatch.getSecondPlayer());
@@ -71,7 +69,6 @@ public class MatchFinishServlet extends HttpServlet {
                 return;
             }
         }
-
         response.sendRedirect(AppConst.Route.MATCH_SERVLET + "?uuid=" + uuid);
     }
 }

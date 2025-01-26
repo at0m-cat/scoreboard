@@ -33,7 +33,6 @@ public class MatchUpdateScoreServlet extends HttpServlet {
             req.setAttribute("message", AppConst.Message.ERROR_UUID);
             req.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(req, resp);
         }
-
         try {
             Match currentMatch = gameLocalService.getByKey(uuid);
             if (currentMatch != null) {
@@ -61,7 +60,6 @@ public class MatchUpdateScoreServlet extends HttpServlet {
             request.getRequestDispatcher(AppConst.Route.ERROR_JSP).forward(request, response);
             return;
         }
-
         try {
             Match currentMatch = gameLocalService.getByKey(uuidParam);
             if (currentMatch == null) {
