@@ -19,7 +19,7 @@ public class Match {
     private Integer id;
 
     @Column(columnDefinition = "uuid", nullable = false)
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
 
     @ManyToOne
     @JoinColumn(name = "first_player", nullable = false)
@@ -34,17 +34,9 @@ public class Match {
     private Player winner;
 
     @Column(name = "game_date", nullable = false)
-    private LocalDate gameDate;
+    private LocalDate gameDate = LocalDate.now();
 
     @Transient
     private Scoreboard scoreboard = null;
-
-    public Match(Player firstPlayer, Player secondPlayer) {
-        this.id = null;
-        this.uuid = UUID.randomUUID();
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-        this.gameDate = LocalDate.now();
-    }
 
 }

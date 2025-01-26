@@ -19,19 +19,11 @@ public class Player {
     private String name;
 
     @Column(name = "wins", nullable = false)
-    private int totalWins;
+    private int totalWins = 0;
 
     @Column(name = "losses", nullable = false)
-    private int totalLosses;
+    private int totalLosses = 0;
 
     @Column(name = "matches", nullable = false)
-    private int totalMatches;
-
-    public Player(String name) {
-        this.id = null;
-        this.name = name;
-        this.totalWins = 0;
-        this.totalLosses = 0;
-        this.totalMatches = 0;
-    }
+    private int totalMatches = 0;
 }

@@ -78,7 +78,7 @@ public class MatchPersistenceRepository extends PersistenceRepository<Match> {
                 hql = "from Match m order by m.id desc";
                 query = session.createQuery(hql, Match.class);
             } else {
-                hql = "from Match m where m.firstPlayer.name = :playerName or m.secondPlayer.name = :playerName order by m.id";
+                hql = "from Match m where m.firstPlayer.name = :playerName or m.secondPlayer.name = :playerName order by m.id desc";
                 query = session.createQuery(hql, Match.class);
                 query.setParameter("playerName", playerName.trim());
             }

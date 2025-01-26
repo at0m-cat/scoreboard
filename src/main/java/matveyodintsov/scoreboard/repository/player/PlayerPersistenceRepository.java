@@ -73,10 +73,10 @@ public class PlayerPersistenceRepository extends PersistenceRepository<Player> {
             Query<Player> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
-                hql = "from Player p order by p.id";
+                hql = "from Player p order by p.totalMatches desc";
                 query = session.createQuery(hql, Player.class);
             } else {
-                hql = "from Player p where p.name LIKE :name order by p.id";
+                hql = "from Player p where p.name LIKE :name order by p.totalMatches desc";
                 query = session.createQuery(hql, Player.class);
                 query.setParameter("name", playerName.trim());
             }
