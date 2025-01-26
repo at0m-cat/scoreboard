@@ -193,15 +193,17 @@ This diagram represents the structure of the `MATCH`, `PLAYERS`, and `SCOREBOARD
 
 ## Servlet
 
-|          Servlet          | METHOD | Note                                                           |
-|:-------------------------:|:------:|:---------------------------------------------------------------|
-|   `MatchFinishServlet`    | `POST` | Recording of the completed match in the database               |
-| `MatchLocalTableServlet`  | `GET`  | Displays the history of the started matches                    |
-|  `MatchRegisterServlet`   | `GET`  | Redirect to the registration page                              |
-|  `MatchRegisterServlet`   | `POST` | Registration of matches in the local repository                |
-| `MatchScoreboardServlet`  | `GET`  | Displays completed matches from the Persistent repository (H2) |
-| `MatchUpdateScoreServlet` | `GET`  | Match management, the "Match control" page                     |
-| `MatchUpdateScoreServlet` | `POST` | Updates the score board on the "Match control" page            |
+|          Servlet          | METHOD | Note                                                                                                   |
+|:-------------------------:|:------:|:-------------------------------------------------------------------------------------------------------|
+|   `MatchFinishServlet`    | `POST` | Recording of the completed match in the database                                                       |
+| `MatchLocalTableServlet`  | `GET`  | Displays the history of the started matches                                                            |
+|  `MatchRegisterServlet`   | `GET`  | Redirect to the registration page                                                                      |
+|  `MatchRegisterServlet`   | `POST` | Registration of matches in the local repository                                                        |
+| `MatchScoreboardServlet`  | `GET`  | Displays completed matches from the Persistent repository (H2)                                         |
+| `MatchUpdateScoreServlet` | `GET`  | Match management, the "Match control" page                                                             |
+| `MatchUpdateScoreServlet` | `POST` | Updates the score board on the "Match control" page                                                    |
+|    `PlayerInfoServlet`    | `GET`  | Displays a page with information about the user (number of wins, losses, and participation in matches) |
+|   `PlayersTableServlet`   | `GET`  | Displays all registered players                                                                        |
 
 ---
 
