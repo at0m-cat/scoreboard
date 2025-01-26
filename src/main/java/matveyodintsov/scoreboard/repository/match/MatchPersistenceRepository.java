@@ -75,10 +75,10 @@ public class MatchPersistenceRepository extends PersistenceRepository<Match> {
             Query<Match> query;
 
             if (playerName == null || playerName.trim().isEmpty()) {
-                hql = "from Match";
+                hql = "from Match m order by m.id desc";
                 query = session.createQuery(hql, Match.class);
             } else {
-                hql = "from Match g where g.firstPlayer.name = :playerName or g.secondPlayer.name = :playerName";
+                hql = "from Match m where m.firstPlayer.name = :playerName or m.secondPlayer.name = :playerName order by m.id";
                 query = session.createQuery(hql, Match.class);
                 query.setParameter("playerName", playerName.trim());
             }
