@@ -79,7 +79,6 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>TomcatServer</server>
-                    <path>/</path>
                 </configuration>
             </plugin>
             <plugin>
