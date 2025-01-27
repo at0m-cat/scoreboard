@@ -14,20 +14,20 @@ A web application that implements a tennis match score board.
 
 ## Application map
 
-|         Page          | METHOD | Link                                  | Note                          |
-|:---------------------:|:------:|:--------------------------------------|-------------------------------|
-|       Main page       | `GET`  | /                                     |                               |
-|       New match       | `GET`  | /new-match                            |                               |
-|        Players        | `GET`  | /players                              |                               |
-|        Players        | `GET`  | /players?page=`int`                   | Pagination                    |
-|        Players        | `GET`  | /players?filter_by_player_name=`name` | Find player by `name`         |
-|    Player details     | `GET`  | /player?name=`name`                   |                               |
-|    Finished match     | `GET`  | /matches                              |                               |
-|    Finished match     | `GET`  | /matches?page=`int`                   | Pagination                    |
-|    Finished match     | `GET`  | /matches?filter_by_player_name=`name` | Find match by `name` p1 or p2 |
-|     Match details     | `GET`  | /match?uuid=`MatchUuid`               |                               |
-| Last registered match | `GET`  | /local                                |                               |
-|     Match control     | `POST` | /match-score?uuid=`MatchLocalUuid`    |                               |
+|         Page          | Link                                          | Note                                                                                        |
+|:---------------------:|:----------------------------------------------|---------------------------------------------------------------------------------------------|
+|       Main page       | /                                             |                                                                                             |
+|       New match       | /new-match                                    |                                                                                             |
+|        Players        | /players                                      |                                                                                             |
+|        Players        | /players?`page`=`int`                         | Pagination                                                                                  |
+|        Players        | /players?`filter_by_player_name`=`playerName` | Find player by `name`                                                                       |
+|    Player details     | /player?`name`=`playerName`                   |                                                                                             |
+|    Finished match     | /matches                                      |                                                                                             |
+|    Finished match     | /matches?`page`=`int`                         | Pagination                                                                                  |
+|    Finished match     | /matches?`filter_by_player_name`=`playerName` | Find match by `name` p1 or p2                                                               |
+|     Match details     | /match?`uuid`=`MatchUuid`                     |                                                                                             |
+| Last registered match | /local                                        |                                                                                             |
+|     Match control     | /match-score?`uuid`=`MatchLocalUuid`          | Match progress management. Redirect to this page after successful registration of the match |
 
 # Pages info
 
@@ -532,5 +532,49 @@ private State matchWon(int playerNumber) {
     return State.ONGOING;
 }
 ```
+
+---
+
+## Deploy
+
+- The presence of Docker, Docker-compose installed.
+- Create a "Dockerfile" in the root of the project, its contents:
+
+```dockerfile
+FROM tomcat:10.1-jdk17
+WORKDIR /usr/local/tomcat
+COPY target/ROOT.war /usr/local/tomcat/webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+```
+
+- The first step is to assemble the WAR file with the following command:
+
+```text
+mvn clean package
+```
+
+- Create a docker-compose file.yml in the root of the project to make it easier to launch the container:
+
+```yml
+version: "3.9"
+services:
+  tomcat:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/ROOT.war:/usr/local/tomcat/webapps/ROOT.war
+    environment:
+      - JAVA_OPTS=-Xms512m -Xmx1024m
+```
+
+- Assemble and launch the container using Docker Compose by typing in the terminal:
+
+```text
+docker-compose up --build
+```
+
+- After launch, Tomcat will be available at: http://localhost:8080
 
 ---
